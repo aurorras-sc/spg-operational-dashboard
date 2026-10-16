@@ -127,8 +127,6 @@ def barchart(x, y, w, h, z, category, values, title, series=None, stacked=False,
     elif colmap and not series: obj["dataPoint"] = datapoint_colors(category, colmap)
     sort = sortdef(sort_by, desc) if sort_by else None
     c = container(vtype, x, y, w, h, z, roles=roles, objects=obj, title=title, sort=sort, filters=filters)
-    if extra_cats:
-        c["visual"]["query"]["queryState"]["Category"]["activeProjections"] = [proj(category)]
     return c
 
 def table_vis(x, y, w, h, z, fields, title, sort_by=None, desc=True, filters=None, bold_cols=None, color_cols=None):
@@ -351,7 +349,7 @@ REPORT = {"$schema": f"{SCHEMA}/report/1.0.0/schema.json",
                               "customTheme": {"name": "SPGTheme.json", "reportVersionAtImport": "5.55", "type": "RegisteredResources"}},
           "layoutOptimization": "None",
           "resourcePackages": [{"name": "RegisteredResources", "type": "RegisteredResources", "items": [{"name": "SPGTheme.json", "path": "SPGTheme.json", "type": "CustomTheme"}]}],
-          "settings": {"useStylableVisualContainerHeader": True, "defaultDrillFilterOtherVisuals": True, "useNewFilterPaneExperience": True, "allowChangeFilterTypes": True, "useEnhancedTooltips": True}}
+          "settings": {"useStylableVisualContainerHeader": True, "defaultDrillFilterOtherVisuals": True}}
 with open(os.path.join(DEF, "report.json"), "w") as f: json.dump(REPORT, f, indent=2)
 with open(os.path.join(RP, "definition.pbir"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json", "version": "4.0",

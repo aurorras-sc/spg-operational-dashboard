@@ -28,9 +28,6 @@
   ],
   "settings": {
     "useStylableVisualContainerHeader": true,
-    "defaultDrillFilterOtherVisuals": true,
-    "useNewFilterPaneExperience": true,
-    "allowChangeFilterTypes": true,
-    "useEnhancedTooltips": true
+    "defaultDrillFilterOtherVisuals": true
   }
 }
