@@ -26,7 +26,7 @@ HOURS_COL = {"<= 2 h": OK, "2-4 h": "#F3B921", "4-24 h": "#FF8A00", "Over a day"
 def nid(): return uuid.uuid4().hex[:20]
 def lit(v):
     if isinstance(v, bool): return {"expr": {"Literal": {"Value": "true" if v else "false"}}}
-    if isinstance(v, (int, float)): return {"expr": {"Literal": {"Value": f"{v}D" if isinstance(v, float) else str(v)}}}
+    if isinstance(v, (int, float)): return {"expr": {"Literal": {"Value": f"{v}D"}}}
     return {"expr": {"Literal": {"Value": "'" + str(v).replace("'", "''") + "'"}}}
 def col_solid(hexv): return {"solid": {"color": lit(hexv)}}
 def col_measure(name): return {"solid": {"color": {"expr": {"Measure": {"Expression": {"SourceRef": {"Entity": MEAS}}, "Property": name}}}}}
@@ -355,7 +355,8 @@ with open(os.path.join(ROOT, "docs", "SPGTheme.json"), "w") as f: json.dump(THEM
 REPORT = {"$schema": f"{SCHEMA}/report/1.0.0/schema.json",
           "themeCollection": {"baseTheme": {"name": "CY24SU10", "reportVersionAtImport": "5.55", "type": "SharedResources"}},
           "layoutOptimization": "None",
-          "settings": {"useStylableVisualContainerHeader": True, "defaultDrillFilterOtherVisuals": True}}
+          "resourcePackages": [{"name": "SharedResources", "type": "SharedResources", "items": [{"name": "CY24SU10", "path": "BaseThemes/CY24SU10.json", "type": "BaseTheme"}]}],
+          "settings": {"useStylableVisualContainerHeader": True, "exportDataMode": "AllowSummarized", "defaultDrillFilterOtherVisuals": True}}
 with open(os.path.join(DEF, "report.json"), "w") as f: json.dump(REPORT, f, indent=2)
 with open(os.path.join(RP, "definition.pbir"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json", "version": "4.0",
