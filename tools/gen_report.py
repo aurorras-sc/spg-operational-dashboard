@@ -26,7 +26,8 @@ HOURS_COL = {"<= 2 h": OK, "2-4 h": "#F3B921", "4-24 h": "#FF8A00", "Over a day"
 def nid(): return uuid.uuid4().hex[:20]
 def lit(v):
     if isinstance(v, bool): return {"expr": {"Literal": {"Value": "true" if v else "false"}}}
-    if isinstance(v, (int, float)): return {"expr": {"Literal": {"Value": f"{v}D"}}}
+    if isinstance(v, float): return {"expr": {"Literal": {"Value": f"{v}D"}}}
+    if isinstance(v, int): return {"expr": {"Literal": {"Value": f"{v}L"}}}
     return {"expr": {"Literal": {"Value": "'" + str(v).replace("'", "''") + "'"}}}
 def col_solid(hexv): return {"solid": {"color": lit(hexv)}}
 def col_measure(name): return {"solid": {"color": {"expr": {"Measure": {"Expression": {"SourceRef": {"Entity": MEAS}}, "Property": name}}}}}
@@ -78,7 +79,7 @@ def container(vtype, x, y, w, h, z, roles=None, objects=None, title=None, sort=N
     if vcos: v["visualContainerObjects"] = vcos
     if extra: v.update(extra)
     v["drillFilterOtherVisuals"] = drill
-    c = {"$schema": f"{SCHEMA}/visualContainer/1.0.0/schema.json", "name": nid(),
+    c = {"$schema": f"{SCHEMA}/visualContainer/2.14.0/schema.json", "name": nid(),
          "position": {"x": x, "y": y, "z": z, "height": h, "width": w, "tabOrder": z}, "visual": v}
     if filters: c["filterConfig"] = filterconfig(filters)
     return c
@@ -134,6 +135,8 @@ def barchart(x, y, w, h, z, category, values, title, series=None, stacked=False,
     elif colmap and not series: obj["dataPoint"] = datapoint_colors(category, colmap)
     sort = sortdef(sort_by, desc) if sort_by else None
     c = container(vtype, x, y, w, h, z, roles=roles, objects=obj, title=title, sort=sort, filters=filters)
+    if extra_cats:
+        c["visual"]["query"]["queryState"]["Category"]["projections"][0]["active"] = True
     return c
 
 def table_vis(x, y, w, h, z, fields, title, sort_by=None, desc=True, filters=None, bold_cols=None, color_cols=None):
@@ -165,7 +168,7 @@ def decomp_tree(x, y, w, h, z, analyze, explain_by, title):
 def page(name, display, visuals, filters=None, order=0, width=1280, height=720):
     pid = nid()
     pdir = os.path.join(PAGES, pid); os.makedirs(os.path.join(pdir, "visuals"), exist_ok=True)
-    pj = {"$schema": f"{SCHEMA}/page/1.0.0/schema.json", "name": pid, "displayName": display, "displayOption": "FitToPage",
+    pj = {"$schema": f"{SCHEMA}/page/2.1.0/schema.json", "name": pid, "displayName": display, "displayOption": "FitToPage",
           "height": height, "width": width,
           "objects": {"background": [{"properties": {"color": col_solid("#EEF1F4"), "transparency": lit(0)}}]}}
     if filters: pj["filterConfig"] = filterconfig(filters)
@@ -331,9 +334,9 @@ page_ids = []
 for i, (disp, vis, pf) in enumerate(pages):
     page_ids.append(page(None, disp, vis, pf, i))
 with open(os.path.join(PAGES, "pages.json"), "w") as f:
-    json.dump({"$schema": f"{SCHEMA}/pagesMetadata/1.0.0/schema.json", "pageOrder": page_ids, "activePageName": page_ids[0]}, f, indent=2)
+    json.dump({"$schema": f"{SCHEMA}/pagesMetadata/1.1.0/schema.json", "pageOrder": page_ids, "activePageName": page_ids[0]}, f, indent=2)
 with open(os.path.join(DEF, "version.json"), "w") as f:
-    json.dump({"$schema": f"{SCHEMA}/versionMetadata/1.0.0/schema.json", "version": "1.0.0"}, f, indent=2)
+    json.dump({"$schema": f"{SCHEMA}/versionMetadata/1.0.0/schema.json", "version": "2.0.0"}, f, indent=2)
 
 THEME = {
     "name": "SPGTheme", "dataColors": [ELEC, NAVY, OK, AMBER, "#FF8A00", RED, "#8B1E3F", MUTE, "#E8702A", SUB],
@@ -352,14 +355,18 @@ THEME = {
 os.makedirs(os.path.join(ROOT, "docs"), exist_ok=True)
 with open(os.path.join(ROOT, "docs", "SPGTheme.json"), "w") as f: json.dump(THEME, f, indent=2)
 
-REPORT = {"$schema": f"{SCHEMA}/report/1.0.0/schema.json",
-          "themeCollection": {"baseTheme": {"name": "CY24SU10", "reportVersionAtImport": "5.55", "type": "SharedResources"}},
-          "layoutOptimization": "None",
-          "resourcePackages": [{"name": "SharedResources", "type": "SharedResources", "items": [{"name": "CY24SU10", "path": "BaseThemes/CY24SU10.json", "type": "BaseTheme"}]}],
-          "settings": {"useStylableVisualContainerHeader": True, "exportDataMode": "AllowSummarized", "defaultDrillFilterOtherVisuals": True}}
+THEME_NAME = "Fluent2-CY26SU10"
+REPORT = {"$schema": f"{SCHEMA}/report/3.3.0/schema.json",
+          "themeCollection": {"baseTheme": {"name": THEME_NAME, "reportVersionAtImport": {"visual": "2.14.0", "report": "3.4.0", "page": "2.3.1"}, "type": "SharedResources"}},
+          "objects": {"section": [{"properties": {"verticalAlignment": lit("Top")}}], "outspacePane": [{"properties": {"expanded": lit(False)}}]},
+          "resourcePackages": [{"name": "SharedResources", "type": "SharedResources", "items": [{"name": THEME_NAME, "path": f"BaseThemes/{THEME_NAME}.json", "type": "BaseTheme"}]}],
+          "settings": {"useStylableVisualContainerHeader": True, "exportDataMode": "AllowSummarized", "defaultDrillFilterOtherVisuals": True, "allowChangeFilterTypes": True, "allowInlineExploration": True, "useEnhancedTooltips": True, "useDefaultAggregateDisplayName": True}}
+import shutil
+_bt = os.path.join(RP, "StaticResources", "SharedResources", "BaseThemes"); os.makedirs(_bt, exist_ok=True)
+shutil.copy(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Fluent2-CY26SU10.json"), os.path.join(_bt, f"{THEME_NAME}.json"))
 with open(os.path.join(DEF, "report.json"), "w") as f: json.dump(REPORT, f, indent=2)
 with open(os.path.join(RP, "definition.pbir"), "w") as f:
-    json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json", "version": "4.0",
+    json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json", "version": "4.0",
                "datasetReference": {"byPath": {"path": "../SPG Operational Dashboard.SemanticModel"}}}, f, indent=2)
 _rid = stable_logical_id(os.path.join(RP, ".platform"))
 with open(os.path.join(RP, ".platform"), "w") as f:
