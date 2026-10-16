@@ -1,10 +1,10 @@
 table 'Dim Person'
-	lineageTag: cfa90288-475c-4db4-a65b-37a52e942c96
+	lineageTag: 1f47b3ae-e8c9-45fb-9f9d-03fd501326fe
 
 	column Person
 		dataType: string
 		isKey
-		lineageTag: 48e032b4-2b78-4cc9-968a-0aadb982b826
+		lineageTag: e9a672d1-02a8-4723-908e-76ebe900e7b3
 		summarizeBy: none
 		sourceColumn: Person
 
@@ -12,7 +12,7 @@ table 'Dim Person'
 
 	column 'Staff scope'
 		dataType: string
-		lineageTag: 1b34a247-72f1-4b2b-8b0b-674f4b44be46
+		lineageTag: 441f1a51-21c1-4559-aa84-75ae0c953129
 		summarizeBy: none
 		sourceColumn: Staff scope
 
@@ -20,7 +20,7 @@ table 'Dim Person'
 
 	column 'Display name'
 		dataType: string
-		lineageTag: 1b4479f2-612b-4c20-8572-bc1a812fb206
+		lineageTag: 634c5bcb-c7a2-485b-a3a4-e9254aafec93
 		summarizeBy: none
 		sourceColumn: Display name
 
@@ -28,7 +28,7 @@ table 'Dim Person'
 
 	column 'Is vendor'
 		dataType: boolean
-		lineageTag: 8edde0bb-c224-4eef-ab00-e409582233e1
+		lineageTag: e8879502-47ff-4e35-92c4-6b0966a86ea5
 		summarizeBy: none
 		sourceColumn: Is vendor
 

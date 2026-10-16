@@ -32,7 +32,7 @@ tools/gen_model.py, tools/gen_report.py         ← generators used to build the
 
 | Parameter | Default | Purpose |
 |---|---|---|
-| `DataPath` | `C:\Data\SPG_Dashboard_Mockup_Data.xlsx` | Local path or SharePoint/OneDrive URL of the workbook |
+| `DataPath` | GitHub raw URL of `data/SPG_Dashboard_Mockup_Data.xlsx` (POC); move to Lakehouse for production | Local path or SharePoint/OneDrive URL of the workbook |
 | `SnapshotDate` | 2026‑09‑16 | Date the extract was taken; dates are reconstructed from the age columns |
 | `SLA_Cap_Days` | 60 | Placeholder SLA ceiling (matches the mockup) until the business SLA sheet arrives |
 | `Fining_States` | `NY` | Comma‑separated list of states that fine for late filings |

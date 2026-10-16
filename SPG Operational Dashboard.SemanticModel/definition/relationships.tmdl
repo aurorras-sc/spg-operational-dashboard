@@ -1,44 +1,44 @@
-relationship 87abfdf3-2c2c-44de-a294-d5504abb4fd3
+relationship 3c4b67a9-416a-49df-b704-619e2fe0a38e
 	fromColumn: OpenTasks.Team
 	toColumn: 'Dim Team'.Team
 
-relationship b7b923e8-1c3a-4d3a-b3bb-3014e6f6ecf9
+relationship 4849ee01-b8ed-44cc-981a-7f9095e6f278
 	fromColumn: Compliance.Team
 	toColumn: 'Dim Team'.Team
 
-relationship 7c6a12b8-d8c6-4f78-97d5-3320f7354457
+relationship de53bc5f-1a39-4842-baf8-36690e03ba55
 	fromColumn: OpenTasks.Workflow
 	toColumn: 'Dim Workflow'.Workflow
 
-relationship ec827fcd-9995-4ad4-acf8-4c4a52811394
+relationship e33977d8-72fc-4f1f-9469-29c252d19c86
 	fromColumn: Completed.Workflow
 	toColumn: 'Dim Workflow'.Workflow
 
-relationship 4e29b54a-5d0c-4f60-8a96-91455103a4f3
+relationship f618bbca-3beb-4d58-b52a-11fcc216c54c
 	fromColumn: OpenTasks.Step
 	toColumn: 'Dim Step'.Step
 
-relationship 5c2626d3-e6d5-416c-9cce-d69395e24b54
+relationship eff0e566-cb22-4b5f-8787-f4581522f7ae
 	fromColumn: Completed.Step
 	toColumn: 'Dim Step'.Step
 
-relationship 3625fa49-d47e-461e-80fb-305bd76e4b44
+relationship 3036c3cd-bc7b-45fc-b4f9-c405d438f131
 	fromColumn: OpenTasks.'Assigned to'
 	toColumn: 'Dim Person'.Person
 
-relationship 0a118f32-c050-4bf2-8102-06524559c83c
+relationship 28a2cadc-21c0-48eb-b3fa-bed0875ff7cf
 	fromColumn: Completed.'Released by'
 	toColumn: 'Dim Person'.Person
 
-relationship a8a23e77-0858-441a-a437-5cb016f1a401
+relationship b1a9f440-668d-4310-a289-3f3f368870cd
 	fromColumn: Compliance.'Assigned to'
 	toColumn: 'Dim Person'.Person
 
-relationship d31e353c-244f-48b6-83fa-d3909b943303
+relationship 1df894ac-b551-4624-bf47-d4102238c428
 	fromColumn: OpenTasks.'Aging band'
 	toColumn: 'Dim Aging Band'.'Aging band'
 
-relationship c7c5c2a1-afbe-4642-a9e5-98047234c8f4
+relationship f2106741-059a-4e5d-9eb1-f655803bd1a0
 	fromColumn: Compliance.'Aging band'
 	toColumn: 'Dim Aging Band'.'Aging band'
 

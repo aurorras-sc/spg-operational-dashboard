@@ -356,7 +356,7 @@ for name, text in T.items():
     w(os.path.join(TBL, f"{name}.tmdl"), text)
 
 # ------------------------------------------------------------ expressions
-EXPR = f"""expression DataPath = "C:\\Data\\SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+EXPR = f"""expression DataPath = "https://raw.githubusercontent.com/aurorras-sc/spg-operational-dashboard/main/data/SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 \tlineageTag: {lt()}
 
 \tannotation PBI_ResultType = Text
