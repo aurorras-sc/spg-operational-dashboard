@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Person.Staff scope",
-              "nativeQueryRef": "Staff scope"
+              "nativeQueryRef": "Staff scope",
+              "active": true
             }
           ]
         }
@@ -95,13 +96,6 @@
                 }
               }
             },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "9L"
-                }
-              }
-            },
             "bold": {
               "expr": {
                 "Literal": {
@@ -126,13 +120,6 @@
                 }
               }
             },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10L"
-                }
-              }
-            },
             "bold": {
               "expr": {
                 "Literal": {
@@ -143,7 +130,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Step.Step",
-              "nativeQueryRef": "Step"
+              "nativeQueryRef": "Step",
+              "active": true
             }
           ]
         },

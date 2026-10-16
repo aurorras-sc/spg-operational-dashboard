@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "37f6f3a76380437c8242",
   "position": {
-    "x": 900,
-    "y": 4,
+    "x": 909.73647711511785,
+    "y": 3.9944521497919556,
     "z": 1,
     "height": 42,
     "width": 180,
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Team.Team",
-              "nativeQueryRef": "Team"
+              "nativeQueryRef": "Team",
+              "active": true
             }
           ]
         }
@@ -95,13 +96,6 @@
                 }
               }
             },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "9L"
-                }
-              }
-            },
             "bold": {
               "expr": {
                 "Literal": {
@@ -126,13 +120,6 @@
                 }
               }
             },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10L"
-                }
-              }
-            },
             "bold": {
               "expr": {
                 "Literal": {
@@ -143,7 +130,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

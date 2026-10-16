@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Person.Display name",
-              "nativeQueryRef": "Display name"
+              "nativeQueryRef": "Display name",
+              "active": true
             }
           ]
         },

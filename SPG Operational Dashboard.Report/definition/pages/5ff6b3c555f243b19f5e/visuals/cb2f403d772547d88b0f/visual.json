@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Workflow.Workflow",
-              "nativeQueryRef": "Workflow"
+              "nativeQueryRef": "Workflow",
+              "active": true
             }
           ]
         },

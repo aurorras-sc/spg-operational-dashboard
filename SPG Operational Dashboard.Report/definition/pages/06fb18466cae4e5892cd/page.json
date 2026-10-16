@@ -5,62 +5,6 @@
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280,
-  "objects": {
-    "background": [
-      {
-        "properties": {
-          "color": {
-            "solid": {
-              "color": {
-                "expr": {
-                  "Literal": {
-                    "Value": "'#EEF1F4'"
-                  }
-                }
-              }
-            }
-          },
-          "transparency": {
-            "expr": {
-              "Literal": {
-                "Value": "0L"
-              }
-            }
-          }
-        }
-      }
-    ]
-  },
-  "pageBinding": {
-    "name": "0467aaa71c07420a85d9",
-    "type": "Drillthrough",
-    "parameters": [
-      {
-        "name": "c013961abbaa4ac8b3e2",
-        "boundFilter": "bbcff84911cb47c99f2e"
-      },
-      {
-        "name": "b7ac058484ee42bf93f8",
-        "boundFilter": "8b56148663a14d3097fc"
-      },
-      {
-        "name": "d74de995799244589fb3",
-        "boundFilter": "153e609c02714e628d4b"
-      },
-      {
-        "name": "494043b5850641eb9cca",
-        "boundFilter": "ce284952d2d342aa94bf"
-      },
-      {
-        "name": "90860e4e77f442ac8194",
-        "boundFilter": "21891ae269064805b483"
-      },
-      {
-        "name": "3ae6d1661a7d4dd6a92e",
-        "boundFilter": "05e8d070b3544644be1c"
-      }
-    ]
-  },
   "filterConfig": {
     "filters": [
       {
@@ -152,6 +96,122 @@
         },
         "type": "Categorical",
         "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "0467aaa71c07420a85d9",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "c013961abbaa4ac8b3e2",
+        "boundFilter": "bbcff84911cb47c99f2e",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Team"
+              }
+            },
+            "Property": "Team"
+          }
+        }
+      },
+      {
+        "name": "b7ac058484ee42bf93f8",
+        "boundFilter": "8b56148663a14d3097fc",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Workflow"
+              }
+            },
+            "Property": "Workflow"
+          }
+        }
+      },
+      {
+        "name": "d74de995799244589fb3",
+        "boundFilter": "153e609c02714e628d4b",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Step"
+              }
+            },
+            "Property": "Step"
+          }
+        }
+      },
+      {
+        "name": "494043b5850641eb9cca",
+        "boundFilter": "ce284952d2d342aa94bf",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Person"
+              }
+            },
+            "Property": "Person"
+          }
+        }
+      },
+      {
+        "name": "90860e4e77f442ac8194",
+        "boundFilter": "21891ae269064805b483",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "Renewal stage"
+          }
+        }
+      },
+      {
+        "name": "3ae6d1661a7d4dd6a92e",
+        "boundFilter": "05e8d070b3544644be1c",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Aging Band"
+              }
+            },
+            "Property": "Band label"
+          }
+        }
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#EEF1F4'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0L"
+              }
+            }
+          }
+        }
       }
     ]
   }

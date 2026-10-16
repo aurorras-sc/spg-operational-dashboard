@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "c259ff3af1e443a18b8d",
   "position": {
-    "x": 8,
-    "y": 230,
+    "x": 7.9889042995839112,
+    "y": 229.68099861303745,
     "z": 20,
     "height": 232,
     "width": 700,
@@ -45,7 +45,8 @@
                 }
               },
               "queryRef": "Dim Team.Team",
-              "nativeQueryRef": "Team"
+              "nativeQueryRef": "Team",
+              "active": true
             },
             {
               "field": {
@@ -59,7 +60,8 @@
                 }
               },
               "queryRef": "Dim Workflow.Workflow",
-              "nativeQueryRef": "Workflow"
+              "nativeQueryRef": "Workflow",
+              "active": true
             },
             {
               "field": {
@@ -73,7 +75,8 @@
                 }
               },
               "queryRef": "Dim Step.Step",
-              "nativeQueryRef": "Step"
+              "nativeQueryRef": "Step",
+              "active": false
             },
             {
               "field": {
@@ -87,36 +90,167 @@
                 }
               },
               "queryRef": "Dim Person.Display name",
-              "nativeQueryRef": "Display name"
+              "nativeQueryRef": "Display name",
+              "active": false
             }
           ]
         }
       }
     },
-    "objects": {
-      "general": [
-        {
-          "properties": {
-            "analyzeSort": {
-              "expr": {
-                "Literal": {
-                  "Value": "'High value'"
+    "expansionStates": [
+      {
+        "roles": [
+          "ExplainBy"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Dim Team.Team"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim Team"
+                    }
+                  },
+                  "Property": "Team"
                 }
               }
+            ],
+            "isPinned": true,
+            "AIInformation": {
+              "method": "MaxSplit",
+              "disabled": true
             }
+          },
+          {
+            "queryRefs": [
+              "Dim Workflow.Workflow"
+            ],
+            "isCollapsed": true,
+            "isPinned": true,
+            "AIInformation": {
+              "method": "MaxSplit"
+            }
+          },
+          {
+            "queryRefs": [
+              "Dim Step.Step"
+            ],
+            "isCollapsed": true
+          },
+          {
+            "queryRefs": [
+              "Dim Person.Display name"
+            ],
+            "isCollapsed": true
           }
+        ],
+        "root": {
+          "children": [
+            {
+              "identityValues": [
+                {
+                  "Literal": {
+                    "Value": "'SE'"
+                  }
+                }
+              ],
+              "isToggled": true
+            }
+          ]
         }
-      ],
+      }
+    ],
+    "objects": {
       "tree": [
         {
           "properties": {
             "density": {
               "expr": {
                 "Literal": {
-                  "Value": "'Compact'"
+                  "Value": "'default'"
+                }
+              }
+            },
+            "effectiveBarsPerLevel": {
+              "expr": {
+                "Literal": {
+                  "Value": "3L"
+                }
+              }
+            },
+            "defaultClickAction": {
+              "expr": {
+                "Literal": {
+                  "Value": "'toggle'"
                 }
               }
             }
+          }
+        }
+      ],
+      "insights": [
+        {
+          "properties": {
+            "isAINode": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Dim Team"
+                          }
+                        },
+                        "Property": "Team"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'SE'"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Dim Workflow"
+                          }
+                        },
+                        "Property": "Workflow"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Renewal'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       ]

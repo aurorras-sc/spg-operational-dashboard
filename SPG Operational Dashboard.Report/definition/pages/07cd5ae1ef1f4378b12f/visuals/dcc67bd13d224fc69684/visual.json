@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Aging Band.Band label",
-              "nativeQueryRef": "Band label"
+              "nativeQueryRef": "Band label",
+              "active": true
             }
           ]
         },
@@ -72,6 +73,19 @@
     "objects": {
       "dataPoint": [
         {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3EBD5E'"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "selector": {
             "data": [
               {
@@ -97,22 +111,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#3EBD5E'"
+                      "Value": "'#F3B921'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -138,22 +152,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F3B921'"
+                      "Value": "'#FF8A00'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -179,22 +193,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FF8A00'"
+                      "Value": "'#E8702A'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -220,22 +234,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E8702A'"
+                      "Value": "'#D02D4F'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -261,22 +275,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D02D4F'"
+                      "Value": "'#8B1E3F'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -302,22 +316,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#8B1E3F'"
+                      "Value": "'#8A949C'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -343,19 +357,6 @@
                 }
               }
             ]
-          },
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8A949C'"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       ],

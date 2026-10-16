@@ -27,25 +27,8 @@
                 }
               },
               "queryRef": "Dim Workflow.Workflow",
-              "nativeQueryRef": "Workflow"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Completed yesterday"
-                }
-              },
-              "queryRef": "_Measures.Completed yesterday",
-              "nativeQueryRef": "Completed yesterday"
+              "nativeQueryRef": "Workflow",
+              "active": true
             }
           ]
         },
@@ -64,6 +47,24 @@
               },
               "queryRef": "Completed.Release type",
               "nativeQueryRef": "Release type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Completed yesterday"
+                }
+              },
+              "queryRef": "_Measures.Completed yesterday",
+              "nativeQueryRef": "Completed yesterday"
             }
           ]
         }
@@ -90,6 +91,19 @@
     "objects": {
       "dataPoint": [
         {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3EBD5E'"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "selector": {
             "data": [
               {
@@ -115,22 +129,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#3EBD5E'"
+                      "Value": "'#F3B921'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -156,19 +170,6 @@
                 }
               }
             ]
-          },
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#F3B921'"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       ],

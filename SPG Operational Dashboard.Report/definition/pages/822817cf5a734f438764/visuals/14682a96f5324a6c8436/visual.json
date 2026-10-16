@@ -27,25 +27,8 @@
                 }
               },
               "queryRef": "Dim Step.Step",
-              "nativeQueryRef": "Step"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Work on hand"
-                }
-              },
-              "queryRef": "_Measures.Work on hand",
-              "nativeQueryRef": "Work on hand"
+              "nativeQueryRef": "Step",
+              "active": true
             }
           ]
         },
@@ -64,6 +47,24 @@
               },
               "queryRef": "OpenTasks.Service",
               "nativeQueryRef": "Service"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Work on hand"
+                }
+              },
+              "queryRef": "_Measures.Work on hand",
+              "nativeQueryRef": "Work on hand"
             }
           ]
         }
@@ -90,6 +91,19 @@
     "objects": {
       "dataPoint": [
         {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0077C8'"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "selector": {
             "data": [
               {
@@ -115,22 +129,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#0077C8'"
+                      "Value": "'#D02D4F'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -156,19 +170,6 @@
                 }
               }
             ]
-          },
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#D02D4F'"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       ],
