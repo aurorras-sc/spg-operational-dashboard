@@ -1,9 +1,9 @@
 table Compliance
-	lineageTag: 58a55ce0-b3cb-4aa8-b836-279d423e06ae
+	lineageTag: e5360687-b03e-43ab-931f-f3aaab2e4e6b
 
 	column 'File number'
 		dataType: string
-		lineageTag: 4589d565-b36c-4fbe-98a8-46c53786fae4
+		lineageTag: 4f4eea5b-61bc-44bb-9487-a71df5d4ec28
 		summarizeBy: none
 		sourceColumn: File number
 
@@ -11,7 +11,7 @@ table Compliance
 
 	column 'File name'
 		dataType: string
-		lineageTag: cb40f340-57ab-4ae2-8c91-adc724ebca98
+		lineageTag: 7b53c1b2-1928-45b9-b10b-da0a447ef833
 		summarizeBy: none
 		sourceColumn: File name
 
@@ -19,7 +19,7 @@ table Compliance
 
 	column State
 		dataType: string
-		lineageTag: 333564ec-0062-4185-854b-077e64bb0a55
+		lineageTag: b3f8fa74-143d-4af9-82e1-af0d167168d2
 		summarizeBy: none
 		sourceColumn: State
 
@@ -27,7 +27,7 @@ table Compliance
 
 	column UA
 		dataType: string
-		lineageTag: 7d68b06e-3029-4f74-9201-0bded20337c6
+		lineageTag: a46b8a00-163f-453a-99e9-595dc7ffe267
 		summarizeBy: none
 		sourceColumn: UA
 
@@ -35,7 +35,7 @@ table Compliance
 
 	column 'Assigned to'
 		dataType: string
-		lineageTag: 1db6a85d-4be7-4693-b5c9-ba854574acc6
+		lineageTag: a7411dd3-5ca5-4964-bd38-d728bdb1b2c5
 		summarizeBy: none
 		sourceColumn: Assigned to
 
@@ -43,7 +43,7 @@ table Compliance
 
 	column Team
 		dataType: string
-		lineageTag: 10b10548-38ac-4d08-949e-0e0b80220c1f
+		lineageTag: 2291aa60-a213-4f86-b91c-f4ad4aad46ab
 		summarizeBy: none
 		sourceColumn: Team
 
@@ -52,7 +52,7 @@ table Compliance
 	column 'Days past due'
 		dataType: int64
 		formatString: 0
-		lineageTag: 9bc6596c-d23d-4fc6-87c7-f4c42c761b3c
+		lineageTag: 94f2ec1d-e738-4ee5-aa26-904c28bbded7
 		summarizeBy: none
 		sourceColumn: Days past due
 
@@ -61,7 +61,7 @@ table Compliance
 	column 'Age (days)'
 		dataType: int64
 		formatString: 0
-		lineageTag: 782c83fc-2cff-4306-b7d6-030146328f40
+		lineageTag: 136b3e2c-9bd9-471a-a4cd-fd8ab70b6fd9
 		summarizeBy: none
 		sourceColumn: Age (days)
 
@@ -70,7 +70,7 @@ table Compliance
 	column 'Due band code'
 		dataType: string
 		isHidden
-		lineageTag: 3f363d57-ab56-4b8d-88a8-29ceee106c93
+		lineageTag: 54e8fac4-a4b4-4990-8f3a-bc21d2e6c417
 		summarizeBy: none
 		sourceColumn: Due band code
 
@@ -78,7 +78,7 @@ table Compliance
 
 	column Note
 		dataType: string
-		lineageTag: 96d3dc15-7533-4ad5-a07a-bfdeac2a4803
+		lineageTag: ae3889a3-3cd9-4780-844d-3de15d2a4d9a
 		summarizeBy: none
 		sourceColumn: Note
 
@@ -86,7 +86,7 @@ table Compliance
 
 	column Carrier
 		dataType: string
-		lineageTag: abc18819-d784-4544-826d-fb7624c79ccb
+		lineageTag: 5bf2f987-5270-4f7f-8962-831cc93622af
 		summarizeBy: none
 		sourceColumn: Carrier
 
@@ -94,7 +94,7 @@ table Compliance
 
 	column 'Due band'
 		dataType: string
-		lineageTag: 8cceff26-12bd-4e99-bd29-e1696f374c54
+		lineageTag: c9e0b011-69a7-4d0c-8a02-e69db591391e
 		sortByColumn: 'Due band order'
 		summarizeBy: none
 		sourceColumn: Due band
@@ -104,7 +104,7 @@ table Compliance
 	column 'Due band order'
 		dataType: int64
 		isHidden
-		lineageTag: f3ab3347-4d70-4d86-ab44-e361262b3e03
+		lineageTag: b956d126-c88c-4273-8f85-0e3d7e17721a
 		summarizeBy: none
 		sourceColumn: Due band order
 
@@ -112,7 +112,7 @@ table Compliance
 
 	column 'Fining state'
 		dataType: boolean
-		lineageTag: 738f0528-b423-4b7a-9c0b-61371d768da6
+		lineageTag: dafe4448-ef1c-4dbf-bd02-b7267517aec6
 		summarizeBy: none
 		sourceColumn: Fining state
 
@@ -120,7 +120,7 @@ table Compliance
 
 	column 'Aging band'
 		dataType: string
-		lineageTag: b9069a2c-c0bf-4286-897c-05d91b141542
+		lineageTag: 734f160a-321e-48ba-bb7b-a3dd36cedbcc
 		summarizeBy: none
 		sourceColumn: Aging band
 
@@ -128,7 +128,7 @@ table Compliance
 
 	column 'Over 30 days'
 		dataType: boolean
-		lineageTag: 18fa7aff-f9cd-4fc7-bbe7-4eab02d61182
+		lineageTag: 81b6b9ea-ae96-4682-bb0f-4c4ffa2bab0c
 		summarizeBy: none
 		sourceColumn: Over 30 days
 
@@ -137,7 +137,7 @@ table Compliance
 	column 'Due date'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: f55e8bdb-a47c-4ba2-9512-2aa0a2e40d16
+		lineageTag: 4536ad10-6b2c-4869-9e52-3bf93dd29336
 		summarizeBy: none
 		sourceColumn: Due date
 
@@ -146,7 +146,7 @@ table Compliance
 	column 'Date initiated'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: fda80ee5-07b3-4b97-a354-df7507073f76
+		lineageTag: a1b3294c-153d-4939-a340-2a77c347c629
 		summarizeBy: none
 		sourceColumn: Date initiated
 
@@ -154,7 +154,7 @@ table Compliance
 
 	column 'Filing state'
 		dataType: string
-		lineageTag: b7c1b423-5651-4705-92a1-72c0a4edaf89
+		lineageTag: 1182eae2-265d-47a7-aef5-8ec0730b430a
 		summarizeBy: none
 		sourceColumn: Filing state
 

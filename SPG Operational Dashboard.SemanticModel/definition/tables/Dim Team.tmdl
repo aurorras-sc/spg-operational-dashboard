@@ -1,10 +1,10 @@
 table 'Dim Team'
-	lineageTag: 6248c4a3-3933-4465-9a19-29dbda64302a
+	lineageTag: 7a3c9e39-51c1-4add-a0af-0bb481044df2
 
 	column Team
 		dataType: string
 		isKey
-		lineageTag: c5777e3b-ae52-4694-b07f-278c2fca2515
+		lineageTag: cffc01bd-6ff7-410e-bf61-3a00335cde97
 		summarizeBy: none
 		sourceColumn: Team
 

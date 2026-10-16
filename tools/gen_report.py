@@ -360,9 +360,10 @@ with open(os.path.join(DEF, "report.json"), "w") as f: json.dump(REPORT, f, inde
 with open(os.path.join(RP, "definition.pbir"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json", "version": "4.0",
                "datasetReference": {"byPath": {"path": "../SPG Operational Dashboard.SemanticModel"}}}, f, indent=2)
+_rid = stable_logical_id(os.path.join(RP, ".platform"))
 with open(os.path.join(RP, ".platform"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
-               "metadata": {"type": "Report", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": stable_logical_id(os.path.join(RP, ".platform"))}}, f, indent=2)
+               "metadata": {"type": "Report", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": _rid}}, f, indent=2)
 with open(os.path.join(ROOT, "SPG Operational Dashboard.pbip"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json", "version": "1.0",
                "artifacts": [{"report": {"path": "SPG Operational Dashboard.Report"}}], "settings": {"enableAutoRecovery": True}}, f, indent=2)
