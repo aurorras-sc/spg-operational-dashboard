@@ -1,6 +1,13 @@
 """Generate the SPG Operational Dashboard semantic model as TMDL (PBIP format)."""
 import os, uuid, json, textwrap
 
+def stable_logical_id(platform_path):
+    """Keep the Fabric logicalId stable across regenerations: Fabric identifies items by it."""
+    try:
+        return json.load(open(platform_path))["config"]["logicalId"]
+    except Exception:
+        return str(uuid.uuid4())
+
 ROOT = os.environ.get("PBIP_ROOT", "/home/claude/repo")
 SM = os.path.join(ROOT, "SPG Operational Dashboard.SemanticModel")
 DEF = os.path.join(SM, "definition")
@@ -422,6 +429,6 @@ w(os.path.join(DEF, "database.tmdl"), "database\n\tcompatibilityLevel: 1601\n")
 w(os.path.join(DEF, "cultures", "en-US.tmdl"), "cultureInfo en-US\n\n\tlinguisticMetadata =\n\t\t\t{\n\t\t\t  \"Version\": \"1.0.0\",\n\t\t\t  \"Language\": \"en-US\"\n\t\t\t}\n\t\tcontentType: json\n")
 w(os.path.join(SM, "definition.pbism"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json", "version": "4.0", "settings": {}}, indent=2))
 w(os.path.join(SM, ".platform"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
-    "metadata": {"type": "SemanticModel", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": str(uuid.uuid4())}}, indent=2))
+    "metadata": {"type": "SemanticModel", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": stable_logical_id(os.path.join(SM, ".platform"))}}, indent=2))
 w(os.path.join(SM, "diagramLayout.json"), json.dumps({"version": "1.1.0", "diagrams": [{"ordinal": 0, "scrollPosition": {"x": 0, "y": 0}, "nodes": [], "name": "All tables", "zoomValue": 100, "pinKeyFieldsToTop": False, "showExtraHeaderInfo": False, "hideKeyFieldsWhenCollapsed": False, "tablesLocked": False}], "selectedDiagram": "All tables", "defaultDiagram": "All tables"}, indent=2))
 print("model written:", len(M), "measures,", len(T), "tables")

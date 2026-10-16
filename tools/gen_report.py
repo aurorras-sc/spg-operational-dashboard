@@ -1,6 +1,13 @@
 """Generate the SPG Operational Dashboard report in PBIR (enhanced report format)."""
 import os, json, uuid, re
 
+def stable_logical_id(platform_path):
+    """Keep the Fabric logicalId stable across regenerations: Fabric identifies items by it."""
+    try:
+        return json.load(open(platform_path))["config"]["logicalId"]
+    except Exception:
+        return str(uuid.uuid4())
+
 ROOT = os.environ.get("PBIP_ROOT", "/home/claude/repo")
 RP = os.path.join(ROOT, "SPG Operational Dashboard.Report")
 DEF = os.path.join(RP, "definition")
@@ -355,7 +362,7 @@ with open(os.path.join(RP, "definition.pbir"), "w") as f:
                "datasetReference": {"byPath": {"path": "../SPG Operational Dashboard.SemanticModel"}}}, f, indent=2)
 with open(os.path.join(RP, ".platform"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
-               "metadata": {"type": "Report", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": str(uuid.uuid4())}}, f, indent=2)
+               "metadata": {"type": "Report", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": stable_logical_id(os.path.join(RP, ".platform"))}}, f, indent=2)
 with open(os.path.join(ROOT, "SPG Operational Dashboard.pbip"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json", "version": "1.0",
                "artifacts": [{"report": {"path": "SPG Operational Dashboard.Report"}}], "settings": {"enableAutoRecovery": True}}, f, indent=2)
