@@ -1,0 +1,349 @@
+table 'OpenTasks'
+	lineageTag: 97046681-beca-4437-ad5a-3cff45d44884
+
+	column 'File number'
+		dataType: string
+		lineageTag: 11f57c4d-c10e-4157-a065-59276d6f5719
+		summarizeBy: none
+		sourceColumn: File number
+
+		annotation SummarizationSetBy = User
+
+	column 'Policy number'
+		dataType: string
+		lineageTag: 74b12737-2d0f-4c62-925b-65f350f09296
+		summarizeBy: none
+		sourceColumn: Policy number
+
+		annotation SummarizationSetBy = User
+
+	column 'Insured'
+		dataType: string
+		lineageTag: 2fa9178e-831c-4ae6-9480-9cb26557a307
+		summarizeBy: none
+		sourceColumn: Insured
+
+		annotation SummarizationSetBy = User
+
+	column 'Team'
+		dataType: string
+		lineageTag: 69387d73-316d-42b1-b15a-08c82854bb45
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = User
+
+	column 'Department'
+		dataType: string
+		lineageTag: e1e1de71-2939-429c-a3f3-d0a70ff0cdbb
+		summarizeBy: none
+		sourceColumn: Department
+
+		annotation SummarizationSetBy = User
+
+	column 'Brand'
+		dataType: string
+		lineageTag: b80c87b9-8061-477d-8406-fa7b91050b7a
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = User
+
+	column 'Workflow'
+		dataType: string
+		lineageTag: f0944c21-cb13-4814-bc9a-09d22581c451
+		summarizeBy: none
+		sourceColumn: Workflow
+
+		annotation SummarizationSetBy = User
+
+	column 'Step'
+		dataType: string
+		lineageTag: 52e9561f-a01a-4ac3-90f3-9f88989df470
+		summarizeBy: none
+		sourceColumn: Step
+
+		annotation SummarizationSetBy = User
+
+	column 'Assigned to'
+		dataType: string
+		lineageTag: f9233465-222b-4f0d-bfac-84c7392b0a1c
+		summarizeBy: none
+		sourceColumn: Assigned to
+
+		annotation SummarizationSetBy = User
+
+	column 'From user'
+		dataType: string
+		lineageTag: bd5c8af8-160a-486e-b5ca-ecfbed9fd0d8
+		summarizeBy: none
+		sourceColumn: From user
+
+		annotation SummarizationSetBy = User
+
+	column 'Account executive'
+		dataType: string
+		lineageTag: 71eb7f36-3b22-4a49-b853-7e22f122d52e
+		summarizeBy: none
+		sourceColumn: Account executive
+
+		annotation SummarizationSetBy = User
+
+	column 'CSR'
+		dataType: string
+		lineageTag: ff24bcc2-5287-492d-9d76-19c5d26191d0
+		summarizeBy: none
+		sourceColumn: CSR
+
+		annotation SummarizationSetBy = User
+
+	column 'Agent name'
+		dataType: string
+		lineageTag: 86c7a07d-fd20-4cfe-8b87-70d0b3b363c9
+		summarizeBy: none
+		sourceColumn: Agent name
+
+		annotation SummarizationSetBy = User
+
+	column 'Status'
+		dataType: string
+		lineageTag: 4c4f0b08-8924-423f-985d-557735430976
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = User
+
+	column 'Age (days)'
+		dataType: int64
+		formatString: 0
+		lineageTag: fcfa22c0-f27d-4413-9641-dee43947c573
+		summarizeBy: none
+		sourceColumn: Age (days)
+
+		annotation SummarizationSetBy = User
+
+	column 'Days since available'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1e851fa3-666a-4935-be76-b5cf5b91b460
+		summarizeBy: none
+		sourceColumn: Days since available
+
+		annotation SummarizationSetBy = User
+
+	column 'SLA source (days)'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bff6fb6b-b5f9-4af3-a2ad-0f42f4dc6360
+		summarizeBy: none
+		sourceColumn: SLA source (days)
+
+		annotation SummarizationSetBy = User
+
+	column 'Source aging bucket'
+		dataType: string
+		isHidden
+		lineageTag: a206b980-ec91-4575-8716-159a28ce3451
+		summarizeBy: none
+		sourceColumn: Source aging bucket
+
+		annotation SummarizationSetBy = User
+
+	column 'SLA (days)'
+		dataType: int64
+		formatString: 0
+		lineageTag: ebc71681-d1b3-4cfd-af73-de607457681a
+		summarizeBy: none
+		sourceColumn: SLA (days)
+
+		annotation SummarizationSetBy = User
+
+	column 'Scheduled'
+		dataType: boolean
+		lineageTag: b5c0556b-cfe3-4b90-9d68-cb8c1f775cbc
+		summarizeBy: none
+		sourceColumn: Scheduled
+
+		annotation SummarizationSetBy = User
+
+	column 'Out of service'
+		dataType: boolean
+		lineageTag: 23acacea-39cb-4114-8467-93ce36ac46c3
+		summarizeBy: none
+		sourceColumn: Out of service
+
+		annotation SummarizationSetBy = User
+
+	column 'Service'
+		dataType: string
+		lineageTag: 989a5f69-3d4a-424e-b198-0949a17e4b5a
+		summarizeBy: none
+		sourceColumn: Service
+
+		annotation SummarizationSetBy = User
+
+	column 'Aging band'
+		dataType: string
+		lineageTag: 748a5923-5bf9-4e26-9f2b-9f5ac931e4ff
+		summarizeBy: none
+		sourceColumn: Aging band
+
+		annotation SummarizationSetBy = User
+
+	column 'Over 30 days'
+		dataType: boolean
+		lineageTag: 4d3f68a5-3a3b-4133-87c4-c428cab9cd4f
+		summarizeBy: none
+		sourceColumn: Over 30 days
+
+		annotation SummarizationSetBy = User
+
+	column 'Over 90 days'
+		dataType: boolean
+		lineageTag: 47332968-185b-484a-948f-774b24c18d4b
+		summarizeBy: none
+		sourceColumn: Over 90 days
+
+		annotation SummarizationSetBy = User
+
+	column 'Staff scope'
+		dataType: string
+		lineageTag: 7be9a830-ce73-45f0-adcc-4a57b07e7af1
+		summarizeBy: none
+		sourceColumn: Staff scope
+
+		annotation SummarizationSetBy = User
+
+	column 'Line of business'
+		dataType: string
+		lineageTag: 2e6512a4-beee-453e-a25d-5383920f3453
+		summarizeBy: none
+		sourceColumn: Line of business
+
+		annotation SummarizationSetBy = User
+
+	column 'Renewal stage'
+		dataType: string
+		lineageTag: 2491db7b-1b0b-4502-abf8-fc1c5dc54514
+		sortByColumn: 'Renewal stage order'
+		summarizeBy: none
+		sourceColumn: Renewal stage
+
+		annotation SummarizationSetBy = User
+
+	column 'Renewal stage order'
+		dataType: int64
+		isHidden
+		lineageTag: f22093ff-da09-4613-8037-08b308c31342
+		summarizeBy: none
+		sourceColumn: Renewal stage order
+
+		annotation SummarizationSetBy = User
+
+	column 'In renewal pipeline'
+		dataType: boolean
+		lineageTag: ac83a48e-7b09-4f87-ad3f-743e16ddff57
+		summarizeBy: none
+		sourceColumn: In renewal pipeline
+
+		annotation SummarizationSetBy = User
+
+	column 'Date initiated'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 2d2388a1-50a6-455c-99db-19675f9cc47a
+		summarizeBy: none
+		sourceColumn: Date initiated
+
+		annotation SummarizationSetBy = User
+
+	column 'Available date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: a18eb549-03e1-4293-bedd-2249c07ce9af
+		summarizeBy: none
+		sourceColumn: Available date
+
+		annotation SummarizationSetBy = User
+
+	column 'Is unassigned'
+		dataType: boolean
+		lineageTag: c75e51ac-f97f-404e-b652-1bc30792065d
+		summarizeBy: none
+		sourceColumn: Is unassigned
+
+		annotation SummarizationSetBy = User
+
+	column 'Received yesterday'
+		dataType: boolean
+		lineageTag: 0bc8f787-42bc-442b-9aeb-ad7dfec0294c
+		summarizeBy: none
+		sourceColumn: Received yesterday
+
+		annotation SummarizationSetBy = User
+
+	partition 'OpenTasks' = m
+		mode: import
+		source =
+				let
+				    fnWorkflow = (w as nullable text) as nullable text =>
+				    let k = if w = null then null else Text.Lower(Text.Trim(w)),
+				        r = [renewal="Renewal", #"policy in force"="Policy in force", #"new business"="New business",
+				             #"support processing"="Support processing", #"billing discrepancy"="Billing discrepancy",
+				             #"ae requests"="AE requests", #"sfc accounting"="SFC Accounting", claims="Claims", diary="Diary"]
+				    in if k = null then null else (Record.FieldOrDefault(r, k, Text.Proper(w))),
+				    fnBand = (age as nullable number) as text =>
+				    if age = null then "Unknown"
+				    else if age <= 7 then "0-7" else if age <= 15 then "8-15" else if age <= 30 then "16-30"
+				    else if age <= 60 then "31-60" else if age <= 90 then "61-90" else "90+" ,
+				    fnScope = (n as nullable text) as text =>
+				    let s = if n = null then "" else n
+				    in if Text.StartsWith(s, "Monarch") or Text.StartsWith(s, "SWIS") or Text.StartsWith(s, "SA-IR-") or Text.StartsWith(s, "RSP")
+				          or Text.StartsWith(s, "CSR.") or Text.StartsWith(s, "int.z") or Text.Contains(s, "Support") or Text.EndsWith(s, "Renewal") or Text.Contains(s, "Unassigned")
+				       then "Shared queue"
+				       else if Text.StartsWith(s, "RPRO.") or Text.StartsWith(s, "EOX.") or Text.StartsWith(s, "PAT.") or Text.StartsWith(s, "SCM.") then "Vendor"
+				       else "Internal" ,
+				    fnStage = (step as nullable text) as nullable text =>
+				    let s = if step = null then "" else step
+				    in if List.AnyTrue(List.Transform({"Ren - Begin Renewal","Ren - Gather Renewal Information","Ren - Review Renewal Submission","Ren - DB Auto Renew"}, each Text.StartsWith(s, _))) then "Not yet quoted"
+				       else if List.AnyTrue(List.Transform({"Ren - Quote Entry","Ren - Quote Sent","Ren: Quote Sent","Ren - Quote to Agent","Ren - Pend for Info"}, each Text.StartsWith(s, _))) then "Quoted - with agent"
+				       else if Text.StartsWith(s, "Bind - ") then "Bound - awaiting issue"
+				       else if Text.StartsWith(s, "Ren - Non Renew") or Text.StartsWith(s, "Ren - Send Off Risk") then "Not renewing"
+				       else null,
+				    Source = SPG_Workbook,
+				    Sheet = Source{[Item="OpenTasks", Kind="Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"FileNumber", type text}, {"PolicyNumber", type text}, {"Insured", type text}, {"Team", type text}, {"Department", type text},
+				        {"Brand", type text}, {"Workflow", type text}, {"Step", type text}, {"AssignedTo", type text}, {"FromUser", type text},
+				        {"AccountExec", type text}, {"CSR", type text}, {"AgentName", type text}, {"Status", type text},
+				        {"AgeDays_fromInitiated", Int64.Type}, {"DaysSinceAvailable", Int64.Type}, {"SLA_days_placeholder", Int64.Type},
+				        {"AgingBucket", type text}, {"Scheduled_notYetAvailable", type logical}, {"OutOfService", type logical} }),
+				    Renamed = Table.RenameColumns(Typed, {
+				        {"FileNumber", "File number"}, {"PolicyNumber", "Policy number"}, {"AssignedTo", "Assigned to"}, {"FromUser", "From user"},
+				        {"AccountExec", "Account executive"}, {"AgentName", "Agent name"}, {"AgeDays_fromInitiated", "Age (days)"},
+				        {"DaysSinceAvailable", "Days since available"}, {"SLA_days_placeholder", "SLA source (days)"}, {"AgingBucket", "Source aging bucket"} }),
+				    Removed = Table.RemoveColumns(Renamed, {"Scheduled_notYetAvailable", "OutOfService"}),
+				    WorkflowNorm = Table.TransformColumns(Removed, {{"Workflow", fnWorkflow, type text}}),
+				    AssignedFill = Table.ReplaceValue(WorkflowNorm, null, "(Unassigned)", Replacer.ReplaceValue, {"Assigned to"}),
+				    AddSLA = Table.AddColumn(AssignedFill, "SLA (days)", each List.Min({[#"SLA source (days)"], SLA_Cap_Days}), Int64.Type),
+				    AddSched = Table.AddColumn(AddSLA, "Scheduled", each [#"Days since available"] < 0, type logical),
+				    AddOOS = Table.AddColumn(AddSched, "Out of service", each (not [Scheduled]) and [#"Age (days)"] > [#"SLA (days)"], type logical),
+				    AddService = Table.AddColumn(AddOOS, "Service", each if [Scheduled] then "Scheduled" else if [Out of service] then "Out of service" else "Within service", type text),
+				    AddBand = Table.AddColumn(AddService, "Aging band", each fnBand([#"Age (days)"]), type text),
+				    AddOver30 = Table.AddColumn(AddBand, "Over 30 days", each [#"Age (days)"] > 30, type logical),
+				    AddOver90 = Table.AddColumn(AddOver30, "Over 90 days", each [#"Age (days)"] > 90, type logical),
+				    AddScope = Table.AddColumn(AddOver90, "Staff scope", each fnScope([#"Assigned to"]), type text),
+				    AddLine = Table.AddColumn(AddScope, "Line of business", each if Text.Contains([Department], "Personal") then "Personal" else if Text.Contains([Department], "Commercial") then "Commercial" else "Other", type text),
+				    AddStage = Table.AddColumn(AddLine, "Renewal stage", each if [Workflow] = "Renewal" then fnStage([Step]) else null, type text),
+				    AddStageOrder = Table.AddColumn(AddStage, "Renewal stage order", each if [#"Renewal stage"] = "Not yet quoted" then 1 else if [#"Renewal stage"] = "Quoted - with agent" then 2 else if [#"Renewal stage"] = "Bound - awaiting issue" then 3 else if [#"Renewal stage"] = "Not renewing" then 4 else null, Int64.Type),
+				    AddInPipeline = Table.AddColumn(AddStageOrder, "In renewal pipeline", each [#"Renewal stage"] <> null, type logical),
+				    AddInitiated = Table.AddColumn(AddInPipeline, "Date initiated", each Date.AddDays(SnapshotDate, -[#"Age (days)"]), type date),
+				    AddAvailable = Table.AddColumn(AddInitiated, "Available date", each Date.AddDays(SnapshotDate, -[#"Days since available"]), type date),
+				    AddUnassigned = Table.AddColumn(AddAvailable, "Is unassigned", each [#"Assigned to"] = "(Unassigned)", type logical),
+				    AddReceivedYday = Table.AddColumn(AddUnassigned, "Received yesterday", each [#"Days since available"] >= 0 and [#"Days since available"] <= 1, type logical)
+				in
+				    AddReceivedYday
+
+	annotation PBI_ResultType = Table

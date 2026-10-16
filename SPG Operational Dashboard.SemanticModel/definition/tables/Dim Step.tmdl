@@ -1,0 +1,44 @@
+table 'Dim Step'
+	lineageTag: 28703833-d5e3-43e9-9f8c-954d2e5d9513
+
+	column 'Step'
+		dataType: string
+		isKey
+		lineageTag: 4dd69515-03e2-4443-aeae-14f142890841
+		summarizeBy: none
+		sourceColumn: Step
+
+		annotation SummarizationSetBy = User
+
+	column 'Intake step'
+		dataType: boolean
+		lineageTag: a2232ce9-9c69-49fc-8db1-84335744c95c
+		summarizeBy: none
+		sourceColumn: Intake step
+
+		annotation SummarizationSetBy = User
+
+	column 'Hour target'
+		dataType: int64
+		formatString: 0
+		lineageTag: ffa6f7dc-ddbb-44d6-a1d3-4f36dc31e6e8
+		summarizeBy: none
+		sourceColumn: Hour target
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Step' = m
+		mode: import
+		source =
+				let
+				    A = Table.SelectColumns(OpenTasks, {"Step"}),
+				    B = Table.SelectColumns(Completed, {"Step"}),
+				    U = Table.Distinct(Table.Combine({A, B})),
+				    NoNull = Table.SelectRows(U, each [Step] <> null),
+				    AddIntake = Table.AddColumn(NoNull, "Intake step", each List.Contains({"NB - Clear Submission","Mail - New Mail Review","Bind - Process Binder/Invoice","Mail - Indexing & Distribution"}, [Step]), type logical),
+				    AddHourTarget = Table.AddColumn(AddIntake, "Hour target", each if [Step] = "Bind - Process Binder/Invoice" then 8 else if [#"Intake step"] then 4 else null, Int64.Type),
+				    Sorted = Table.Sort(AddHourTarget, {{"Step", Order.Ascending}})
+				in
+				    Sorted
+
+	annotation PBI_ResultType = Table

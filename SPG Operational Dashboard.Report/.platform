@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "SPG Operational Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d93d91d8-76dd-4d71-9df7-11082fe04897"
+  }
+}

@@ -1,0 +1,60 @@
+table 'Dim Person'
+	lineageTag: 55934b20-eaf3-43e9-840f-4bf25439bcbf
+
+	column 'Person'
+		dataType: string
+		isKey
+		lineageTag: c201b999-96a7-4a56-adc5-e79645e299dd
+		summarizeBy: none
+		sourceColumn: Person
+
+		annotation SummarizationSetBy = User
+
+	column 'Staff scope'
+		dataType: string
+		lineageTag: 60334870-87ec-4367-993d-e2640d0406e2
+		summarizeBy: none
+		sourceColumn: Staff scope
+
+		annotation SummarizationSetBy = User
+
+	column 'Display name'
+		dataType: string
+		lineageTag: 30946b13-dbcf-495c-9c90-cb5f9218995e
+		summarizeBy: none
+		sourceColumn: Display name
+
+		annotation SummarizationSetBy = User
+
+	column 'Is vendor'
+		dataType: boolean
+		lineageTag: d01910ce-ef7b-4394-801b-464090e11694
+		summarizeBy: none
+		sourceColumn: Is vendor
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Person' = m
+		mode: import
+		source =
+				let
+				    fnScope = (n as nullable text) as text =>
+				    let s = if n = null then "" else n
+				    in if Text.StartsWith(s, "Monarch") or Text.StartsWith(s, "SWIS") or Text.StartsWith(s, "SA-IR-") or Text.StartsWith(s, "RSP")
+				          or Text.StartsWith(s, "CSR.") or Text.StartsWith(s, "int.z") or Text.Contains(s, "Support") or Text.EndsWith(s, "Renewal") or Text.Contains(s, "Unassigned")
+				       then "Shared queue"
+				       else if Text.StartsWith(s, "RPRO.") or Text.StartsWith(s, "EOX.") or Text.StartsWith(s, "PAT.") or Text.StartsWith(s, "SCM.") then "Vendor"
+				       else "Internal" ,
+				    A = Table.RenameColumns(Table.SelectColumns(OpenTasks, {"Assigned to"}), {{"Assigned to", "Person"}}),
+				    B = Table.RenameColumns(Table.SelectColumns(Completed, {"Released by"}), {{"Released by", "Person"}}),
+				    C = Table.RenameColumns(Table.SelectColumns(Compliance, {"Assigned to"}), {{"Assigned to", "Person"}}),
+				    U = Table.Distinct(Table.Combine({A, B, C})),
+				    NoNull = Table.SelectRows(U, each [Person] <> null),
+				    AddScope = Table.AddColumn(NoNull, "Staff scope", each fnScope([Person]), type text),
+				    AddDisplay = Table.AddColumn(AddScope, "Display name", each if Text.StartsWith([Person], "RPRO.") then Text.Range([Person], 5) else [Person], type text),
+				    AddVendor = Table.AddColumn(AddDisplay, "Is vendor", each [#"Staff scope"] = "Vendor", type logical),
+				    Sorted = Table.Sort(AddVendor, {{"Person", Order.Ascending}})
+				in
+				    Sorted
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,25 @@
+table 'Dim Workflow'
+	lineageTag: bf5c4e53-8e1a-4dbd-9e59-3c889bf057dd
+
+	column 'Workflow'
+		dataType: string
+		isKey
+		lineageTag: 043a8945-fb2d-468e-b8ad-6eedc5a0f749
+		summarizeBy: none
+		sourceColumn: Workflow
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Workflow' = m
+		mode: import
+		source =
+				let
+				    A = Table.SelectColumns(OpenTasks, {"Workflow"}),
+				    B = Table.SelectColumns(Completed, {"Workflow"}),
+				    U = Table.Distinct(Table.Combine({A, B})),
+				    NoNull = Table.SelectRows(U, each [Workflow] <> null),
+				    Sorted = Table.Sort(NoNull, {{"Workflow", Order.Ascending}})
+				in
+				    Sorted
+
+	annotation PBI_ResultType = Table

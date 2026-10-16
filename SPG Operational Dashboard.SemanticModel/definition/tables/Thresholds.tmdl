@@ -1,0 +1,31 @@
+table 'Thresholds'
+	isHidden
+	lineageTag: dacf34d7-99ed-41ec-8c12-9997eac980b2
+
+	column 'Green max'
+		dataType: double
+		formatString: 0%
+		lineageTag: 3b421e8c-b1bc-4cbe-8561-ee7390f21b74
+		summarizeBy: none
+		sourceColumn: Green max
+
+		annotation SummarizationSetBy = User
+
+	column 'Amber max'
+		dataType: double
+		formatString: 0%
+		lineageTag: e60b8c73-fec9-43a3-97cf-6cc9c735a5b9
+		summarizeBy: none
+		sourceColumn: Amber max
+
+		annotation SummarizationSetBy = User
+
+	partition 'Thresholds' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [#"Green max" = number, #"Amber max" = number], {{Green_Max_OutOfService, Amber_Max_OutOfService}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

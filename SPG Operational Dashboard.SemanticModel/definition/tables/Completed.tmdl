@@ -1,0 +1,147 @@
+table 'Completed'
+	lineageTag: fc760a9a-5496-4dd8-bb6a-ee233ba89cf1
+
+	column 'Workflow'
+		dataType: string
+		lineageTag: 9da59d23-0c09-4527-82b1-0279f4dddec1
+		summarizeBy: none
+		sourceColumn: Workflow
+
+		annotation SummarizationSetBy = User
+
+	column 'Step'
+		dataType: string
+		lineageTag: 77203c01-1e99-4ef7-a5d4-ff22b5ca01d2
+		summarizeBy: none
+		sourceColumn: Step
+
+		annotation SummarizationSetBy = User
+
+	column 'Released by'
+		dataType: string
+		lineageTag: d2fb5466-83ae-4f01-bf7c-9ed9602fd305
+		summarizeBy: none
+		sourceColumn: Released by
+
+		annotation SummarizationSetBy = User
+
+	column 'Hours in step'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: efc02026-d962-40c9-aded-316b4e794df8
+		summarizeBy: none
+		sourceColumn: Hours in step
+
+		annotation SummarizationSetBy = User
+
+	column 'Turnaround (days)'
+		dataType: double
+		formatString: #,0.0
+		lineageTag: 49d8f67e-cb1b-460e-9444-d58daa79ad94
+		summarizeBy: none
+		sourceColumn: Turnaround (days)
+
+		annotation SummarizationSetBy = User
+
+	column 'SLA (days)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 36fab2c6-9d72-40a8-94ce-d82f7ee560ae
+		summarizeBy: none
+		sourceColumn: SLA (days)
+
+		annotation SummarizationSetBy = User
+
+	column 'Met SLA'
+		dataType: boolean
+		lineageTag: d0e1ca6e-5afa-4387-976c-61cc600f4f93
+		summarizeBy: none
+		sourceColumn: Met SLA
+
+		annotation SummarizationSetBy = User
+
+	column 'Is rework'
+		dataType: boolean
+		lineageTag: 856d94b8-6414-4039-b2b3-c69498941fca
+		summarizeBy: none
+		sourceColumn: Is rework
+
+		annotation SummarizationSetBy = User
+
+	column 'Release type'
+		dataType: string
+		lineageTag: fd9e9ae8-d66a-41f7-89fe-9376af75c3d3
+		summarizeBy: none
+		sourceColumn: Release type
+
+		annotation SummarizationSetBy = User
+
+	column 'Hours band'
+		dataType: string
+		lineageTag: 929c80d9-c740-409a-9139-92997d6a2e46
+		sortByColumn: 'Hours band order'
+		summarizeBy: none
+		sourceColumn: Hours band
+
+		annotation SummarizationSetBy = User
+
+	column 'Hours band order'
+		dataType: int64
+		isHidden
+		lineageTag: dc9c5cdc-49b6-4d25-96c1-b2cb6f3f16a6
+		summarizeBy: none
+		sourceColumn: Hours band order
+
+		annotation SummarizationSetBy = User
+
+	column 'Release date'
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: ef408fc7-cedb-42b6-bbad-eb2ffd89dc21
+		summarizeBy: none
+		sourceColumn: Release date
+
+		annotation SummarizationSetBy = User
+
+	column 'Release id'
+		dataType: int64
+		isHidden
+		lineageTag: bd43bee5-94a5-4dc5-b24d-f67e05012319
+		summarizeBy: none
+		sourceColumn: Release id
+
+		annotation SummarizationSetBy = User
+
+	partition 'Completed' = m
+		mode: import
+		source =
+				let
+				    fnWorkflow = (w as nullable text) as nullable text =>
+				    let k = if w = null then null else Text.Lower(Text.Trim(w)),
+				        r = [renewal="Renewal", #"policy in force"="Policy in force", #"new business"="New business",
+				             #"support processing"="Support processing", #"billing discrepancy"="Billing discrepancy",
+				             #"ae requests"="AE requests", #"sfc accounting"="SFC Accounting", claims="Claims", diary="Diary"]
+				    in if k = null then null else (Record.FieldOrDefault(r, k, Text.Proper(w))),
+				    fnIsRework = (step as nullable text) as logical =>
+				    let s = if step = null then "" else Text.Lower(step)
+				    in List.AnyTrue(List.Transform({"revision","re-quote","requote","re-issue","reissue","re-rate","rerate","re-invoice","reinvoice","correction","rework"}, each Text.Contains(s, _))),
+				    Source = SPG_Workbook,
+				    Sheet = Source{[Item="Completed", Kind="Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Promoted, {
+				        {"Workflow", type text}, {"Step", type text}, {"ReleasedBy", type text}, {"HoursInStep", type number},
+				        {"TurnaroundDays_initiatedToRelease", type number}, {"SLA_days_placeholder", Int64.Type}, {"MetSLA", type logical} }),
+				    Renamed = Table.RenameColumns(Typed, {
+				        {"ReleasedBy", "Released by"}, {"HoursInStep", "Hours in step"}, {"TurnaroundDays_initiatedToRelease", "Turnaround (days)"},
+				        {"SLA_days_placeholder", "SLA (days)"}, {"MetSLA", "Met SLA"} }),
+				    WorkflowNorm = Table.TransformColumns(Renamed, {{"Workflow", fnWorkflow, type text}}),
+				    AddRework = Table.AddColumn(WorkflowNorm, "Is rework", each fnIsRework([Step]), type logical),
+				    AddReleaseType = Table.AddColumn(AddRework, "Release type", each if [#"Is rework"] then "Rework" else "Production", type text),
+				    AddHoursBand = Table.AddColumn(AddReleaseType, "Hours band", each if [#"Hours in step"] <= 2 then "<= 2 h" else if [#"Hours in step"] <= 4 then "2-4 h" else if [#"Hours in step"] <= 24 then "4-24 h" else "Over a day", type text),
+				    AddHoursBandOrder = Table.AddColumn(AddHoursBand, "Hours band order", each if [#"Hours in step"] <= 2 then 1 else if [#"Hours in step"] <= 4 then 2 else if [#"Hours in step"] <= 24 then 3 else 4, Int64.Type),
+				    AddReleaseDate = Table.AddColumn(AddHoursBandOrder, "Release date", each Date.AddDays(SnapshotDate, -1), type date),
+				    AddIndex = Table.AddIndexColumn(AddReleaseDate, "Release id", 1, 1, Int64.Type)
+				in
+				    AddIndex
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,51 @@
+table 'Dim Aging Band'
+	lineageTag: 75d3ac2d-2774-42c7-83b0-587c115295f2
+
+	column 'Aging band'
+		dataType: string
+		isKey
+		lineageTag: 7ee75daa-707f-46d5-a784-9e046a25f57e
+		sortByColumn: 'Band order'
+		summarizeBy: none
+		sourceColumn: Aging band
+
+		annotation SummarizationSetBy = User
+
+	column 'Band order'
+		dataType: int64
+		isHidden
+		lineageTag: 7d6deffa-e12e-4b96-90ce-70da0bdd70ef
+		summarizeBy: none
+		sourceColumn: Band order
+
+		annotation SummarizationSetBy = User
+
+	column 'Band label'
+		dataType: string
+		lineageTag: c59ab522-9803-47e0-b9b9-90961e699b2b
+		sortByColumn: 'Band order'
+		summarizeBy: none
+		sourceColumn: Band label
+
+		annotation SummarizationSetBy = User
+
+	column 'Band colour'
+		dataType: string
+		isHidden
+		lineageTag: be523ae9-95e0-4b50-b6f4-ce3b297aa7d4
+		summarizeBy: none
+		sourceColumn: Band colour
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Aging Band' = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [#"Aging band" = text, #"Band order" = Int64.Type, #"Band label" = text, #"Band colour" = text],
+				        {{"0-7", 1, "0-7 days", "#3EBD5E"}, {"8-15", 2, "8-15 days", "#F3B921"}, {"16-30", 3, "16-30 days", "#FF8A00"},
+				         {"31-60", 4, "31-60 days", "#E8702A"}, {"61-90", 5, "61-90 days", "#D02D4F"}, {"90+", 6, "Over 90 days", "#8B1E3F"}, {"Unknown", 7, "Unknown", "#8A949C"}})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,39 @@
+expression DataPath = "C:\\Data\\SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f51ec9af-35e8-470d-bbc5-665ec630f65c
+
+	annotation PBI_ResultType = Text
+
+expression SnapshotDate = #date(2026, 9, 16) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
+	lineageTag: c90dbd02-5e6f-4ed9-aee3-f9f8aafd4146
+
+	annotation PBI_ResultType = Date
+
+expression SLA_Cap_Days = 60 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 0302defa-a227-4062-b915-5a03b3e4710e
+
+	annotation PBI_ResultType = Number
+
+expression Fining_States = "NY" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: d07f7936-595b-4055-a421-f511ab827016
+
+	annotation PBI_ResultType = Text
+
+expression Green_Max_OutOfService = 0.15 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: 32ef80b2-bcab-41f9-8c5f-b8e94789fd0e
+
+	annotation PBI_ResultType = Number
+
+expression Amber_Max_OutOfService = 0.30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
+	lineageTag: ab1d9797-c606-4b61-9c75-770d75eb6f64
+
+	annotation PBI_ResultType = Number
+
+expression SPG_Workbook =
+		let
+		    Binary = if Text.StartsWith(Text.Lower(DataPath), "http") then Web.Contents(DataPath) else File.Contents(DataPath),
+		    Source = Excel.Workbook(Binary, null, true)
+		in
+		    Source
+	lineageTag: 049ef34c-9dff-4ec9-a864-e95d07af4a62
+
+	annotation PBI_ResultType = Table

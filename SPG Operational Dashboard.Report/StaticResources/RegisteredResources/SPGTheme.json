@@ -1,0 +1,128 @@
+{
+  "name": "SPGTheme",
+  "dataColors": [
+    "#0077C8",
+    "#253746",
+    "#3EBD5E",
+    "#F3B921",
+    "#FF8A00",
+    "#D02D4F",
+    "#8B1E3F",
+    "#8A949C",
+    "#E8702A",
+    "#5A6670"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#253746",
+  "tableAccent": "#0077C8",
+  "good": "#3EBD5E",
+  "neutral": "#F3B921",
+  "bad": "#D02D4F",
+  "textClasses": {
+    "callout": {
+      "fontSize": 26,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#253746"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#253746"
+    },
+    "header": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#FFFFFF"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#1E2A33"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": true
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#253746"
+              }
+            },
+            "fontSize": 11,
+            "fontFamily": "Segoe UI Semibold",
+            "alignment": "left"
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "preset": "BottomRight",
+            "color": {
+              "solid": {
+                "color": "#000000"
+              }
+            },
+            "transparency": 92
+          }
+        ],
+        "outspacePane": [
+          {
+            "backgroundColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#EEF1F4"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#E3E7EB"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

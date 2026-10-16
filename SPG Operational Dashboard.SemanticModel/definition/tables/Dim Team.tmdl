@@ -1,0 +1,25 @@
+table 'Dim Team'
+	lineageTag: 90ef06ed-3773-46fa-8da5-721165a891e4
+
+	column 'Team'
+		dataType: string
+		isKey
+		lineageTag: 27bdb7ad-b5ed-43f6-a3f5-80df88edd342
+		summarizeBy: none
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = User
+
+	partition 'Dim Team' = m
+		mode: import
+		source =
+				let
+				    A = Table.SelectColumns(OpenTasks, {"Team"}),
+				    B = Table.SelectColumns(Compliance, {"Team"}),
+				    U = Table.Distinct(Table.Combine({A, B})),
+				    NoNull = Table.SelectRows(U, each [Team] <> null),
+				    Sorted = Table.Sort(NoNull, {{"Team", Order.Ascending}})
+				in
+				    Sorted
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,11 @@
+# Power BI Project - local caches and user state (never commit)
+*.abf
+*.pbix
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/unappliedChanges.json
+**/.pbi/editorSettings.json
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
