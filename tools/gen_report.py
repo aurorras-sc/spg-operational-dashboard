@@ -91,20 +91,21 @@ def textbox(x, y, w, h, z, runs, size=16, color=NAVY, bold=True):
                      vco={"background": [{"properties": {"show": lit(False)}}]})
 
 def card(x, y, w, h, z, measure, title, color=NAVY, size=None, color_measure=None, filters=None, label_size=9):
-    # colour is static here; measure-driven colour (color_measure) is applied in Desktop via Conditional formatting > Field value
-    if size is None or size > (h - 34) * 0.55:
-        size = max(12, int(min(size or 99, (h - 34) * 0.55)))
-    obj = {"labels": [{"properties": {"color": col_solid(color), "fontSize": lit(size), "bold": lit(True)}}],
+    """KPI card in the service's native multiRowCard form: accent bar on the left, title above, value below."""
+    if size is None or size > (h - 40) * 0.55:
+        size = max(12, int(min(size or 99, (h - 40) * 0.55)))
+    obj = {"card": [{"properties": {"barColor": col_solid(color), "barWeight": lit(4), "outlineWeight": lit(0)}}],
+           "dataLabels": [{"properties": {"fontFamily": lit("Segoe UI Semibold"), "fontSize": lit(size), "color": col_solid(color)}}],
            "categoryLabels": [{"properties": {"show": lit(False)}}]}
-    vco = {"title": [{"properties": {"show": lit(True), "text": lit(title), "fontSize": lit(9), "fontColor": col_solid(SUB), "bold": lit(True)}}],
-           "border": [{"properties": {"show": lit(True), "color": col_solid(color), "radius": lit(0), "width": lit(2)}}]}
-    return container("card", x, y, w, h, z, roles={"Values": [measure]}, objects=obj, vco=vco, filters=filters)
+    vco = {"title": [{"properties": {"show": lit(True), "text": lit(title), "fontSize": lit(9), "fontColor": col_solid(SUB), "bold": lit(True)}}]}
+    return container("multiRowCard", x, y, w, h, z, roles={"Values": [measure]}, objects=obj, vco=vco, filters=filters)
 
 def cardtext(x, y, w, h, z, measure, title, size=9, color=SUB, filters=None):
-    obj = {"labels": [{"properties": {"color": col_solid(color), "fontSize": lit(size), "bold": lit(False), "wordWrap": lit(True)}}],
+    obj = {"card": [{"properties": {"barWeight": lit(0), "outlineWeight": lit(0)}}],
+           "dataLabels": [{"properties": {"fontSize": lit(size), "color": col_solid(color)}}],
            "categoryLabels": [{"properties": {"show": lit(False)}}]}
     vco = {"title": [{"properties": {"show": lit(bool(title)), "text": lit(title or ""), "fontSize": lit(9), "fontColor": col_solid(SUB)}}]}
-    return container("card", x, y, w, h, z, roles={"Values": [measure]}, objects=obj, vco=vco, filters=filters)
+    return container("multiRowCard", x, y, w, h, z, roles={"Values": [measure]}, objects=obj, vco=vco, filters=filters)
 
 def slicer(x, y, w, h, z, field, title, single=False, dropdown=True):
     obj = {"data": [{"properties": {"mode": lit("Dropdown" if dropdown else "Basic")}}],
@@ -166,13 +167,15 @@ def decomp_tree(x, y, w, h, z, analyze, explain_by, title):
     return container("decompositionTreeVisual", x, y, w, h, z, roles={"Analyze": [analyze], "ExplainBy": explain_by}, objects=obj, title=title)
 
 # ---- page
-def page(name, display, visuals, filters=None, order=0, width=1280, height=720):
+def page(name, display, visuals, filters=None, order=0, width=1280, height=720, drillthrough=None):
     pid = nid()
     pdir = os.path.join(PAGES, pid); os.makedirs(os.path.join(pdir, "visuals"), exist_ok=True)
     pj = {"$schema": f"{SCHEMA}/page/2.1.0/schema.json", "name": pid, "displayName": display, "displayOption": "FitToPage",
           "height": height, "width": width,
           "objects": {"background": [{"properties": {"color": col_solid("#EEF1F4"), "transparency": lit(0)}}]}}
     if filters: pj["filterConfig"] = filterconfig(filters)
+    if drillthrough:
+        pj["pageBinding"] = {"name": nid(), "type": "Drillthrough", "parameters": [{"name": nid(), "field": fexpr(f)} for f in drillthrough]}
     with open(os.path.join(pdir, "page.json"), "w") as f: json.dump(pj, f, indent=2)
     for v in visuals:
         vdir = os.path.join(pdir, "visuals", v["name"]); os.makedirs(vdir, exist_ok=True)
@@ -328,12 +331,14 @@ V += [card(8, 52, 200, 70, z, Mx("Work on hand"), "Tasks"), card(216, 52, 200, 7
       card(840, 52, 200, 70, z + 4, Mx("Oldest item (days)"), "Oldest (days)"), card(1048, 52, 224, 70, z + 5, Mx("Scheduled (not yet available)"), "Scheduled (not on hand)", color=MUTE)]
 cols = ["Age (days)", "Service", "SLA (days)", "Aging band", "Status", "File number", "Policy number", "Insured", "Brand", "Department", "Team", "Workflow", "Step", "Assigned to", "From user", "Account executive", "CSR", "Agent name", "Date initiated", "Available date"]
 V += [table_vis(8, 130, 1264, 582, 20, [proj(OT(c)) for c in cols], "Task list - 20 columns, scroll right for more; use Export data from the visual header", sort_by=OT("Age (days)"), bold_cols=[OT("Age (days)")])]
-pages.append(("Task list", V, None))
+pages.append(("Task list", V, None, [TEAM, WF, STEP, PERSON_KEY, OT("Renewal stage"), BAND]))
 
 # ================================================================= WRITE
 page_ids = []
-for i, (disp, vis, pf) in enumerate(pages):
-    page_ids.append(page(None, disp, vis, pf, i))
+for entry in pages:
+    disp, vis, pf = entry[0], entry[1], entry[2]
+    dt = entry[3] if len(entry) > 3 else None
+    page_ids.append(page(None, disp, vis, pf, drillthrough=dt))
 with open(os.path.join(PAGES, "pages.json"), "w") as f:
     json.dump({"$schema": f"{SCHEMA}/pagesMetadata/1.1.0/schema.json", "pageOrder": page_ids, "activePageName": page_ids[0]}, f, indent=2)
 with open(os.path.join(DEF, "version.json"), "w") as f:
@@ -376,4 +381,4 @@ with open(os.path.join(RP, ".platform"), "w") as f:
 with open(os.path.join(ROOT, "SPG Operational Dashboard.pbip"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json", "version": "1.0",
                "artifacts": [{"report": {"path": "SPG Operational Dashboard.Report"}}], "settings": {"enableAutoRecovery": True}}, f, indent=2)
-print("report written:", len(pages), "pages,", sum(len(v) for _, v, _ in pages), "visuals")
+print("report written:", len(pages), "pages,", sum(len(e[1]) for e in pages), "visuals")
