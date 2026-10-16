@@ -1,11 +1,11 @@
 table Thresholds
 	isHidden
-	lineageTag: 11232427-856a-4a56-bf23-4250f7f5e5e3
+	lineageTag: 245e98ca-e0b6-4e69-8728-01f975b3a45b
 
 	column 'Green max'
 		dataType: double
 		formatString: 0%
-		lineageTag: d50f3d1a-3eff-4226-b357-4ecd29fd9e5b
+		lineageTag: 0e6b13bf-44c8-4271-bade-b219eaa89adb
 		summarizeBy: none
 		sourceColumn: Green max
 
@@ -14,7 +14,7 @@ table Thresholds
 	column 'Amber max'
 		dataType: double
 		formatString: 0%
-		lineageTag: 30229c9e-3995-4506-866b-5419e2b4f392
+		lineageTag: 5571d8ba-b620-4e59-add4-49d84619f26e
 		summarizeBy: none
 		sourceColumn: Amber max
 

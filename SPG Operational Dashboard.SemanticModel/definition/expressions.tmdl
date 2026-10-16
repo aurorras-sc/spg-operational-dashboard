@@ -1,39 +1,38 @@
 expression DataPath = "https://raw.githubusercontent.com/aurorras-sc/spg-operational-dashboard/main/data/SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: 2fe19e8b-3290-444b-b549-0be3b7504a06
+	lineageTag: 92c77761-a849-40d8-a2fb-7e38a58b2a5e
 
 	annotation PBI_ResultType = Text
 
 expression SnapshotDate = #date(2026, 9, 16) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
-	lineageTag: 99a4b3b3-f2d9-4f9a-8927-3f872c279e45
+	lineageTag: 2fedc43f-d137-4cb7-9799-8b1444e46f12
 
 	annotation PBI_ResultType = Date
 
 expression SLA_Cap_Days = 60 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
-	lineageTag: f5f0e734-a458-4342-b5df-89c206d960ce
+	lineageTag: e3aa2733-2b84-4943-91b8-27a2292473b3
 
 	annotation PBI_ResultType = Number
 
 expression Fining_States = "NY" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: 6cc0da2f-6881-4218-a69d-a9b2f9356874
+	lineageTag: a927bfae-4af3-47d8-b841-f933a3d3758e
 
 	annotation PBI_ResultType = Text
 
 expression Green_Max_OutOfService = 0.15 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
-	lineageTag: 2eb8afa3-247f-4dc7-b98b-8741593ab9d2
+	lineageTag: ded5c01c-dbec-49c1-af7f-75474d39fda5
 
 	annotation PBI_ResultType = Number
 
 expression Amber_Max_OutOfService = 0.30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
-	lineageTag: aec9c6de-2c64-4138-9e2f-fe29ab08faff
+	lineageTag: ba818d0d-e4bc-43b6-b1ae-17c63e1ad179
 
 	annotation PBI_ResultType = Number
 
 expression SPG_Workbook =
 		let
-		    Binary = if Text.StartsWith(Text.Lower(DataPath), "http") then Web.Contents(DataPath) else File.Contents(DataPath),
-		    Source = Excel.Workbook(Binary, null, true)
+		    Source = Excel.Workbook(Web.Contents(DataPath), null, true)
 		in
 		    Source
-	lineageTag: f4fb068d-2946-43b0-a850-d591b5181385
+	lineageTag: be68705d-16df-4846-bad5-c772d6bba182
 
 	annotation PBI_ResultType = Table

@@ -388,8 +388,7 @@ expression Amber_Max_OutOfService = 0.30 meta [IsParameterQuery=true, Type="Numb
 
 expression SPG_Workbook =
 \t\tlet
-\t\t    Binary = if Text.StartsWith(Text.Lower(DataPath), "http") then Web.Contents(DataPath) else File.Contents(DataPath),
-\t\t    Source = Excel.Workbook(Binary, null, true)
+\t\t    Source = Excel.Workbook(Web.Contents(DataPath), null, true)
 \t\tin
 \t\t    Source
 \tlineageTag: {lt()}
