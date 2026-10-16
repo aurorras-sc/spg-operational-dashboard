@@ -1,10 +1,10 @@
 table 'Dim Aging Band'
-	lineageTag: d6e29328-f365-41de-8e76-02a9d346aa2a
+	lineageTag: 89c65c13-2727-4190-a707-fd71bbe446ef
 
 	column 'Aging band'
 		dataType: string
 		isKey
-		lineageTag: 975c60a7-acb2-4b58-9228-df044887edbb
+		lineageTag: 27703027-648b-4bbc-a284-17e69037920a
 		sortByColumn: 'Band order'
 		summarizeBy: none
 		sourceColumn: Aging band
@@ -14,7 +14,7 @@ table 'Dim Aging Band'
 	column 'Band order'
 		dataType: int64
 		isHidden
-		lineageTag: d2dc2a4d-370d-4eb6-885d-69c1db69313f
+		lineageTag: 5597f9b8-932d-4e14-913a-fb291f2e412d
 		summarizeBy: none
 		sourceColumn: Band order
 
@@ -22,7 +22,7 @@ table 'Dim Aging Band'
 
 	column 'Band label'
 		dataType: string
-		lineageTag: 3c3d54ca-25b9-4363-b7ed-c7fb9e36cec0
+		lineageTag: 09f6dd4c-8ee0-492c-afcf-02040ef03f0a
 		sortByColumn: 'Band order'
 		summarizeBy: none
 		sourceColumn: Band label
@@ -32,7 +32,7 @@ table 'Dim Aging Band'
 	column 'Band colour'
 		dataType: string
 		isHidden
-		lineageTag: efe59fde-2511-4bc9-9664-ea6a38b943bc
+		lineageTag: d233ff4a-38d2-4f3a-a723-8aea40353dcb
 		summarizeBy: none
 		sourceColumn: Band colour
 

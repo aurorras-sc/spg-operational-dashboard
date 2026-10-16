@@ -61,26 +61,31 @@ Star schema with three facts and five shared dimensions, all built in Power Quer
 
 Relationships: facts → dimensions, many‑to‑one, single direction.
 
-## 4. Report pages (1280 × 720)
+## 4. Report pages (1440 × 820, built from mockup v15)
 
-| Page | What it shows (mirrors the mockup) |
+Every page carries the mockup shell: a white **page navigation rail** on the left (buttons that navigate between pages),
+the page title and subtitle, and the content grid in the mockup's proportions. Slicers are **not** on the canvas — as in
+the mockup's slide-out pane, each page's slicer set lives in the **Filters pane** (page-level filter cards: Team, Workflow,
+Process step, Aging bucket, Date initiated, Line of business, Division, Assigned to, Account executive, CSR, Agent, Staff scope …).
+Every KPI tile is a card (label + number) with the mockup's small grey subtitle line (static text or a `Sub: …` measure).
+
+| Page | What it shows (mirrors mockup v15) |
 |---|---|
-| **Service Overview** | Hero out‑of‑service % with RAG status; six KPI cards; Service by process table; out‑of‑service bar with drill Team › Workflow › Step › Individual; work on hand by aging band; top out‑of‑service steps; turnaround by process; intake steps measured in hours |
-| **Work On Hand** | Work on hand / out‑of‑service cards; aging‑band column chart (click a band to cross‑filter); decomposition tree; work on hand by individual (stacked by age); matrix with aging buckets; oldest‑first table |
-| **Renewal Pipeline** | Page‑filtered to Renewal. Stage cards (Not yet quoted › Quoted › Bound › Not renewing); stage mix by team and by account executive; stage by aging bucket; not‑yet‑quoted by step; oldest unquoted renewals |
-| **Team Scorecard** | Scope and Individual slicers; seven person KPIs; on hand by step (within / out of service); age profile; completed yesterday; team ranked by out of service; released yesterday by person |
-| **Management** | Unassigned and quality KPIs; unassigned by workflow and by team; production vs rework by workflow; rework by step; unassigned oldest first |
-| **Compliance** | State / Team / UA slicers; six deadline KPIs; by state table with fining flag; by associate stacked by due band; age profile; action list (past due and due within 14 days) |
-| **Task list** | Context KPIs plus a 20‑column task table; use *Export data* from the visual header |
+| **Service Overview** | Hero *Work on hand out of service* (number and ● status coloured by RAG via `Service status colour`); six KPI tiles with subtitles; Service by process (RAG status column, workflows with ≥ 20 items); out‑of‑service bar with drill Team › Workflow › Step › Individual, bars RAG‑coloured; work on hand by age; top out‑of‑service steps (with median time in step); turnaround by process; intake steps measured in hours |
+| **Work On Hand** | Work on hand / out‑of‑service tiles; **aging‑band strip** of six tiles (count + share of on hand — click one to cross‑filter the page); decomposition tree Division › Team › Workflow › Step › Individual; work on hand by individual stacked by age; matrix with aging buckets; oldest‑first table |
+| **Renewal Pipeline** | Page‑filtered to Renewal. Four stage tiles with *share · out of service · oldest* subtitles; stage mix by team and by account executive; stage by aging bucket; not‑yet‑quoted by step; oldest unquoted renewals; footnote on stage derivation |
+| **Team Scorecard** | Staff‑scope and Individual slicers; seven person tiles (out‑of‑service tile shows *team* share, Status tile is RAG text); on hand by step; age profile; completed yesterday; Team ranked by out of service (with team total row); released yesterday by person |
+| **Management** | Six unassigned / quality tiles; unassigned by workflow and by team (stacked by age); production vs rework; rework by step; unassigned oldest first |
+| **Compliance** | Six deadline tiles (past‑due tile shows the *stuck* count); by state with FINES flag; by associate stacked by due band; age from date initiated; action list (past due and due within 14 days). Pane slicers: State, Team, Has it (UA), Fines when late |
+| **Task list** | Drill‑through target: **Back** button, drill‑through context line (tasks · files / out of service / oldest / age mix), 20‑column table; *Export data* from the visual header |
 
-Team and Workflow slicers are on every operational page. All visuals cross‑filter; charts with hierarchies support drill.
+Right‑click any Team, Workflow, Step, Individual, Renewal stage or Aging band → **Drill through → Task list**.
 
-### Suggested finishing touches in Desktop (one‑click items that are easier done in the UI)
-- Mark **Task list** as a drill‑through page on `Dim Team[Team]`, `Dim Workflow[Workflow]`, `Dim Step[Step]` and
-  `Dim Person[Person]` (Page settings → Drill through) so right‑click → *Task list* works from any visual.
-- Sync the Team and Workflow slicers across pages (View → Sync slicers).
-- Add a *Top N* visual‑level filter on the "by individual" and "by account executive" charts if the lists get long.
-- Replace `SLA_Cap_Days` with the real SLA table when the business sheet arrives (join on `Dim Step`).
+### Known gaps vs the mockup (data or platform)
+- *Turnaround by process* uses yesterday's releases (`Completed`); the mockup's May‑2025 history is not in the extract.
+- The *Division* filter has one value (Wholesale) — the extract covers the Monarch/Wholesale teams only.
+- The *Compliance workflow* slicer needs a workflow column in the Compliance extract; not present yet.
+- The data‑bar column in *Service by process* and the segmented scope buttons on the Scorecard are rendered as a sortable % column and a dropdown slicer respectively.
 
 ## 5. Publish to the Power BI service
 

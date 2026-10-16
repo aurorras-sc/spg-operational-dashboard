@@ -1,0 +1,209 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "0d6e9b13935061f3001a",
+  "displayName": "Work On Hand",
+  "displayOption": "FitToPage",
+  "height": 820,
+  "width": 1440,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#EEF1F4'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7b83f9aeff4f4e3e9f7e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Team"
+              }
+            },
+            "Property": "Team"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "1229f59100bc4757bb9b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "Line of business"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b4a04aa99a6b4e2ca05f",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Workflow"
+              }
+            },
+            "Property": "Workflow"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e2116c6d771e40baa36d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Step"
+              }
+            },
+            "Property": "Step"
+          }
+        },
+        "type": "Categorical",
+        "displayName": "Process step"
+      },
+      {
+        "name": "7099e2173ead4b518cf4",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Person"
+              }
+            },
+            "Property": "Person"
+          }
+        },
+        "type": "Categorical",
+        "displayName": "Assigned to"
+      },
+      {
+        "name": "7b677e87475a486e80d3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "Account executive"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5fe785b7aa724f5f9d5a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "CSR"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "14ff517bc8b545f9bcdd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "Agent name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f9429189787349a3bbb3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "Date initiated"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "d3fe70823da645b7b594",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "OpenTasks"
+              }
+            },
+            "Property": "Available date"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "aadc4d23a166476db8ca",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Aging Band"
+              }
+            },
+            "Property": "Band label"
+          }
+        },
+        "type": "Categorical",
+        "displayName": "Aging bucket"
+      },
+      {
+        "name": "df6b4c4156674d4999e9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dim Person"
+              }
+            },
+            "Property": "Staff scope"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

@@ -1,10 +1,10 @@
 table 'Dim Workflow'
-	lineageTag: 03e4bfae-8589-4dbf-a48b-baff77c96d9d
+	lineageTag: 6e4c1c19-9e94-43d3-8ba0-c037604061c2
 
 	column Workflow
 		dataType: string
 		isKey
-		lineageTag: 9b54c78a-4283-4fdd-9a06-055afb18c5b0
+		lineageTag: 1d31613e-b732-4942-bc34-fdd29bc77fc6
 		summarizeBy: none
 		sourceColumn: Workflow
 

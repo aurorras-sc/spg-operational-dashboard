@@ -99,9 +99,10 @@ OPEN_M = f"""let
     AddInitiated = Table.AddColumn(AddInPipeline, "Date initiated", each Date.AddDays(SnapshotDate, -[#"Age (days)"]), type date),
     AddAvailable = Table.AddColumn(AddInitiated, "Available date", each Date.AddDays(SnapshotDate, -[#"Days since available"]), type date),
     AddUnassigned = Table.AddColumn(AddAvailable, "Is unassigned", each [#"Assigned to"] = "(Unassigned)", type logical),
-    AddReceivedYday = Table.AddColumn(AddUnassigned, "Received yesterday", each [#"Days since available"] >= 0 and [#"Days since available"] <= 1, type logical)
+    AddReceivedYday = Table.AddColumn(AddUnassigned, "Received yesterday", each [#"Days since available"] >= 0 and [#"Days since available"] <= 1, type logical),
+    AddDivision = Table.AddColumn(AddReceivedYday, "Division", each "Wholesale", type text)
 in
-    AddReceivedYday"""
+    AddDivision"""
 
 COMPLETED_M = f"""let
     {WORKFLOW_MAP},
@@ -230,7 +231,7 @@ T["OpenTasks"] = table("OpenTasks", [
     column("Aging band", "string"), column("Over 30 days", "boolean"), column("Over 90 days", "boolean"), column("Staff scope", "string"),
     column("Line of business", "string"), column("Renewal stage", "string", sort_by="Renewal stage order"), column("Renewal stage order", "int64", hidden=True),
     column("In renewal pipeline", "boolean"), column("Date initiated", "dateTime", fmt="dd mmm yyyy"), column("Available date", "dateTime", fmt="dd mmm yyyy"),
-    column("Is unassigned", "boolean"), column("Received yesterday", "boolean"),
+    column("Is unassigned", "boolean"), column("Received yesterday", "boolean"), column("Division", "string"),
 ], OPEN_M)
 
 T["Completed"] = table("Completed", [
@@ -276,11 +277,28 @@ m("Over 90 days", "COALESCE ( CALCULATE ( [Work on hand], OpenTasks[Over 90 days
 m("Over 90 days %", "DIVIDE ( [Over 90 days], [Work on hand] )", PCT, "Work on hand")
 m("Share of work on hand", "DIVIDE ( [Work on hand], CALCULATE ( [Work on hand], REMOVEFILTERS ( 'Dim Aging Band' ), REMOVEFILTERS ( OpenTasks[Aging band] ) ) )", PCT, "Work on hand")
 m("Received yesterday", "COALESCE ( CALCULATE ( COUNTROWS ( OpenTasks ), OpenTasks[Received yesterday] = TRUE () ), 0 )", N0, "Work on hand")
-m("Service status", 'SWITCH ( TRUE (), ISBLANK ( [Out of service %] ), BLANK (), [Out of service %] <= Thresholds[Green max], "Green", [Out of service %] <= Thresholds[Amber max], "Amber", "Red" )', None, "Status")
+m("Service status", 'VAR p = [Out of service %] RETURN IF ( ISBLANK ( p ), BLANK (), IF ( p <= 0.15, "Green", IF ( p <= 0.30, "Amber", "Red" ) ) )', None, "Status", "Green <= 15% out of service, Amber <= 30%, otherwise Red (thresholds to be confirmed by the business).")
 m("Service status colour", 'SWITCH ( [Service status], "Green", "#3EBD5E", "Amber", "#F3B921", "Red", "#D02D4F", "#8A949C" )', None, "Status")
 m("Service status icon", 'SWITCH ( [Service status], "Green", UNICHAR ( 9679 ) & " Green", "Amber", UNICHAR ( 9679 ) & " Amber", "Red", UNICHAR ( 9679 ) & " Red", BLANK () )', None, "Status")
-m("Work on hand subtitle", 'FORMAT ( [Files on hand], "#,0" ) & " files  |  oldest " & FORMAT ( [Oldest item (days)], "0" ) & " d  |  " & FORMAT ( [Over 30 days], "#,0" ) & " over 30 d"', None, "Status")
+m("Work on hand subtitle", 'FORMAT ( [Files on hand], "#,0" ) & " files  ·  oldest " & FORMAT ( [Oldest item (days)], "0" ) & " d  ·  " & FORMAT ( [Over 30 days], "#,0" ) & " over 30 d"', None, "Status")
 m("Out of service subtitle", 'FORMAT ( [Out of service], "#,0" ) & " of " & FORMAT ( [Work on hand], "#,0" ) & " available items past service level"', None, "Status")
+m("Team out of service %", "CALCULATE ( [Out of service %], REMOVEFILTERS ( 'Dim Person' ), REMOVEFILTERS ( OpenTasks[Assigned to] ) )", PCT, "Status", "Out of service share of the whole team, ignoring the individual selected.")
+# KPI subtitles (the small grey line under each tile in the mockup)
+m("Sub: files", 'FORMAT ( [Files on hand], "#,0" ) & " files"', None, "Subtitles")
+m("Sub: files and scheduled", 'FORMAT ( [Files on hand], "#,0" ) & " files  ·  " & FORMAT ( [Scheduled (not yet available)], "#,0" ) & " scheduled (not yet available)"', None, "Subtitles")
+m("Sub: out of service items", 'FORMAT ( [Out of service], "#,0" ) & " items"', None, "Subtitles")
+m("Sub: out of service vs team", 'FORMAT ( [Out of service], "#,0" ) & " items  ·  team " & FORMAT ( [Team out of service %], "0%" )', None, "Subtitles")
+m("Sub: over 90", 'FORMAT ( [Over 90 days %], "0%" ) & " of work on hand  ·  " & FORMAT ( [Over 30 days], "#,0" ) & " over 30"', None, "Subtitles")
+m("Sub: unassigned", '"oldest " & FORMAT ( [Unassigned oldest (days)], "0" ) & " d  ·  " & FORMAT ( [Unassigned over 30 days], "#,0" ) & " over 30"', None, "Subtitles")
+m("Sub: unassigned files", 'FORMAT ( [Unassigned files], "#,0" ) & " files"', None, "Subtitles")
+m("Sub: unassigned oldest", '"oldest " & FORMAT ( [Unassigned oldest (days)], "0" ) & " d"', None, "Subtitles")
+m("Sub: unassigned out of service", 'FORMAT ( [Unassigned out of service], "#,0" ) & " items"', None, "Subtitles")
+m("Sub: band share", 'FORMAT ( [Share of work on hand], "0%" ) & " of on hand"', None, "Subtitles")
+m("Sub: completed tasks", 'FORMAT ( [Completed yesterday], "#,0" ) & " tasks  ·  release = completed"', None, "Subtitles")
+m("Context: tasks and files", 'FORMAT ( [Work on hand], "#,0" ) & " tasks  ·  " & FORMAT ( [Files on hand], "#,0" ) & " files"', None, "Subtitles")
+m("Context: out of service", 'FORMAT ( [Out of service], "#,0" ) & " out of service  ·  " & FORMAT ( [Out of service %], "0%" )', None, "Subtitles")
+m("Context: oldest", '"oldest " & FORMAT ( [Oldest item (days)], "0" ) & " d"', None, "Subtitles")
+m("Context: age mix", 'VAR b = ADDCOLUMNS ( SUMMARIZE ( \'Dim Aging Band\', \'Dim Aging Band\'[Band label], \'Dim Aging Band\'[Band order] ), "@n", [Work on hand] ) RETURN CONCATENATEX ( FILTER ( b, [@n] > 0 ), \'Dim Aging Band\'[Band label] & " " & FORMAT ( [@n], "#,0" ), "  ·  ", \'Dim Aging Band\'[Band order], ASC )', None, "Subtitles")
 # Unassigned
 m("Unassigned items", "COALESCE ( CALCULATE ( [Work on hand], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () ), 0 )", N0, "Unassigned")
 m("Unassigned files", "CALCULATE ( [Files on hand], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () )", N0, "Unassigned")
@@ -322,6 +340,9 @@ m("Filings over 30 days old", "CALCULATE ( COUNTROWS ( Compliance ), Compliance[
 m("Oldest past due (days)", 'CALCULATE ( MAX ( Compliance[Days past due] ), Compliance[Due band code] = "past" )', "+0;-0;0", "Compliance")
 m("Compliance status", 'IF ( [Past due] > 0, "Past due", IF ( [Due within 14 days] > 0, "Due within 14 days", "On track" ) )', None, "Compliance")
 m("Fining state flag", 'IF ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Fining state] = TRUE () ) > 0, "FINES", "" )', None, "Compliance")
+m("Filings in processing", 'COALESCE ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[State] = "Processing" ), 0 )', N0, "Compliance")
+m("Sub: past due stuck", 'FORMAT ( [Past due and over 30 days (stuck)], "#,0" ) & " of them also over 30 days old  —  stuck"', None, "Subtitles")
+m("Sub: open filings", 'FORMAT ( [Filings over 30 days old], "#,0" ) & " over 30 days old" & IF ( [Filings in processing] > 0, "  ·  " & FORMAT ( [Filings in processing], "#,0" ) & " in processing", "" )', None, "Subtitles")
 
 def measures_table():
     s = "table '_Measures'\n\tlineageTag: " + lt() + "\n\n"
@@ -340,17 +361,6 @@ def measures_table():
     return s
 T["_Measures"] = measures_table()
 
-# Thresholds (calculated table with service thresholds exposed to measures)
-T["Thresholds"] = ("table Thresholds\n\tisHidden\n\tlineageTag: " + lt() + "\n\n"
-    + column("Green max", "double", fmt="0%") + column("Amber max", "double", fmt="0%")
-    + "\tpartition Thresholds = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Green max\" = number, #\"Amber max\" = number], {{Green_Max_OutOfService, Amber_Max_OutOfService}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n")
-
-# measures reference Thresholds[Green max] as a scalar: use a measure wrapper instead of column ref
-# patch: replace Thresholds[Green max] / [Amber max] in DAX with MAX() over hidden table
-for i, (name, dax, fmt, folder, desc) in enumerate(M):
-    dax = dax.replace("Thresholds[Green max]", "MAX ( Thresholds[Green max] )").replace("Thresholds[Amber max]", "MAX ( Thresholds[Amber max] )")
-    M[i] = (name, dax, fmt, folder, desc)
-T["_Measures"] = measures_table()
 
 for name, text in T.items():
     w(os.path.join(TBL, f"{name}.tmdl"), text)
@@ -418,7 +428,7 @@ w(os.path.join(DEF, "relationships.tmdl"), r)
 
 # ------------------------------------------------------------ model / database / culture
 order = ["DataPath", "SnapshotDate", "SLA_Cap_Days", "Fining_States", "Green_Max_OutOfService", "Amber_Max_OutOfService", "SPG_Workbook",
-         "OpenTasks", "Completed", "Compliance", "Dim Team", "Dim Workflow", "Dim Step", "Dim Person", "Dim Aging Band", "Thresholds", "_Measures"]
+         "OpenTasks", "Completed", "Compliance", "Dim Team", "Dim Workflow", "Dim Step", "Dim Person", "Dim Aging Band", "_Measures"]
 model = ("model Model\n\tculture: en-US\n\tdefaultPowerBIDataSourceVersion: powerBI_V3\n\tsourceQueryCulture: en-US\n\tdataAccessOptions\n\t\tlegacyRedirects\n\t\treturnErrorValuesAsNull\n\n"
          + "annotation PBI_QueryOrder = " + json.dumps(order) + "\n\nannotation __PBI_TimeIntelligenceEnabled = 0\n\n"
          + "annotation PBIDesktopVersion = 2.138.1452.0 (25.02)\n\n"
