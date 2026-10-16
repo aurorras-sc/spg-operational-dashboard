@@ -1,9 +1,9 @@
 table Completed
-	lineageTag: bd691b61-dfa9-4465-ac02-a41fa2ee7b64
+	lineageTag: 16e4fdf1-72f6-4c3f-853c-f3bea0b1925d
 
 	column Workflow
 		dataType: string
-		lineageTag: 3040a423-77c8-4d95-99f3-4fe701ed015c
+		lineageTag: c5b2c8f8-c6cd-4b37-a945-6d35297d3e78
 		summarizeBy: none
 		sourceColumn: Workflow
 
@@ -11,7 +11,7 @@ table Completed
 
 	column Step
 		dataType: string
-		lineageTag: 2febe76f-af8c-4ff1-bffe-0b2df0a40c88
+		lineageTag: 0ca41d4c-d1fd-4826-a63f-383e0827d179
 		summarizeBy: none
 		sourceColumn: Step
 
@@ -19,7 +19,7 @@ table Completed
 
 	column 'Released by'
 		dataType: string
-		lineageTag: f34157d9-6672-4233-86a0-684666664d74
+		lineageTag: 1421aeb3-fc42-45ae-bfea-a11ad04a7592
 		summarizeBy: none
 		sourceColumn: Released by
 
@@ -28,7 +28,7 @@ table Completed
 	column 'Hours in step'
 		dataType: double
 		formatString: #,0.0
-		lineageTag: 64eed527-e2e7-4d99-842e-0099d0ab473a
+		lineageTag: a8c68569-13dd-47c1-a346-f20f6c424a14
 		summarizeBy: none
 		sourceColumn: Hours in step
 
@@ -37,7 +37,7 @@ table Completed
 	column 'Turnaround (days)'
 		dataType: double
 		formatString: #,0.0
-		lineageTag: 233a91eb-ed57-4f0a-aa95-76669adb4bcb
+		lineageTag: e6ea0c7c-0070-4b4b-85be-328fdc2dd152
 		summarizeBy: none
 		sourceColumn: Turnaround (days)
 
@@ -46,7 +46,7 @@ table Completed
 	column 'SLA (days)'
 		dataType: int64
 		formatString: 0
-		lineageTag: 1b917938-2e53-414a-88e8-c3ecc5bd938c
+		lineageTag: fa762b70-890a-4cac-9ec3-3b526ed9ed50
 		summarizeBy: none
 		sourceColumn: SLA (days)
 
@@ -54,7 +54,7 @@ table Completed
 
 	column 'Met SLA'
 		dataType: boolean
-		lineageTag: 44a5ed14-9a63-476c-9af1-781c238d83bb
+		lineageTag: 10547bb5-0c88-47b9-9f85-0ae197ef4503
 		summarizeBy: none
 		sourceColumn: Met SLA
 
@@ -62,7 +62,7 @@ table Completed
 
 	column 'Is rework'
 		dataType: boolean
-		lineageTag: 7f5fd42b-4b90-4048-9e5c-91f55c19731b
+		lineageTag: 35dedb78-72ca-44a7-aff7-e5a845450e53
 		summarizeBy: none
 		sourceColumn: Is rework
 
@@ -70,7 +70,7 @@ table Completed
 
 	column 'Release type'
 		dataType: string
-		lineageTag: b1e00b35-9ed7-49ab-af86-1c792858369c
+		lineageTag: 12e82fdc-69ad-416d-8451-1884bdff7060
 		summarizeBy: none
 		sourceColumn: Release type
 
@@ -78,7 +78,7 @@ table Completed
 
 	column 'Hours band'
 		dataType: string
-		lineageTag: 89a6737a-c970-4bf8-ae2b-1951a46ff8cf
+		lineageTag: ca9752f3-75bd-4a05-8d9a-c58dcf2ead08
 		sortByColumn: 'Hours band order'
 		summarizeBy: none
 		sourceColumn: Hours band
@@ -88,7 +88,7 @@ table Completed
 	column 'Hours band order'
 		dataType: int64
 		isHidden
-		lineageTag: 35bdb85e-eccd-4059-afba-138ffbf99507
+		lineageTag: 5eabef15-f865-4168-a2a6-f3abad24ddf5
 		summarizeBy: none
 		sourceColumn: Hours band order
 
@@ -97,7 +97,7 @@ table Completed
 	column 'Release date'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: 92b0beb8-adbc-4975-b884-9e181da5be58
+		lineageTag: 2cbdd87b-08b3-4904-8aa8-cb21b63149e2
 		summarizeBy: none
 		sourceColumn: Release date
 
@@ -106,7 +106,7 @@ table Completed
 	column 'Release id'
 		dataType: int64
 		isHidden
-		lineageTag: 70b56879-ef98-4edb-ba09-2a87d21e4da9
+		lineageTag: 415bca86-1524-47a7-867e-0c6762c6b6eb
 		summarizeBy: none
 		sourceColumn: Release id
 

@@ -90,14 +90,17 @@ def textbox(x, y, w, h, z, runs, size=16, color=NAVY, bold=True):
     return container("textbox", x, y, w, h, z, objects={"general": [{"properties": {"paragraphs": paras}}]}, drill=False,
                      vco={"background": [{"properties": {"show": lit(False)}}]})
 
-def card(x, y, w, h, z, measure, title, color=NAVY, size=26, color_measure=None, filters=None, label_size=9):
-    obj = {"labels": [{"properties": {"color": col_measure(color_measure) if color_measure else col_solid(color), "fontSize": lit(size), "bold": lit(True)}}],
-           "categoryLabels": [{"properties": {"show": lit(True), "color": col_solid(SUB), "fontSize": lit(label_size)}}]}
+def card(x, y, w, h, z, measure, title, color=NAVY, size=None, color_measure=None, filters=None, label_size=9):
+    # colour is static here; measure-driven colour (color_measure) is applied in Desktop via Conditional formatting > Field value
+    if size is None or size > (h - 34) * 0.55:
+        size = max(12, int(min(size or 99, (h - 34) * 0.55)))
+    obj = {"labels": [{"properties": {"color": col_solid(color), "fontSize": lit(size), "bold": lit(True)}}],
+           "categoryLabels": [{"properties": {"show": lit(False)}}]}
     vco = {"title": [{"properties": {"show": lit(True), "text": lit(title), "fontSize": lit(9), "fontColor": col_solid(SUB), "bold": lit(True)}}],
            "border": [{"properties": {"show": lit(True), "color": col_solid(color), "radius": lit(0), "width": lit(2)}}]}
     return container("card", x, y, w, h, z, roles={"Values": [measure]}, objects=obj, vco=vco, filters=filters)
 
-def cardtext(x, y, w, h, z, measure, title, size=12, color=SUB, filters=None):
+def cardtext(x, y, w, h, z, measure, title, size=9, color=SUB, filters=None):
     obj = {"labels": [{"properties": {"color": col_solid(color), "fontSize": lit(size), "bold": lit(False), "wordWrap": lit(True)}}],
            "categoryLabels": [{"properties": {"show": lit(False)}}]}
     vco = {"title": [{"properties": {"show": lit(bool(title)), "text": lit(title or ""), "fontSize": lit(9), "fontColor": col_solid(SUB)}}]}
@@ -146,8 +149,6 @@ def table_vis(x, y, w, h, z, fields, title, sort_by=None, desc=True, filters=Non
            "total": [{"properties": {"totals": lit(False)}}]}
     for f in (bold_cols or []):
         obj["values"].append({"selector": {"metadata": f"{f[1]}.{f[2]}"}, "properties": {"fontColorPrimary": col_solid(RED), "bold": lit(True)}})
-    for f, meas in (color_cols or []):
-        obj["values"].append({"selector": {"metadata": f"{f[1]}.{f[2]}"}, "properties": {"fontColorPrimary": col_measure(meas)}})
     sort = sortdef(sort_by, desc) if sort_by else None
     return container("tableEx", x, y, w, h, z, roles={"Values": fields}, objects=obj, title=title, sort=sort, filters=filters)
 
@@ -195,8 +196,8 @@ pages = []
 # ----------------------------------------------------------------- 1. Service Overview
 V = header("Service Overview", "Enterprise") + global_slicers(1)
 z = 10
-V += [card(8, 52, 190, 150, z, Mx("Out of service %"), "Work on hand out of service", size=40, color_measure="Service status colour"),
-      card(204, 52, 104, 150, z + 1, Mx("Service status"), "Status", size=16, color_measure="Service status colour"),
+V += [card(8, 52, 190, 150, z, Mx("Out of service %"), "Work on hand out of service", size=40, color=RED),
+      card(204, 52, 104, 150, z + 1, Mx("Service status"), "Status", size=16, color=NAVY),
       cardtext(8, 206, 300, 40, z + 2, Mx("Out of service subtitle"), None, size=9),
       card(316, 52, 310, 70, z + 3, Mx("Completed yesterday"), "Completed yesterday", color=OK),
       card(634, 52, 310, 70, z + 4, Mx("Within SLA on completion %"), "Within SLA on completion", color=NAVY),
@@ -224,20 +225,20 @@ pages.append(("Service Overview", V, None))
 # ----------------------------------------------------------------- 2. Work on hand
 V = header("Work on hand", "Drill to the individual") + global_slicers(1)
 z = 10
-V += [card(8, 52, 200, 130, z, Mx("Work on hand"), "Work on hand", color=NAVY, size=30),
-      card(216, 52, 200, 130, z + 1, Mx("Out of service %"), "Out of service", color_measure="Service status colour", size=30),
-      barchart(424, 52, 848, 130, z + 2, BAND, [Mx("Work on hand")], "Work on hand by aging band - click a band to see its items", horizontal=False,
+V += [card(8, 52, 200, 170, z, Mx("Work on hand"), "Work on hand", color=NAVY, size=30),
+      card(216, 52, 200, 170, z + 1, Mx("Out of service %"), "Out of service", color=RED, size=30),
+      barchart(424, 52, 848, 170, z + 2, BAND, [Mx("Work on hand")], "Work on hand by aging band - click a band to see its items",
                colmap={"0-7 days": BAND_COL["0-7"], "8-15 days": BAND_COL["8-15"], "16-30 days": BAND_COL["16-30"], "31-60 days": BAND_COL["31-60"], "61-90 days": BAND_COL["61-90"], "Over 90 days": BAND_COL["90+"], "Unknown": MUTE},
                sort_by=C("Dim Aging Band", "Band order"), desc=False)]
 z = 20
-V += [decomp_tree(8, 190, 700, 260, z, Mx("Work on hand"), [TEAM, WF, STEP, PERSON], "Decomposition - Team > Workflow > Step > Individual"),
-      barchart(716, 190, 556, 260, z + 1, PERSON, [Mx("Work on hand")], "Work on hand by individual", series=BAND, stacked=True,
+V += [decomp_tree(8, 230, 700, 232, z, Mx("Work on hand"), [TEAM, WF, STEP, PERSON], "Decomposition - Team > Workflow > Step > Individual"),
+      barchart(716, 230, 556, 232, z + 1, PERSON, [Mx("Work on hand")], "Work on hand by individual", series=BAND, stacked=True,
                colmap={"0-7 days": BAND_COL["0-7"], "8-15 days": BAND_COL["8-15"], "16-30 days": BAND_COL["16-30"], "31-60 days": BAND_COL["31-60"], "61-90 days": BAND_COL["61-90"], "Over 90 days": BAND_COL["90+"]},
                sort_by=Mx("Work on hand"), labels=False)]
 z = 30
-V += [matrix_vis(8, 458, 700, 254, z, [TEAM, WF, STEP, PERSON], [BAND], [proj(Mx("Work on hand"), "On hand"), proj(Mx("Out of service"), "Out of svc"), proj(Mx("Out of service %"), "%")],
+V += [matrix_vis(8, 470, 700, 242, z, [TEAM, WF, STEP, PERSON], [BAND], [proj(Mx("Work on hand"), "On hand"), proj(Mx("Out of service"), "Out of svc"), proj(Mx("Out of service %"), "%")],
                  "Matrix - next level with aging buckets"),
-      table_vis(716, 458, 556, 254, z + 1, [proj(OT("Age (days)"), "Age"), proj(OT("SLA (days)"), "SLA"), proj(OT("File number"), "File"), proj(OT("Insured")), proj(OT("Assigned to")), proj(OT("Step"))],
+      table_vis(716, 470, 556, 242, z + 1, [proj(OT("Age (days)"), "Age"), proj(OT("SLA (days)"), "SLA"), proj(OT("File number"), "File"), proj(OT("Insured")), proj(OT("Assigned to")), proj(OT("Step"))],
                 "Oldest first", sort_by=OT("Age (days)"), filters=[cat_filter(OT("Scheduled"), [False])], bold_cols=[OT("Age (days)")])]
 pages.append(("Work On Hand", V, None))
 
@@ -247,8 +248,8 @@ z = 10
 stage_cards = [("Not yet quoted", RED), ("Quoted - with agent", "#FF8A00"), ("Bound - awaiting issue", OK), ("Not renewing", MUTE)]
 for i, (nm, colr) in enumerate(stage_cards):
     xx = 8 + i * 318
-    V.append(card(xx, 52, 310, 72, z + i, Mx(nm), nm, color=colr, size=24))
-    V.append(cardtext(xx, 126, 310, 26, z + 4 + i, Mx("Renewal stage subtitle"), None, size=8, filters=[cat_filter(OT("Renewal stage"), [nm])]))
+    V.append(card(xx, 52, 310, 68, z + i, Mx(nm), nm, color=colr))
+    V.append(cardtext(xx, 122, 310, 34, z + 4 + i, Mx("Renewal stage subtitle"), None, size=8, filters=[cat_filter(OT("Renewal stage"), [nm])]))
 z = 20
 V += [barchart(8, 160, 632, 250, z, TEAM, [Mx("Renewals in pipeline")], "Pipeline by team - stage mix", series=OT("Renewal stage"), stacked=True, colmap=STAGE_COL, sort_by=Mx("Renewals in pipeline")),
       barchart(648, 160, 624, 250, z + 1, OT("Account executive"), [Mx("Renewals in pipeline")], "Pipeline by account executive", series=OT("Renewal stage"), stacked=True, colmap=STAGE_COL, sort_by=Mx("Renewals in pipeline"), labels=False)]
@@ -265,9 +266,9 @@ pages.append(("Renewal Pipeline", V, [cat_filter(WF, ["Renewal"])]))
 # ----------------------------------------------------------------- 4. Team scorecard
 V = header("Team scorecard", "By individual") + [slicer(700, 4, 190, 42, 1, C("Dim Person", "Staff scope"), "Scope"), slicer(900, 4, 180, 42, 2, PERSON_KEY, "Individual", single=True), slicer(1090, 4, 182, 42, 3, WF, "Workflow")]
 z = 10
-kp = [("Items on hand", Mx("Work on hand"), NAVY, None), ("Out of service", Mx("Out of service %"), None, "Service status colour"), ("Oldest item (days)", Mx("Oldest item (days)"), RED, None),
+kp = [("Items on hand", Mx("Work on hand"), NAVY, None), ("Out of service", Mx("Out of service %"), RED, None), ("Oldest item (days)", Mx("Oldest item (days)"), RED, None),
       ("Received yesterday", Mx("Received yesterday"), NAVY, None), ("Released yesterday", Mx("Completed yesterday"), OK, None), ("Within SLA on completion", Mx("Within SLA on completion %"), NAVY, None),
-      ("Status", Mx("Service status"), None, "Service status colour")]
+      ("Status", Mx("Service status"), NAVY, None)]
 for i, (t, mm, colr, cm) in enumerate(kp):
     V.append(card(8 + i * 181, 52, 176, 90, z + i, mm, t, color=colr or NAVY, color_measure=cm, size=22 if t != "Status" else 16))
 z = 20
@@ -322,11 +323,11 @@ pages.append(("Compliance", V, None))
 # ----------------------------------------------------------------- 7. Task list
 V = header("Task list", "Every column  |  detail") + [slicer(640, 4, 150, 42, 1, TEAM, "Team"), slicer(798, 4, 150, 42, 2, WF, "Workflow"), slicer(956, 4, 150, 42, 3, STEP, "Step"), slicer(1114, 4, 158, 42, 4, OT("Service"), "Service")]
 z = 10
-V += [card(8, 52, 200, 60, z, Mx("Work on hand"), "Tasks", size=18), card(216, 52, 200, 60, z + 1, Mx("Files on hand"), "Files", size=18),
-      card(424, 52, 200, 60, z + 2, Mx("Out of service"), "Out of service", size=18, color=RED), card(632, 52, 200, 60, z + 3, Mx("Out of service %"), "Out of service %", size=18, color_measure="Service status colour"),
-      card(840, 52, 200, 60, z + 4, Mx("Oldest item (days)"), "Oldest (days)", size=18), card(1048, 52, 224, 60, z + 5, Mx("Scheduled (not yet available)"), "Scheduled (not on hand)", size=18, color=MUTE)]
+V += [card(8, 52, 200, 70, z, Mx("Work on hand"), "Tasks"), card(216, 52, 200, 70, z + 1, Mx("Files on hand"), "Files"),
+      card(424, 52, 200, 70, z + 2, Mx("Out of service"), "Out of service", color=RED), card(632, 52, 200, 70, z + 3, Mx("Out of service %"), "Out of service %", color=RED),
+      card(840, 52, 200, 70, z + 4, Mx("Oldest item (days)"), "Oldest (days)"), card(1048, 52, 224, 70, z + 5, Mx("Scheduled (not yet available)"), "Scheduled (not on hand)", color=MUTE)]
 cols = ["Age (days)", "Service", "SLA (days)", "Aging band", "Status", "File number", "Policy number", "Insured", "Brand", "Department", "Team", "Workflow", "Step", "Assigned to", "From user", "Account executive", "CSR", "Agent name", "Date initiated", "Available date"]
-V += [table_vis(8, 120, 1264, 592, 20, [proj(OT(c)) for c in cols], "Task list - 20 columns, scroll right for more; use Export data from the visual header", sort_by=OT("Age (days)"), bold_cols=[OT("Age (days)")])]
+V += [table_vis(8, 130, 1264, 582, 20, [proj(OT(c)) for c in cols], "Task list - 20 columns, scroll right for more; use Export data from the visual header", sort_by=OT("Age (days)"), bold_cols=[OT("Age (days)")])]
 pages.append(("Task list", V, None))
 
 # ================================================================= WRITE

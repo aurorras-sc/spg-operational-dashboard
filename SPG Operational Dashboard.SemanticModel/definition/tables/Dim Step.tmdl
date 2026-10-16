@@ -1,10 +1,10 @@
 table 'Dim Step'
-	lineageTag: 196bdf1d-b2d1-4539-a341-e929e8b1834a
+	lineageTag: 8f443ef5-fa22-4bdb-84e3-311d20a4fb97
 
 	column Step
 		dataType: string
 		isKey
-		lineageTag: 274b150d-21e2-4717-9d8c-0317ec6c0480
+		lineageTag: 808bafe0-d415-4d8f-a7fc-5bb388a3050b
 		summarizeBy: none
 		sourceColumn: Step
 
@@ -12,7 +12,7 @@ table 'Dim Step'
 
 	column 'Intake step'
 		dataType: boolean
-		lineageTag: 68f0b28f-a33e-4bdb-b0e4-562b885d7269
+		lineageTag: 7b5eb2a7-8c18-4910-add0-131f48c860f8
 		summarizeBy: none
 		sourceColumn: Intake step
 
@@ -21,7 +21,7 @@ table 'Dim Step'
 	column 'Hour target'
 		dataType: int64
 		formatString: 0
-		lineageTag: e7f79d72-dd2f-4406-9fd3-c5fce4f1453c
+		lineageTag: fcdce5d1-2a5c-49f0-a9bb-ef59c2337010
 		summarizeBy: none
 		sourceColumn: Hour target
 
