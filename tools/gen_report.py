@@ -71,7 +71,7 @@ def container(vtype, x, y, w, h, z, roles=None, objects=None, title=None, sort=N
     if vcos: v["visualContainerObjects"] = vcos
     if extra: v.update(extra)
     v["drillFilterOtherVisuals"] = drill
-    c = {"$schema": f"{SCHEMA}/visualContainer/2.0.0/schema.json", "name": nid(),
+    c = {"$schema": f"{SCHEMA}/visualContainer/1.0.0/schema.json", "name": nid(),
          "position": {"x": x, "y": y, "z": z, "height": h, "width": w, "tabOrder": z}, "visual": v}
     if filters: c["filterConfig"] = filterconfig(filters)
     return c
@@ -160,7 +160,7 @@ def decomp_tree(x, y, w, h, z, analyze, explain_by, title):
 def page(name, display, visuals, filters=None, order=0, width=1280, height=720):
     pid = nid()
     pdir = os.path.join(PAGES, pid); os.makedirs(os.path.join(pdir, "visuals"), exist_ok=True)
-    pj = {"$schema": f"{SCHEMA}/page/2.0.0/schema.json", "name": pid, "displayName": display, "displayOption": "FitToPage",
+    pj = {"$schema": f"{SCHEMA}/page/1.0.0/schema.json", "name": pid, "displayName": display, "displayOption": "FitToPage",
           "height": height, "width": width,
           "objects": {"background": [{"properties": {"color": col_solid("#EEF1F4"), "transparency": lit(0)}}]}}
     if filters: pj["filterConfig"] = filterconfig(filters)
@@ -326,9 +326,9 @@ page_ids = []
 for i, (disp, vis, pf) in enumerate(pages):
     page_ids.append(page(None, disp, vis, pf, i))
 with open(os.path.join(PAGES, "pages.json"), "w") as f:
-    json.dump({"$schema": f"{SCHEMA}/pagesMetadata/2.0.0/schema.json", "pageOrder": page_ids, "activePageName": page_ids[0]}, f, indent=2)
+    json.dump({"$schema": f"{SCHEMA}/pagesMetadata/1.0.0/schema.json", "pageOrder": page_ids, "activePageName": page_ids[0]}, f, indent=2)
 with open(os.path.join(DEF, "version.json"), "w") as f:
-    json.dump({"$schema": f"{SCHEMA}/versionMetadata/2.0.0/schema.json", "version": "2.0.0"}, f, indent=2)
+    json.dump({"$schema": f"{SCHEMA}/versionMetadata/1.0.0/schema.json", "version": "1.0.0"}, f, indent=2)
 
 THEME = {
     "name": "SPGTheme", "dataColors": [ELEC, NAVY, OK, AMBER, "#FF8A00", RED, "#8B1E3F", MUTE, "#E8702A", SUB],
@@ -346,7 +346,7 @@ THEME = {
 }
 with open(os.path.join(RES, "SPGTheme.json"), "w") as f: json.dump(THEME, f, indent=2)
 
-REPORT = {"$schema": f"{SCHEMA}/report/2.0.0/schema.json",
+REPORT = {"$schema": f"{SCHEMA}/report/1.0.0/schema.json",
           "themeCollection": {"baseTheme": {"name": "CY24SU10", "reportVersionAtImport": "5.55", "type": "SharedResources"},
                               "customTheme": {"name": "SPGTheme.json", "reportVersionAtImport": "5.55", "type": "RegisteredResources"}},
           "layoutOptimization": "None",
@@ -354,7 +354,7 @@ REPORT = {"$schema": f"{SCHEMA}/report/2.0.0/schema.json",
           "settings": {"useStylableVisualContainerHeader": True, "defaultDrillFilterOtherVisuals": True, "useNewFilterPaneExperience": True, "allowChangeFilterTypes": True, "useEnhancedTooltips": True}}
 with open(os.path.join(DEF, "report.json"), "w") as f: json.dump(REPORT, f, indent=2)
 with open(os.path.join(RP, "definition.pbir"), "w") as f:
-    json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/2.0.0/schema.json", "version": "4.0",
+    json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json", "version": "4.0",
                "datasetReference": {"byPath": {"path": "../SPG Operational Dashboard.SemanticModel"}}}, f, indent=2)
 with open(os.path.join(RP, ".platform"), "w") as f:
     json.dump({"$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
