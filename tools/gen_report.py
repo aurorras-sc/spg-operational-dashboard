@@ -141,15 +141,18 @@ def card(x, y, w, h, z, measure, title, color=NAVY, size=None, color_measure=Non
 def kpi(x, y, w, h, z, measure, title, sub=None, color=NAVY, size=None, color_measure=None, filters=None, sub_text=None):
     """Mockup KPI tile = card (label + big number) with a small grey subtitle line laid over its bottom edge.
     sub: a measure for a dynamic subtitle; sub_text: a static string."""
+    has_sub = sub is not None or bool(sub_text)
+    if size is None or (has_sub and size > (h - 56) * 0.6):
+        size = max(12, int(min(size or 99, (h - 56) * 0.6)))   # title ~22 px + subtitle 30 px: the number must fit between them
     out = [card(x, y, w, h, z, measure, title, color=color, size=size, color_measure=color_measure, filters=filters)]
     if sub is not None:
-        out.append(cardtext(x + 8, y + h - 24, w - 16, 22, z + 50, sub, None, size=8, filters=filters, transparent=True))
+        out.append(cardtext(x + 6, y + h - 30, w - 12, 30, z + 50, sub, None, size=8, filters=filters, transparent=True))
     elif sub_text:
-        out.append(textbox(x + 8, y + h - 24, w - 16, 22, z + 50, [sub_text], size=8, color=SUB, bold=False))
+        out.append(textbox(x + 6, y + h - 26, w - 12, 24, z + 50, [sub_text], size=8, color=SUB, bold=False))
     return out
 
 def cardtext(x, y, w, h, z, measure, title, size=9, color=SUB, filters=None, transparent=False, color_measure=None, bold=False):
-    obj = {"card": [{"properties": {"barWeight": lit(0), "outlineWeight": lit(0)}}],
+    obj = {"card": [{"properties": {"outline": lit("None"), "barShow": lit(False), "barWeight": lit(0), "outlineWeight": lit(0), "cardPadding": lit(0)}}],
            "dataLabels": [{"properties": {"fontSize": lit(size), "color": col_measure(color_measure) if color_measure else col_solid(color), "fontFamily": lit("Segoe UI Semibold" if bold else "Segoe UI")}}],
            "categoryLabels": [{"properties": {"show": lit(False)}}]}
     vco = {"title": [{"properties": {"show": lit(bool(title)), "text": lit(title or ""), "fontSize": lit(9), "fontColor": col_solid(SUB)}}]}
@@ -253,8 +256,7 @@ BAND_ORDER = C("Dim Aging Band", "Band order")
 
 # ================================================================= LAYOUT (mockup shell: left page nav + page header + content grid)
 PAGE_W, PAGE_H = 1440, 820
-NAV_W = 190
-X0, CW = NAV_W + 14, PAGE_W - NAV_W - 14 - 14      # content area x / width
+X0, CW = 14, PAGE_W - 28      # content area x / width
 Y0 = 54
 GAP = 10
 CANVAS = "#EEF1F4"
@@ -277,19 +279,9 @@ PAGE_DEFS = [(page_id(n), n, sub) for n, sub in [("Service Overview", "Enterpris
 PID = {d[1]: d[0] for d in PAGE_DEFS}
 
 def shell(display, subtitle, z=0):
-    """Left navigation (as in the mockup) + page header. Returns visuals."""
-    V = [shape(0, 0, NAV_W, PAGE_H, z, fill="#FFFFFF", line="#E5E7EB"),
-         textbox(10, 8, 170, 24, z + 1, ["Pages"], size=11, color="#111827")]
-    y = 40
-    for pid, name, sub in PAGE_DEFS:
-        if name == "Task list":
-            V.append(textbox(10, y + 2, 170, 16, z + 2, ["DETAIL"], size=7, color="#9CA3AF", bold=False)); y += 20
-        V.append(button(6, y, NAV_W - 12, 28, z + 3, name, target=pid, current=(name == display)))
-        V.append(textbox(14, y + 27, 160, 16, z + 4, [sub], size=7, color="#9CA3AF", bold=False))
-        y += 50
-    V.append(textbox(X0, 10, 680, 34, z + 5, [display.upper(), "    " + subtitle], sizes=[14, 9], colors=[NAVY, SUB], bolds=[True, False]))
-    V.append(textbox(X0 + 700, 12, 520, 30, z + 6, ["Filters: open the Filters pane (☰) for the page slicers  ·  click a bar to cross-highlight  ·  right-click → Drill through → Task list"], size=7, color=SUB, bold=False))
-    return V
+    """Page header (the service shows the page list itself)."""
+    return [textbox(X0, 10, 680, 34, z + 5, [display.upper(), "    " + subtitle], sizes=[14, 9], colors=[NAVY, SUB], bolds=[True, False]),
+            textbox(X0 + CW - 540, 14, 540, 28, z + 6, ["Filters: open the Filters pane (☰) for the page slicers  ·  click a bar to cross-highlight  ·  right-click → Drill through → Task list"], size=7, color=SUB, bold=False)]
 
 def kpi_row(y, h, items, z, x=X0, w=CW):
     """items: list of dicts(measure, title, sub|sub_text, color, color_measure, filters, size)"""
@@ -311,11 +303,11 @@ V = shell("Service Overview", "Enterprise")
 z = 10
 (hx, hw), (kx, kw) = cols([1, 3])
 # hero: Work on hand out of service
-HY, HH = Y0, 162
+HY, HH = Y0, 190
 V += [card(hx, HY, hw, HH, z, Mx("Out of service %"), "Work on hand out of service", color=ELEC, size=42, color_measure="Service status colour"),
-      cardtext(hx + 8, HY + 92, 120, 24, z + 1, Mx("Service status icon"), None, size=11, transparent=True, color_measure="Service status colour", bold=True),
-      cardtext(hx + 8, HY + 114, hw - 16, 22, z + 2, Mx("Out of service subtitle"), None, size=8, transparent=True, color="#1E2A33"),
-      cardtext(hx + 8, HY + 136, hw - 16, 22, z + 3, Mx("Work on hand subtitle"), None, size=8, transparent=True)]
+      cardtext(hx + 6, HY + 96, 140, 30, z + 1, Mx("Service status icon"), None, size=11, transparent=True, color_measure="Service status colour", bold=True),
+      cardtext(hx + 6, HY + 128, hw - 12, 30, z + 2, Mx("Out of service subtitle"), None, size=8, transparent=True, color="#1E2A33"),
+      cardtext(hx + 6, HY + 158, hw - 12, 30, z + 3, Mx("Work on hand subtitle"), None, size=8, transparent=True)]
 z = 20
 KH = (HH - GAP) // 2
 V += kpi_row(HY, KH, [dict(measure=Mx("Completed yesterday"), title="Completed yesterday", sub=Mx("Sub: completed tasks"), color=OK),
@@ -326,7 +318,7 @@ V += kpi_row(HY + KH + GAP, KH, [dict(measure=Mx("Scheduled (not yet available)"
                                  dict(measure=Mx("Over 90 days"), title="Over 90 days — fire drill", sub=Mx("Sub: over 90"), color="#8B1E3F"),
                                  dict(measure=Mx("Unassigned items"), title="Unassigned", sub=Mx("Sub: unassigned"), color=RED)], z, x=kx, w=kw)
 # row 2: service by process | out-of-service drill | work on hand by age
-R2Y, R2H = HY + HH + GAP, 278
+R2Y, R2H = HY + HH + GAP, 262
 (ax, aw), (bx, bw), (cx, cw) = cols([1.5, 1, 1])
 z = 40
 V += [table_vis(ax, R2Y, aw, R2H, z, [proj(WF), proj(Mx("Work on hand"), "On hand"), proj(Mx("Out of service"), "Out of svc"), proj(Mx("Out of service %"), "%"), proj(Mx("Service status icon"), "Status")],
@@ -352,7 +344,7 @@ pages.append((PID["Service Overview"], "Service Overview", V, [PF_DIV, PF_TEAM, 
 V = shell("Work On Hand", "Drill to the individual")
 z = 10
 (ax, aw), (bx, bw), (cx, cw) = cols([1, 1, 4.6])
-R1Y, R1H = Y0, 132
+R1Y, R1H = Y0, 150
 V += kpi(ax, R1Y, aw, R1H, z, Mx("Work on hand"), "Work on hand", sub=Mx("Sub: files and scheduled"), color=NAVY, size=30)
 V += kpi(bx, R1Y, bw, R1H, z + 2, Mx("Out of service %"), "Out of service", sub=Mx("Sub: out of service items"), color=RED, size=30, color_measure="Service status colour")
 # aging band strip: six band tiles (click a band -> cross-filters the page)
@@ -361,10 +353,10 @@ V.append(textbox(cx + 8, R1Y + 4, cw - 16, 20, z + 5, ["Work on hand by aging ba
 z = 20
 bands = [("0-7 days", "0–7 days"), ("8-15 days", "8–15 days"), ("16-30 days", "16–30 days"), ("31-60 days", "31–60 days"), ("61-90 days", "61–90 days"), ("Over 90 days", "Over 90 days")]
 for (tx, tw), (bk, bl) in zip(cols([1] * 6, cx + 8, cw - 16, 6), bands):
-    V += kpi(tx, R1Y + 28, tw, R1H - 36, z, Mx("Work on hand"), bl, sub=Mx("Sub: band share"), color=bandmap[bk], size=20, filters=[cat_filter(BAND, [bk])])
+    V += kpi(tx, R1Y + 28, tw, R1H - 34, z, Mx("Work on hand"), bl, sub=Mx("Sub: band share"), color=bandmap[bk], size=20, filters=[cat_filter(BAND, [bk])])
     z += 2
 # row 2: decomposition tree | by individual
-R2Y, R2H = R1Y + R1H + GAP, 300
+R2Y, R2H = R1Y + R1H + GAP, 290
 (ax, aw), (bx, bw) = cols([1.45, 1])
 z = 40
 V += [decomp_tree(ax, R2Y, aw, R2H, z, Mx("Work on hand"), [OT("Division"), TEAM, WF, STEP, PERSON], "Decomposition — Division › Team › Workflow › Step › Individual"),
@@ -384,11 +376,11 @@ pages.append((PID["Work On Hand"], "Work On Hand", V, [PF_TEAM, PF_LINE, PF_WF, 
 V = shell("Renewal Pipeline", "All divisions")
 z = 10
 stage_cards = [("Not yet quoted", RED), ("Quoted - with agent", "#FF8A00"), ("Bound - awaiting issue", OK), ("Not renewing", MUTE)]
-R1Y, R1H = Y0, 92
+R1Y, R1H = Y0, 100
 for (xx, ww), (nm, colr) in zip(cols([1] * 4), stage_cards):
     V += kpi(xx, R1Y, ww, R1H, z, Mx(nm), nm, sub=Mx("Renewal stage subtitle"), color=colr, size=24, filters=[cat_filter(OT("Renewal stage"), [nm])])
     z += 2
-R2Y, R2H = R1Y + R1H + GAP, 226
+R2Y, R2H = R1Y + R1H + GAP, 220
 (ax, aw), (bx, bw) = cols([1, 1])
 z = 20
 V += [barchart(ax, R2Y, aw, R2H, z, TEAM, [Mx("Renewals in pipeline")], "Pipeline by team — stage mix", series=OT("Renewal stage"), stacked=True, colmap=STAGE_COL, sort_by=Mx("Renewals in pipeline")),
@@ -412,7 +404,7 @@ z = 5
 V += [slicer(X0, Y0, 230, 40, z, SCOPE, "Staff scope — all staff · internal · vendor (RPRO) · shared queues"),
       slicer(X0 + 240, Y0, 300, 40, z + 1, PERSON_KEY, "Individual / queue", single=True),
       textbox(X0 + 550, Y0 + 8, 660, 26, z + 2, ["Pick one individual to score; the Team table at the bottom ranks everyone in the selected scope."], size=8, color=SUB, bold=False)]
-R1Y, R1H = Y0 + 48, 92
+R1Y, R1H = Y0 + 48, 100
 z = 10
 V += kpi_row(R1Y, R1H, [dict(measure=Mx("Work on hand"), title="Items on hand", sub=Mx("Sub: files"), color=NAVY, size=22),
                         dict(measure=Mx("Out of service %"), title="Out of service", sub=Mx("Sub: out of service vs team"), color=RED, size=22, color_measure="Service status colour"),
@@ -421,7 +413,7 @@ V += kpi_row(R1Y, R1H, [dict(measure=Mx("Work on hand"), title="Items on hand", 
                         dict(measure=Mx("Completed yesterday"), title="Released yesterday", sub_text="outbound — release = completed", color=OK, size=22),
                         dict(measure=Mx("Within SLA on completion %"), title="Within SLA on completion", sub_text="of released", color=NAVY, size=22),
                         dict(measure=Mx("Service status icon"), title="Status", sub_text="against service level", color=NAVY, size=14, color_measure="Service status colour")], z)
-R2Y, R2H = R1Y + R1H + GAP, 244
+R2Y, R2H = R1Y + R1H + GAP, 236
 (ax, aw), (bx, bw), (cx, cw) = cols([1, 1, 1])
 z = 30
 V += [barchart(ax, R2Y, aw, R2H, z, STEP, [Mx("Work on hand")], "On hand by step", series=OT("Service"), stacked=True, colmap={"Within service": ELEC, "Out of service": RED}, sort_by=Mx("Work on hand"),
@@ -438,7 +430,7 @@ pages.append((PID["Team Scorecard"], "Team Scorecard", V, [PF_TEAM, PF_LINE, PF_
 
 # ----------------------------------------------------------------- 5. Management
 V = shell("Management", "Unassigned · quality")
-R1Y, R1H = Y0, 92
+R1Y, R1H = Y0, 100
 z = 10
 V += kpi_row(R1Y, R1H, [dict(measure=Mx("Unassigned items"), title="Unassigned items", sub=Mx("Sub: unassigned files"), color=RED, size=24),
                         dict(measure=Mx("Unassigned over 30 days"), title="Unassigned over 30 days", sub=Mx("Sub: unassigned oldest"), color=RED, size=24),
@@ -447,7 +439,7 @@ V += kpi_row(R1Y, R1H, [dict(measure=Mx("Unassigned items"), title="Unassigned i
                         dict(measure=Mx("Rework rate"), title="Rework rate", sub_text="of all releases", color=NAVY, size=24),
                         dict(measure=Mx("Production released"), title="Production released", sub_text="releases excluding rework", color=OK, size=24)], z)
 UNA = [cat_filter(OT("Is unassigned"), [True])]
-R2Y, R2H = R1Y + R1H + GAP, 216
+R2Y, R2H = R1Y + R1H + GAP, 210
 (ax, aw), (bx, bw) = cols([1, 1])
 z = 30
 V += [barchart(ax, R2Y, aw, R2H, z, WF, [Mx("Work on hand")], "Unassigned by workflow", series=BAND, stacked=True, colmap=bandmap, sort_by=Mx("Work on hand"), filters=UNA),
@@ -464,7 +456,7 @@ pages.append((PID["Management"], "Management", V, [PF_TEAM, PF_LINE, PF_WF, PF_B
 
 # ----------------------------------------------------------------- 6. Compliance
 V = shell("Compliance", "Due date and state")
-R1Y, R1H = Y0, 92
+R1Y, R1H = Y0, 100
 z = 10
 V += kpi_row(R1Y, R1H, [dict(measure=Mx("Past due"), title="Past due date", sub=Mx("Sub: past due stuck"), color=DRED, size=24),
                         dict(measure=Mx("Past due - fining states"), title="Past due — fining states", sub_text="NY only until the state list arrives", color=DRED, size=24),
@@ -472,7 +464,7 @@ V += kpi_row(R1Y, R1H, [dict(measure=Mx("Past due"), title="Past due date", sub=
                         dict(measure=Mx("Due in 15-30 days"), title="Due in 15–30 days", sub_text="amber", color=AMBER, size=24),
                         dict(measure=Mx("On track"), title="On track", sub_text="due beyond 30 days", color=OK, size=24),
                         dict(measure=Mx("Open filings"), title="Open items", sub=Mx("Sub: open filings"), color=NAVY, size=24)], z)
-R2Y, R2H = R1Y + R1H + GAP, 276
+R2Y, R2H = R1Y + R1H + GAP, 270
 (ax, aw), (bx, bw), (cx, cw) = cols([1.35, 1, 0.8])
 z = 30
 V += [table_vis(ax, R2Y, aw, R2H, z, [proj(CM("Filing state"), "State"), proj(Mx("Fining state flag"), "Fines"), proj(Mx("Past due")), proj(Mx("Due within 14 days"), "≤ 14 d"), proj(Mx("Due in 15-30 days"), "15–30 d"), proj(Mx("On track")), proj(Mx("Open filings"), "Open"), proj(Mx("Oldest past due (days)"), "Oldest past due")],
@@ -492,13 +484,13 @@ V += [button(X0, Y0, 90, 28, z, "←  Back", back=True),
       textbox(X0 + 100, Y0 + 4, 400, 24, z + 1, ["Drill-through:  ", "the rows below follow the selection you came from (Team · Workflow · Step · Individual · Stage · Age band)"], sizes=[9, 8], colors=[NAVY, SUB], bolds=[True, False])]
 # context line (not cards): count · files | out of service | oldest | age mix
 CY = Y0 + 36
-V += [shape(X0, CY, CW, 30, z + 2, fill="#FFFFFF"),
-      cardtext(X0 + 6, CY + 3, 190, 24, z + 3, Mx("Context: tasks and files"), None, size=9, transparent=True, color="#1E2A33", bold=True),
-      cardtext(X0 + 200, CY + 3, 230, 24, z + 4, Mx("Context: out of service"), None, size=9, transparent=True, color_measure="Service status colour", bold=True),
-      cardtext(X0 + 436, CY + 3, 120, 24, z + 5, Mx("Context: oldest"), None, size=9, transparent=True, color="#1E2A33", bold=True),
-      cardtext(X0 + 560, CY + 3, CW - 566, 24, z + 6, Mx("Context: age mix"), None, size=8, transparent=True)]
+V += [shape(X0, CY, CW, 36, z + 2, fill="#FFFFFF"),
+      cardtext(X0 + 6, CY + 3, 200, 30, z + 3, Mx("Context: tasks and files"), None, size=9, transparent=True, color="#1E2A33", bold=True),
+      cardtext(X0 + 210, CY + 3, 240, 30, z + 4, Mx("Context: out of service"), None, size=9, transparent=True, color_measure="Service status colour", bold=True),
+      cardtext(X0 + 456, CY + 3, 130, 30, z + 5, Mx("Context: oldest"), None, size=9, transparent=True, color="#1E2A33", bold=True),
+      cardtext(X0 + 590, CY + 3, CW - 596, 30, z + 6, Mx("Context: age mix"), None, size=8, transparent=True)]
 cols_ = ["Age (days)", "Service", "SLA (days)", "Aging band", "Status", "File number", "Policy number", "Insured", "Brand", "Department", "Team", "Workflow", "Step", "Assigned to", "From user", "Account executive", "CSR", "Agent name", "Date initiated", "Available date"]
-TY = CY + 38
+TY = CY + 44
 V += [table_vis(X0, TY, CW, PAGE_H - 14 - TY, 20, [proj(OT(c)) for c in cols_], "Task list · 20 columns · scroll right for more · Export data from the visual header", sort_by=OT("Age (days)"), bold_cols=[OT("Age (days)")])]
 pages.append((PID["Task list"], "Task list", V, [PF_TEAM, PF_WF, PF_STEP, PF_WHO, PF_AE, PF_CSR, PF_AGENT, PF_DI, PF_AV, PF_BAND], [TEAM, WF, STEP, PERSON_KEY, OT("Renewal stage"), BAND]))
 # ================================================================= WRITE

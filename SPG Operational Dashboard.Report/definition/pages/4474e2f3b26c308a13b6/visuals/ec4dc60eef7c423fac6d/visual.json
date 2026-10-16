@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "ec4dc60eef7c423fac6d",
+  "position": {
+    "x": 14,
+    "y": 788,
+    "z": 41,
+    "height": 20,
+    "width": 1412,
+    "tabOrder": 41
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Stages are derived from the renewal steps. Quotes go out ~45 days before the effective date. An \u201cexpiring\u201d stage needs the policy expiration date, which the current export does not carry.",
+                    "textStyle": {
+                      "fontWeight": "normal",
+                      "fontSize": "7pt",
+                      "color": "#5A6670",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": false
+  }
+}

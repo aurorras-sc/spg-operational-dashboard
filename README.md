@@ -63,8 +63,8 @@ Relationships: facts → dimensions, many‑to‑one, single direction.
 
 ## 4. Report pages (1440 × 820, built from mockup v15)
 
-Every page carries the mockup shell: a white **page navigation rail** on the left (buttons that navigate between pages),
-the page title and subtitle, and the content grid in the mockup's proportions. Slicers are **not** on the canvas — as in
+Every page carries the mockup's page title and subtitle and the content grid in the mockup's proportions (page navigation
+is the service's own Pages list). Slicers are **not** on the canvas — as in
 the mockup's slide-out pane, each page's slicer set lives in the **Filters pane** (page-level filter cards: Team, Workflow,
 Process step, Aging bucket, Date initiated, Line of business, Division, Assigned to, Account executive, CSR, Agent, Staff scope …).
 Every KPI tile is a card (label + number) with the mockup's small grey subtitle line (static text or a `Sub: …` measure).
