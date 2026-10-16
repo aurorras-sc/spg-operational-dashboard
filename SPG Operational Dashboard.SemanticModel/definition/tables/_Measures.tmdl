@@ -1,285 +1,286 @@
 table '_Measures'
-	lineageTag: 5bc9ca9e-932b-410d-a080-2dddc118b981
+	lineageTag: 2f27f5d2-2b96-47ad-ae6e-c77d96378b08
 
 	/// Every open task row, including work scheduled ahead.
 	measure 'Open items (all)' = COUNTROWS ( OpenTasks )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 307dfea1-53fe-4712-9cbc-9b4981ead897
+		lineageTag: 97972ec8-1aaf-437d-96b9-459112bfd95a
 
 	/// Open tasks available to be worked now (scheduled-ahead work excluded).
 	measure 'Work on hand' = CALCULATE ( COUNTROWS ( OpenTasks ), OpenTasks[Scheduled] = FALSE () )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: ccc89240-f27c-4508-8945-6eae6025894a
+		lineageTag: 3abf8fd8-c579-41ca-a6e8-5e585193b6b3
 
 	measure 'Scheduled (not yet available)' = COALESCE ( CALCULATE ( COUNTROWS ( OpenTasks ), OpenTasks[Scheduled] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 0a758bea-38ee-4714-b789-9b929b525e29
+		lineageTag: 51959079-40cd-4ac0-a507-183fe5d3ff53
 
 	measure 'Files on hand' = CALCULATE ( DISTINCTCOUNT ( OpenTasks[File number] ), OpenTasks[Scheduled] = FALSE () )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 52980f25-0a5b-427a-b680-2da5a659a7d3
+		lineageTag: 8b950966-c70f-4127-8ffc-1adb492e45bd
 
 	/// Work on hand older than its step service level.
 	measure 'Out of service' = CALCULATE ( COUNTROWS ( OpenTasks ), OpenTasks[Out of service] = TRUE () )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: fbbf1ead-4124-461d-93d7-38a74a1f529d
+		lineageTag: 05fce25f-9e9e-41a9-a9dd-9dda68168486
 
 	measure 'Within service' = [Work on hand] - [Out of service]
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 52300160-29af-476f-a202-8b734816603f
+		lineageTag: 5d663054-b2c3-4335-ad60-16472204f6f8
 
 	measure 'Out of service %' = DIVIDE ( [Out of service], [Work on hand] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Work on hand
-		lineageTag: 20d0cc7d-7307-4b5d-bdfe-99a8c35f52a9
+		lineageTag: 404927f9-01e4-43c8-895d-75fcaf5f889f
 
 	measure 'Oldest item (days)' = CALCULATE ( MAX ( OpenTasks[Age (days)] ), OpenTasks[Scheduled] = FALSE () )
 		formatString: 0
 		displayFolder: Work on hand
-		lineageTag: 22756da8-85c2-4dc4-adf8-b198d6ebcae6
+		lineageTag: 20be4f5d-83ef-4837-ba44-ba54df8b6f5e
 
 	measure 'Median age (days)' = CALCULATE ( MEDIAN ( OpenTasks[Age (days)] ), OpenTasks[Scheduled] = FALSE () )
 		formatString: 0.0
 		displayFolder: Work on hand
-		lineageTag: 8e6cedb9-8e18-4111-a7d8-493189cd7ca6
+		lineageTag: b57a0a0b-2808-4f1b-94ea-2fb543b61dd3
 
 	measure 'Over 30 days' = CALCULATE ( [Work on hand], OpenTasks[Over 30 days] = TRUE () )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 28cdeda7-170f-4f18-96d2-4e636fd64170
+		lineageTag: c48a9f03-acab-4c2a-8ca4-7079ffdc9b38
 
 	measure 'Over 90 days' = COALESCE ( CALCULATE ( [Work on hand], OpenTasks[Over 90 days] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 1dd707c3-b355-4923-af91-f5ee0828b139
+		lineageTag: 23e4be9e-18fb-40b2-b460-a3c9cb8e8323
 
 	measure 'Over 90 days %' = DIVIDE ( [Over 90 days], [Work on hand] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Work on hand
-		lineageTag: 81daf996-e5fb-4812-841d-f4b9f04fb123
+		lineageTag: f147cbfc-d8e2-4a12-aea9-175ffc658604
 
 	measure 'Share of work on hand' = DIVIDE ( [Work on hand], CALCULATE ( [Work on hand], REMOVEFILTERS ( 'Dim Aging Band' ), REMOVEFILTERS ( OpenTasks[Aging band] ) ) )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Work on hand
-		lineageTag: 66b9341c-e20e-4e12-9a18-838fb3541a8f
+		lineageTag: b01e4461-2bde-419a-8955-fffb41b8d1b7
 
 	measure 'Received yesterday' = COALESCE ( CALCULATE ( COUNTROWS ( OpenTasks ), OpenTasks[Received yesterday] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Work on hand
-		lineageTag: 0f5f4025-f7f8-4af4-b0d6-468619e51a5a
+		lineageTag: 13cb1108-d730-49e8-b4b6-e6a9fcc38580
 
-	measure 'Service status' = SWITCH ( TRUE (), ISBLANK ( [Out of service %] ), BLANK (), [Out of service %] <= MAX ( Thresholds[Green max] ), "Green", [Out of service %] <= MAX ( Thresholds[Amber max] ), "Amber", "Red" )
+	/// Green <= 15% out of service, Amber <= 30%, otherwise Red (thresholds to be confirmed by the business).
+	measure 'Service status' = VAR p = [Out of service %] RETURN IF ( ISBLANK ( p ), BLANK (), IF ( p <= 0.15, "Green", IF ( p <= 0.30, "Amber", "Red" ) ) )
 		displayFolder: Status
-		lineageTag: 35b635ac-07b7-4901-b163-1c1a760ade3d
+		lineageTag: 4b308aab-dd6e-44d6-8ff4-c5be58c864e8
 
 	measure 'Service status colour' = SWITCH ( [Service status], "Green", "#3EBD5E", "Amber", "#F3B921", "Red", "#D02D4F", "#8A949C" )
 		displayFolder: Status
-		lineageTag: 16b79a91-0bfc-4063-8c06-7e6228f54350
+		lineageTag: 3e1b046c-1044-4992-8f6d-9f073eff3e28
 
 	measure 'Service status icon' = SWITCH ( [Service status], "Green", UNICHAR ( 9679 ) & " Green", "Amber", UNICHAR ( 9679 ) & " Amber", "Red", UNICHAR ( 9679 ) & " Red", BLANK () )
 		displayFolder: Status
-		lineageTag: 3cbd1f04-b639-479c-ad74-aba4b53596de
+		lineageTag: 85f1e790-ea3a-4387-ab6c-458d5be3076a
 
 	measure 'Work on hand subtitle' = FORMAT ( [Files on hand], "#,0" ) & " files  |  oldest " & FORMAT ( [Oldest item (days)], "0" ) & " d  |  " & FORMAT ( [Over 30 days], "#,0" ) & " over 30 d"
 		displayFolder: Status
-		lineageTag: 4f9dab5e-ddb4-4ce3-879a-96702a85a093
+		lineageTag: 8ea50618-13a9-4fc8-82ef-42d51fed88ee
 
 	measure 'Out of service subtitle' = FORMAT ( [Out of service], "#,0" ) & " of " & FORMAT ( [Work on hand], "#,0" ) & " available items past service level"
 		displayFolder: Status
-		lineageTag: 560a813a-79be-4ba8-8b35-c39eaf95ecf6
+		lineageTag: dd094e4d-d7e7-48e2-a5a8-69597b112291
 
 	measure 'Unassigned items' = COALESCE ( CALCULATE ( [Work on hand], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Unassigned
-		lineageTag: 27647bf6-83fb-4275-94d3-c7a30146775a
+		lineageTag: a10ec31d-ee7e-42bf-910f-2981ba67e014
 
 	measure 'Unassigned files' = CALCULATE ( [Files on hand], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () )
 		formatString: #,0
 		displayFolder: Unassigned
-		lineageTag: 5d179273-18fe-44bf-855e-9192e91ec741
+		lineageTag: c0361d69-8da6-446e-b2f9-ebd783b39d28
 
 	measure 'Unassigned over 30 days' = COALESCE ( CALCULATE ( [Over 30 days], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Unassigned
-		lineageTag: b03ee4ac-c488-4118-b205-9df6e150b417
+		lineageTag: 6ba4b684-54de-4bc3-b7ec-3be27055e797
 
 	measure 'Unassigned out of service' = COALESCE ( CALCULATE ( [Out of service], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Unassigned
-		lineageTag: 7e81f9d1-de36-48cb-aa51-371feff1f3b6
+		lineageTag: 27c1f3ca-198d-4d43-902f-ce6a6838c743
 
 	measure 'Unassigned out of service %' = DIVIDE ( [Unassigned out of service], [Unassigned items] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Unassigned
-		lineageTag: 00f5f605-75e5-48fa-8c97-9c65eb1e6daa
+		lineageTag: be50e2f9-286b-438e-af5f-edb2e83fde63
 
 	measure 'Unassigned oldest (days)' = CALCULATE ( [Oldest item (days)], REMOVEFILTERS ( 'Dim Person' ), OpenTasks[Is unassigned] = TRUE () )
 		formatString: 0
 		displayFolder: Unassigned
-		lineageTag: b2149eda-8508-4a6e-80b4-38d86e71b563
+		lineageTag: fb0a3dcc-fda5-45c4-8ea2-2a5af361db5f
 
 	measure 'Renewals in pipeline' = CALCULATE ( [Work on hand], OpenTasks[In renewal pipeline] = TRUE () )
 		formatString: #,0
 		displayFolder: Renewal pipeline
-		lineageTag: 6d83fb49-df0b-4bc3-90eb-fe4a0d6e735a
+		lineageTag: 6c05ac79-1682-4974-a25c-d2da926c4fe2
 
 	measure 'Share of renewals' = DIVIDE ( [Renewals in pipeline], CALCULATE ( [Renewals in pipeline], REMOVEFILTERS ( OpenTasks[Renewal stage] ) ) )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Renewal pipeline
-		lineageTag: 5e722386-980c-4158-a382-9f38d195cbb8
+		lineageTag: a567a9d5-90f8-4d39-b30b-4f20c437e322
 
 	measure 'Not yet quoted' = CALCULATE ( [Renewals in pipeline], OpenTasks[Renewal stage] = "Not yet quoted" )
 		formatString: #,0
 		displayFolder: Renewal pipeline
-		lineageTag: 254a18c9-5f24-4420-964d-10a6b96a3dd9
+		lineageTag: 8d65ac9d-a0f0-439e-a4d5-f2e7ec5845dc
 
 	measure 'Quoted - with agent' = CALCULATE ( [Renewals in pipeline], OpenTasks[Renewal stage] = "Quoted - with agent" )
 		formatString: #,0
 		displayFolder: Renewal pipeline
-		lineageTag: c557c8ad-bf0d-470c-85b0-1305aed17972
+		lineageTag: 86d69cc8-fb34-41ec-ada4-9cc422ee1c56
 
 	measure 'Bound - awaiting issue' = CALCULATE ( [Renewals in pipeline], OpenTasks[Renewal stage] = "Bound - awaiting issue" )
 		formatString: #,0
 		displayFolder: Renewal pipeline
-		lineageTag: baa20965-4748-44ee-91b6-7a198f0dba9b
+		lineageTag: 173c745b-79eb-4b2a-b035-812b783f87ed
 
 	measure 'Not renewing' = CALCULATE ( [Renewals in pipeline], OpenTasks[Renewal stage] = "Not renewing" )
 		formatString: #,0
 		displayFolder: Renewal pipeline
-		lineageTag: ddb64634-b063-43b0-aed6-6b8c237d3f2b
+		lineageTag: 861b67b1-1fcd-4668-b55b-8859b285d043
 
 	measure 'Not quoted %' = DIVIDE ( [Not yet quoted], [Renewals in pipeline] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Renewal pipeline
-		lineageTag: 3443209f-8979-4108-afe1-d88551d28423
+		lineageTag: 864a9f5e-da79-48d2-8957-a52a63763add
 
 	measure 'Renewal stage subtitle' = FORMAT ( [Share of renewals], "0%" ) & " of renewals  |  " & FORMAT ( [Out of service], "#,0" ) & " out of service  |  oldest " & FORMAT ( [Oldest item (days)], "0" ) & " d"
 		displayFolder: Renewal pipeline
-		lineageTag: cfc25b1d-8a50-41a7-8c26-a12dcb745b4b
+		lineageTag: 906b5bc5-b066-44aa-8800-22ff4e434fe0
 
 	/// Release/Kill actions on the day before the snapshot. Release = completed.
 	measure 'Completed yesterday' = COALESCE ( COUNTROWS ( Completed ), 0 )
 		formatString: #,0
 		displayFolder: Completed
-		lineageTag: 08dca39f-0b1b-43bb-be79-8e9d84b2174d
+		lineageTag: 2cd6599f-ecb8-467f-823c-bb83acf0f7b8
 
 	measure 'Met SLA on completion' = CALCULATE ( COUNTROWS ( Completed ), Completed[Met SLA] = TRUE () )
 		formatString: #,0
 		displayFolder: Completed
-		lineageTag: 6aa61a20-a562-44ef-ac8a-424ff0078116
+		lineageTag: badd0a09-8a9c-4b22-b308-7935f5093775
 
 	measure 'Within SLA on completion %' = DIVIDE ( [Met SLA on completion], [Completed yesterday] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Completed
-		lineageTag: 324da553-2b4c-42d0-827c-8e2932b02542
+		lineageTag: 853330d3-efb5-4c76-90af-c6437643e94e
 
 	measure 'Median turnaround (days)' = MEDIAN ( Completed[Turnaround (days)] )
 		formatString: 0.0
 		displayFolder: Completed
-		lineageTag: 3514125b-3f96-4433-a261-00ab397d89e6
+		lineageTag: e0a93885-b10a-4d17-b1f5-7cfafd4f0dc4
 
 	measure 'Average turnaround (days)' = AVERAGE ( Completed[Turnaround (days)] )
 		formatString: 0.0
 		displayFolder: Completed
-		lineageTag: 023248ec-8d49-41cd-b8ab-e6d49983ecc5
+		lineageTag: b67f7b0e-29d1-44a4-abab-27644688af1c
 
 	measure 'Median hours in step' = MEDIAN ( Completed[Hours in step] )
 		formatString: 0.0
 		displayFolder: Completed
-		lineageTag: 0491c5ab-f0bb-42af-9623-1a2194043f67
+		lineageTag: 46388a81-bcde-4cfc-a2c0-28cce36b52e2
 
 	measure 'Median time in step' = VAR h = [Median hours in step] RETURN IF ( ISBLANK ( h ), BLANK (), IF ( h < 24, FORMAT ( h, "0.0" ) & " h", FORMAT ( h / 24, "0.0" ) & " d" ) )
 		displayFolder: Completed
-		lineageTag: aa2a77f7-5278-4efe-bfe2-b0f86dac3b14
+		lineageTag: 768bbb63-b05e-480f-9f3c-1225547de479
 
 	measure 'Rework released' = COALESCE ( CALCULATE ( COUNTROWS ( Completed ), Completed[Is rework] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Completed
-		lineageTag: 53e42a6e-97e1-4506-954e-639f5826b2ab
+		lineageTag: 84f99f3e-6213-4e2b-9064-d1bf36aa4777
 
 	measure 'Production released' = [Completed yesterday] - [Rework released]
 		formatString: #,0
 		displayFolder: Completed
-		lineageTag: f6f7470c-45be-484c-8b8a-c80194084646
+		lineageTag: f1ee8aab-d20e-4fcc-badf-d00b2464c4df
 
 	measure 'Rework rate' = DIVIDE ( [Rework released], [Completed yesterday] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Completed
-		lineageTag: 957339f2-6b14-4171-9df6-5be344dc3099
+		lineageTag: e47836cd-feb5-437d-99c5-141456acbb3e
 
 	measure 'Within hour target' = SUMX ( Completed, IF ( Completed[Hours in step] <= RELATED ( 'Dim Step'[Hour target] ), 1, 0 ) )
 		formatString: #,0
 		displayFolder: Completed
-		lineageTag: 6d3a6c8a-26ee-40f3-aa7e-49aaaebeb02f
+		lineageTag: ee05ce6c-7ed6-4225-9293-de57f1baea65
 
 	measure 'Within hour target %' = DIVIDE ( [Within hour target], [Completed yesterday] )
 		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: Completed
-		lineageTag: 1632afa4-123e-492e-aa6a-70a8d094926c
+		lineageTag: 72d7ee1e-1365-436b-8003-778868450c4f
 
 	measure 'Open filings' = COUNTROWS ( Compliance )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: e55c90fd-12c8-4b63-adc5-3b8fd89e3524
+		lineageTag: 2c60f382-ab75-4253-9218-279373bdc5c8
 
 	measure 'Past due' = COALESCE ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Due band code] = "past" ), 0 )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: 8afa54ff-cc4f-46e8-b705-51f24f8d540b
+		lineageTag: 1a21ffba-0eaa-44cf-9b62-69f61c1e6e66
 
 	measure 'Past due - fining states' = COALESCE ( CALCULATE ( [Past due], Compliance[Fining state] = TRUE () ), 0 )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: f2515fb7-0e0f-4040-8fa2-efd0520876d3
+		lineageTag: 412017e2-0b9b-4ace-9a38-0a49735e88b6
 
 	measure 'Past due and over 30 days (stuck)' = CALCULATE ( [Past due], Compliance[Over 30 days] = TRUE () )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: 93841556-8798-4a3b-8f44-d3ba4427015a
+		lineageTag: f9b51bb6-3a72-4358-a5dd-a22f5cbaa3f0
 
 	measure 'Due within 14 days' = COALESCE ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Due band code] = "red" ), 0 )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: 324cdb11-2d11-44e2-9f62-86f1ed012e0c
+		lineageTag: 4a595f2e-e65b-4022-8546-6c92b3c46f55
 
 	measure 'Due in 15-30 days' = COALESCE ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Due band code] = "amber" ), 0 )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: ee6d6a12-e329-4cb8-85d1-02e707585feb
+		lineageTag: c76a6549-f18c-43ab-a0f3-9451dff1e485
 
 	measure 'On track' = COALESCE ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Due band code] = "green" ), 0 )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: b24a18a2-0a6e-49e0-8899-1a4b0908d358
+		lineageTag: 50e89d5c-3184-43db-b0d2-f29b77a0948d
 
 	measure 'Filings over 30 days old' = CALCULATE ( COUNTROWS ( Compliance ), Compliance[Over 30 days] = TRUE () )
 		formatString: #,0
 		displayFolder: Compliance
-		lineageTag: 3828ae18-56ad-420b-81bb-28078fb40971
+		lineageTag: 2bd6a491-cb77-4c16-9476-188d95f78fea
 
 	measure 'Oldest past due (days)' = CALCULATE ( MAX ( Compliance[Days past due] ), Compliance[Due band code] = "past" )
 		formatString: +0;-0;0
 		displayFolder: Compliance
-		lineageTag: 33458b46-96e8-4f05-ae8a-2545295bd683
+		lineageTag: a7324024-68cf-46dd-96c6-88bfb25de6f0
 
 	measure 'Compliance status' = IF ( [Past due] > 0, "Past due", IF ( [Due within 14 days] > 0, "Due within 14 days", "On track" ) )
 		displayFolder: Compliance
-		lineageTag: b94e8582-5b97-4639-915f-af99cf6b2b3b
+		lineageTag: b39ecd8a-2355-44f8-b5bc-560000bae1c5
 
 	measure 'Fining state flag' = IF ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Fining state] = TRUE () ) > 0, "FINES", "" )
 		displayFolder: Compliance
-		lineageTag: 51e25a21-2564-427e-aaee-10cb55d079f9
+		lineageTag: cdecaa53-5fce-4570-8e0a-44da29d0306b
 
 	column 'Measure key'
 		dataType: int64
 		isHidden
-		lineageTag: b7dd8dfb-b4af-4224-82a7-5dd9ce9e34e5
+		lineageTag: 3953c043-e231-4955-a60d-07f7b034b540
 		summarizeBy: none
 		sourceColumn: Measure key
 

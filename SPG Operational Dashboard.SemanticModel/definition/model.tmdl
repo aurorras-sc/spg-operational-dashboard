@@ -6,7 +6,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["DataPath", "SnapshotDate", "SLA_Cap_Days", "Fining_States", "Green_Max_OutOfService", "Amber_Max_OutOfService", "SPG_Workbook", "OpenTasks", "Completed", "Compliance", "Dim Team", "Dim Workflow", "Dim Step", "Dim Person", "Dim Aging Band", "Thresholds", "_Measures"]
+annotation PBI_QueryOrder = ["DataPath", "SnapshotDate", "SLA_Cap_Days", "Fining_States", "Green_Max_OutOfService", "Amber_Max_OutOfService", "SPG_Workbook", "OpenTasks", "Completed", "Compliance", "Dim Team", "Dim Workflow", "Dim Step", "Dim Person", "Dim Aging Band", "_Measures"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
@@ -20,7 +20,6 @@ ref table 'Dim Workflow'
 ref table 'Dim Step'
 ref table 'Dim Person'
 ref table 'Dim Aging Band'
-ref table Thresholds
 ref table '_Measures'
 
 ref cultureInfo en-US
