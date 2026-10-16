@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "SPG Smoke Test"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9fcb8e84-9279-4f72-a76b-310d645a8bb3"
+  }
+}
