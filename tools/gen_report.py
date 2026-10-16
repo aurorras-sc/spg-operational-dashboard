@@ -173,9 +173,15 @@ def page(name, display, visuals, filters=None, order=0, width=1280, height=720, 
     pj = {"$schema": f"{SCHEMA}/page/2.1.0/schema.json", "name": pid, "displayName": display, "displayOption": "FitToPage",
           "height": height, "width": width,
           "objects": {"background": [{"properties": {"color": col_solid("#EEF1F4"), "transparency": lit(0)}}]}}
-    if filters: pj["filterConfig"] = filterconfig(filters)
+    pf = list(filters or [])
     if drillthrough:
-        pj["pageBinding"] = {"name": nid(), "type": "Drillthrough", "parameters": [{"name": nid(), "field": fexpr(f)} for f in drillthrough]}
+        params = []
+        for f in drillthrough:
+            fname = nid()
+            pf.append({"name": fname, "field": fexpr(f), "type": "Categorical", "howCreated": "Drillthrough"})
+            params.append({"name": nid(), "boundFilter": fname})
+        pj["pageBinding"] = {"name": nid(), "type": "Drillthrough", "parameters": params}
+    if pf: pj["filterConfig"] = filterconfig(pf)
     with open(os.path.join(pdir, "page.json"), "w") as f: json.dump(pj, f, indent=2)
     for v in visuals:
         vdir = os.path.join(pdir, "visuals", v["name"]); os.makedirs(vdir, exist_ok=True)
