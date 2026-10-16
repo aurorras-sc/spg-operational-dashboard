@@ -12,15 +12,15 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBIDesktopVersion = 2.138.1452.0 (25.02)
 
-ref table 'OpenTasks'
-ref table 'Completed'
-ref table 'Compliance'
+ref table OpenTasks
+ref table Completed
+ref table Compliance
 ref table 'Dim Team'
 ref table 'Dim Workflow'
 ref table 'Dim Step'
 ref table 'Dim Person'
 ref table 'Dim Aging Band'
-ref table 'Thresholds'
+ref table Thresholds
 ref table '_Measures'
 
 ref cultureInfo en-US

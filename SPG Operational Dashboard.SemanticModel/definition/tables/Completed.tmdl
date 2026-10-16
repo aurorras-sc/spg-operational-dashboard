@@ -1,17 +1,17 @@
-table 'Completed'
-	lineageTag: fc760a9a-5496-4dd8-bb6a-ee233ba89cf1
+table Completed
+	lineageTag: 96ab72dd-2c26-4d65-ba17-7fe83d8c47a0
 
-	column 'Workflow'
+	column Workflow
 		dataType: string
-		lineageTag: 9da59d23-0c09-4527-82b1-0279f4dddec1
+		lineageTag: d85528d1-a2f3-406c-bb1c-b229db676119
 		summarizeBy: none
 		sourceColumn: Workflow
 
 		annotation SummarizationSetBy = User
 
-	column 'Step'
+	column Step
 		dataType: string
-		lineageTag: 77203c01-1e99-4ef7-a5d4-ff22b5ca01d2
+		lineageTag: f602b390-5a6c-4b25-aabe-1dce292139cd
 		summarizeBy: none
 		sourceColumn: Step
 
@@ -19,7 +19,7 @@ table 'Completed'
 
 	column 'Released by'
 		dataType: string
-		lineageTag: d2fb5466-83ae-4f01-bf7c-9ed9602fd305
+		lineageTag: af1e52b4-5f91-4136-84ba-6006d323361d
 		summarizeBy: none
 		sourceColumn: Released by
 
@@ -28,7 +28,7 @@ table 'Completed'
 	column 'Hours in step'
 		dataType: double
 		formatString: #,0.0
-		lineageTag: efc02026-d962-40c9-aded-316b4e794df8
+		lineageTag: c9363860-680b-42e4-9661-3dd576d1146c
 		summarizeBy: none
 		sourceColumn: Hours in step
 
@@ -37,7 +37,7 @@ table 'Completed'
 	column 'Turnaround (days)'
 		dataType: double
 		formatString: #,0.0
-		lineageTag: 49d8f67e-cb1b-460e-9444-d58daa79ad94
+		lineageTag: e6642b2d-8fb6-4ad1-8b49-ed1150f4f526
 		summarizeBy: none
 		sourceColumn: Turnaround (days)
 
@@ -46,7 +46,7 @@ table 'Completed'
 	column 'SLA (days)'
 		dataType: int64
 		formatString: 0
-		lineageTag: 36fab2c6-9d72-40a8-94ce-d82f7ee560ae
+		lineageTag: 00a633b0-6db4-4f4c-b1f5-7ce219198324
 		summarizeBy: none
 		sourceColumn: SLA (days)
 
@@ -54,7 +54,7 @@ table 'Completed'
 
 	column 'Met SLA'
 		dataType: boolean
-		lineageTag: d0e1ca6e-5afa-4387-976c-61cc600f4f93
+		lineageTag: 5e1ea30d-45b5-46c0-8f46-ed829d7d0cd4
 		summarizeBy: none
 		sourceColumn: Met SLA
 
@@ -62,7 +62,7 @@ table 'Completed'
 
 	column 'Is rework'
 		dataType: boolean
-		lineageTag: 856d94b8-6414-4039-b2b3-c69498941fca
+		lineageTag: e7ab15e9-fbb5-439f-a8eb-1ea097e2ef0f
 		summarizeBy: none
 		sourceColumn: Is rework
 
@@ -70,7 +70,7 @@ table 'Completed'
 
 	column 'Release type'
 		dataType: string
-		lineageTag: fd9e9ae8-d66a-41f7-89fe-9376af75c3d3
+		lineageTag: b916b4b7-34c5-4d4f-88da-4f94f743beb2
 		summarizeBy: none
 		sourceColumn: Release type
 
@@ -78,7 +78,7 @@ table 'Completed'
 
 	column 'Hours band'
 		dataType: string
-		lineageTag: 929c80d9-c740-409a-9139-92997d6a2e46
+		lineageTag: bd6c1121-43fd-4700-9638-b594bdca2d9b
 		sortByColumn: 'Hours band order'
 		summarizeBy: none
 		sourceColumn: Hours band
@@ -88,7 +88,7 @@ table 'Completed'
 	column 'Hours band order'
 		dataType: int64
 		isHidden
-		lineageTag: dc9c5cdc-49b6-4d25-96c1-b2cb6f3f16a6
+		lineageTag: 66ebc191-f79c-4334-a26f-8df8d6a5bfa5
 		summarizeBy: none
 		sourceColumn: Hours band order
 
@@ -97,7 +97,7 @@ table 'Completed'
 	column 'Release date'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: ef408fc7-cedb-42b6-bbad-eb2ffd89dc21
+		lineageTag: 449e9832-c427-426c-a049-41ef29170322
 		summarizeBy: none
 		sourceColumn: Release date
 
@@ -106,13 +106,13 @@ table 'Completed'
 	column 'Release id'
 		dataType: int64
 		isHidden
-		lineageTag: bd43bee5-94a5-4dc5-b24d-f67e05012319
+		lineageTag: 937b217b-f1a3-4b87-8a55-9580ea72ec3b
 		summarizeBy: none
 		sourceColumn: Release id
 
 		annotation SummarizationSetBy = User
 
-	partition 'Completed' = m
+	partition Completed = m
 		mode: import
 		source =
 				let

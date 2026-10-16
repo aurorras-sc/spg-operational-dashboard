@@ -1,11 +1,11 @@
-table 'Thresholds'
+table Thresholds
 	isHidden
-	lineageTag: dacf34d7-99ed-41ec-8c12-9997eac980b2
+	lineageTag: f2d123fb-0948-4070-92de-51618fbaffa8
 
 	column 'Green max'
 		dataType: double
 		formatString: 0%
-		lineageTag: 3b421e8c-b1bc-4cbe-8561-ee7390f21b74
+		lineageTag: f645a971-f696-4339-9b18-8441cd8f2658
 		summarizeBy: none
 		sourceColumn: Green max
 
@@ -14,13 +14,13 @@ table 'Thresholds'
 	column 'Amber max'
 		dataType: double
 		formatString: 0%
-		lineageTag: e60b8c73-fec9-43a3-97cf-6cc9c735a5b9
+		lineageTag: 48ff9be9-cbb0-4837-95a2-b4628a341b53
 		summarizeBy: none
 		sourceColumn: Amber max
 
 		annotation SummarizationSetBy = User
 
-	partition 'Thresholds' = m
+	partition Thresholds = m
 		mode: import
 		source =
 				let

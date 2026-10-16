@@ -8,6 +8,10 @@ TBL = os.path.join(DEF, "tables")
 os.makedirs(TBL, exist_ok=True)
 os.makedirs(os.path.join(DEF, "cultures"), exist_ok=True)
 
+import re as _re
+def q(name):
+    return name if _re.fullmatch(r"[A-Za-z][A-Za-z0-9]*", name) else "'" + name.replace("'", "''") + "'"
+
 def lt():  # lineage tag
     return str(uuid.uuid4())
 
@@ -189,21 +193,21 @@ in
 
 # ------------------------------------------------------------ TMDL writers
 def column(name, dtype, src=None, hidden=False, sort_by=None, fmt=None, summ="none", key=False):
-    s = f"\tcolumn '{name}'\n\t\tdataType: {dtype}\n"
+    s = f"\tcolumn {q(name)}\n\t\tdataType: {dtype}\n"
     if key: s += "\t\tisKey\n"
     if hidden: s += "\t\tisHidden\n"
     if fmt: s += f"\t\tformatString: {fmt}\n"
     s += f"\t\tlineageTag: {lt()}\n"
-    if sort_by: s += f"\t\tsortByColumn: '{sort_by}'\n"
+    if sort_by: s += f"\t\tsortByColumn: {q(sort_by)}\n"
     s += f"\t\tsummarizeBy: {summ}\n\t\tsourceColumn: {src or name}\n\n\t\tannotation SummarizationSetBy = User\n\n"
     return s
 
 def table(name, cols, m, hidden=False, desc=None):
-    s = f"table '{name}'\n"
+    s = f"table {q(name)}\n"
     if hidden: s += "\tisHidden\n"
     s += f"\tlineageTag: {lt()}\n\n"
     for c in cols: s += c
-    s += f"\tpartition '{name}' = m\n\t\tmode: import\n\t\tsource =\n"
+    s += f"\tpartition {q(name)} = m\n\t\tmode: import\n\t\tsource =\n"
     s += ind(m, 4) + "\n\n"
     s += "\tannotation PBI_ResultType = Table\n"
     return s
@@ -231,7 +235,7 @@ T["Completed"] = table("Completed", [
 
 T["Compliance"] = table("Compliance", [
     column("File number", "string"), column("File name", "string"), column("State", "string"), column("UA", "string"), column("Assigned to", "string"),
-    column("Team", "string"), column("Days past due", "int64", fmt="+0;-0;0"), column("Age (days)", "int64", fmt="0"), column("Due band code", "string", hidden=True),
+    column("Team", "string"), column("Days past due", "int64", fmt="0"), column("Age (days)", "int64", fmt="0"), column("Due band code", "string", hidden=True),
     column("Note", "string"), column("Carrier", "string"), column("Due band", "string", sort_by="Due band order"), column("Due band order", "int64", hidden=True),
     column("Fining state", "boolean"), column("Aging band", "string"), column("Over 30 days", "boolean"), column("Due date", "dateTime", fmt="dd mmm yyyy"),
     column("Date initiated", "dateTime", fmt="dd mmm yyyy"), column("Filing state", "string"),
@@ -313,26 +317,26 @@ m("Compliance status", 'IF ( [Past due] > 0, "Past due", IF ( [Due within 14 day
 m("Fining state flag", 'IF ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Fining state] = TRUE () ) > 0, "FINES", "" )', None, "Compliance")
 
 def measures_table():
-    s = "table '_Measures'\n\tlineageTag: " + lt() + "\n\n"
+    s = "table _Measures\n\tlineageTag: " + lt() + "\n\n"
     for name, dax, fmt, folder, desc in M:
-        safe = name.replace("'", "''")
+        safe = name
         if desc: s += f"\t/// {desc}\n"
         if "\n" in dax:
-            s += f"\tmeasure '{safe}' =\n" + ind(dax, 3) + "\n"
+            s += f"\tmeasure {q(safe)} =\n" + ind(dax, 3) + "\n"
         else:
-            s += f"\tmeasure '{safe}' = {dax}\n"
+            s += f"\tmeasure {q(safe)} = {dax}\n"
         if fmt: s += f"\t\tformatString: {fmt}\n"
         if folder: s += f"\t\tdisplayFolder: {folder}\n"
         s += f"\t\tlineageTag: {lt()}\n\n"
     s += "\tcolumn 'Measure key'\n\t\tdataType: int64\n\t\tisHidden\n\t\tlineageTag: " + lt() + "\n\t\tsummarizeBy: none\n\t\tsourceColumn: Measure key\n\n\t\tannotation SummarizationSetBy = User\n\n"
-    s += "\tpartition '_Measures' = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Measure key\" = Int64.Type], {{1}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n"
+    s += "\tpartition _Measures = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Measure key\" = Int64.Type], {{1}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n"
     return s
 T["_Measures"] = measures_table()
 
 # Thresholds (calculated table with service thresholds exposed to measures)
-T["Thresholds"] = ("table 'Thresholds'\n\tisHidden\n\tlineageTag: " + lt() + "\n\n"
+T["Thresholds"] = ("table Thresholds\n\tisHidden\n\tlineageTag: " + lt() + "\n\n"
     + column("Green max", "double", fmt="0%") + column("Amber max", "double", fmt="0%")
-    + "\tpartition 'Thresholds' = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Green max\" = number, #\"Amber max\" = number], {{Green_Max_OutOfService, Amber_Max_OutOfService}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n")
+    + "\tpartition Thresholds = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Green max\" = number, #\"Amber max\" = number], {{Green_Max_OutOfService, Amber_Max_OutOfService}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n")
 
 # measures reference Thresholds[Green max] as a scalar: use a measure wrapper instead of column ref
 # patch: replace Thresholds[Green max] / [Amber max] in DAX with MAX() over hidden table
@@ -345,7 +349,7 @@ for name, text in T.items():
     w(os.path.join(TBL, f"{name}.tmdl"), text)
 
 # ------------------------------------------------------------ expressions
-EXPR = f"""expression DataPath = "C:\\\\Data\\\\SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+EXPR = f"""expression DataPath = "C:\\Data\\SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 \tlineageTag: {lt()}
 
 \tannotation PBI_ResultType = Text
@@ -403,7 +407,7 @@ RELS = [
 ]
 r = ""
 for ft, fc, tt, tc in RELS:
-    r += f"relationship {uuid.uuid4()}\n\tfromColumn: '{ft}'.'{fc}'\n\ttoColumn: '{tt}'.'{tc}'\n\n"
+    r += f"relationship {uuid.uuid4()}\n\tfromColumn: {q(ft)}.{q(fc)}\n\ttoColumn: {q(tt)}.{q(tc)}\n\n"
 w(os.path.join(DEF, "relationships.tmdl"), r)
 
 # ------------------------------------------------------------ model / database / culture
@@ -412,9 +416,9 @@ order = ["DataPath", "SnapshotDate", "SLA_Cap_Days", "Fining_States", "Green_Max
 model = ("model Model\n\tculture: en-US\n\tdefaultPowerBIDataSourceVersion: powerBI_V3\n\tsourceQueryCulture: en-US\n\tdataAccessOptions\n\t\tlegacyRedirects\n\t\treturnErrorValuesAsNull\n\n"
          + "annotation PBI_QueryOrder = " + json.dumps(order) + "\n\nannotation __PBI_TimeIntelligenceEnabled = 0\n\n"
          + "annotation PBIDesktopVersion = 2.138.1452.0 (25.02)\n\n"
-         + "".join(f"ref table '{t}'\n" for t in order[7:]) + "\nref cultureInfo en-US\n")
+         + "".join(f"ref table {q(t)}\n" for t in order[7:]) + "\nref cultureInfo en-US\n")
 w(os.path.join(DEF, "model.tmdl"), model)
-w(os.path.join(DEF, "database.tmdl"), "database\n\tcompatibilityLevel: 1604\n")
+w(os.path.join(DEF, "database.tmdl"), "database\n\tcompatibilityLevel: 1601\n")
 w(os.path.join(DEF, "cultures", "en-US.tmdl"), "cultureInfo en-US\n\n\tlinguisticMetadata =\n\t\t\t{\n\t\t\t  \"Version\": \"1.0.0\",\n\t\t\t  \"Language\": \"en-US\"\n\t\t\t}\n\t\tcontentType: json\n")
 w(os.path.join(SM, "definition.pbism"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModelDefinition/1.0.0/schema.json", "version": "4.0", "settings": {}}, indent=2))
 w(os.path.join(SM, ".platform"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",

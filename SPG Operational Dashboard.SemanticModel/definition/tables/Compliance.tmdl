@@ -1,9 +1,9 @@
-table 'Compliance'
-	lineageTag: 716d525f-9801-4f40-9937-38ddfb7f3f47
+table Compliance
+	lineageTag: 98639540-ecf3-400a-94a6-ee0e43632ae6
 
 	column 'File number'
 		dataType: string
-		lineageTag: 576a36f3-7352-461f-904d-4d385bbb6f98
+		lineageTag: 7c5b8a69-717c-4d3a-8a2a-0b9ff9c9a309
 		summarizeBy: none
 		sourceColumn: File number
 
@@ -11,23 +11,23 @@ table 'Compliance'
 
 	column 'File name'
 		dataType: string
-		lineageTag: 42045e7b-6ae1-42a7-9840-5a0cdb5d627b
+		lineageTag: b5b6e98e-008d-41b1-8d70-c5ac5c59d321
 		summarizeBy: none
 		sourceColumn: File name
 
 		annotation SummarizationSetBy = User
 
-	column 'State'
+	column State
 		dataType: string
-		lineageTag: f607921d-5532-4b6c-8045-5ebdc43e40c9
+		lineageTag: 156f9a50-5d39-44df-95b1-5468bbbfdb17
 		summarizeBy: none
 		sourceColumn: State
 
 		annotation SummarizationSetBy = User
 
-	column 'UA'
+	column UA
 		dataType: string
-		lineageTag: a364d1e0-8441-4a15-ab4e-68a868047717
+		lineageTag: 46acc2e5-97bb-45f6-ae0a-263f266fc9e8
 		summarizeBy: none
 		sourceColumn: UA
 
@@ -35,15 +35,15 @@ table 'Compliance'
 
 	column 'Assigned to'
 		dataType: string
-		lineageTag: 02799b8f-f159-43d6-a432-dea3e24b3629
+		lineageTag: 23fc1401-6ce0-4ad0-8f5c-e31ea63f94b9
 		summarizeBy: none
 		sourceColumn: Assigned to
 
 		annotation SummarizationSetBy = User
 
-	column 'Team'
+	column Team
 		dataType: string
-		lineageTag: 7792cee7-aadc-4882-8a05-bb9b82915f5e
+		lineageTag: 3901db54-a1a9-454b-8bb6-de65ea216ea5
 		summarizeBy: none
 		sourceColumn: Team
 
@@ -51,8 +51,8 @@ table 'Compliance'
 
 	column 'Days past due'
 		dataType: int64
-		formatString: +0;-0;0
-		lineageTag: fc609b19-69a1-4409-a57b-e63e90838f62
+		formatString: 0
+		lineageTag: b92dfe32-36c3-431d-a62a-7086707f1f8f
 		summarizeBy: none
 		sourceColumn: Days past due
 
@@ -61,7 +61,7 @@ table 'Compliance'
 	column 'Age (days)'
 		dataType: int64
 		formatString: 0
-		lineageTag: 9757d6be-9bed-4b1d-b134-5f1a53bbcfde
+		lineageTag: eea7c07b-e7d2-4393-8b87-7d161d4877f2
 		summarizeBy: none
 		sourceColumn: Age (days)
 
@@ -70,23 +70,23 @@ table 'Compliance'
 	column 'Due band code'
 		dataType: string
 		isHidden
-		lineageTag: 792c3e07-4357-4e2b-a880-79f4faf8e8a2
+		lineageTag: eb0cef34-a9ea-48cf-9bdd-301e6c2c5c30
 		summarizeBy: none
 		sourceColumn: Due band code
 
 		annotation SummarizationSetBy = User
 
-	column 'Note'
+	column Note
 		dataType: string
-		lineageTag: 10c88f7e-fa4b-4c4d-af5d-6f49a13181ea
+		lineageTag: cb82b79a-243b-47a2-806b-869ebfbb741a
 		summarizeBy: none
 		sourceColumn: Note
 
 		annotation SummarizationSetBy = User
 
-	column 'Carrier'
+	column Carrier
 		dataType: string
-		lineageTag: 0536c7b0-a4d1-4f57-9dd2-b796e809129c
+		lineageTag: 90bba008-97ce-4c9b-84f7-a8084aa85a49
 		summarizeBy: none
 		sourceColumn: Carrier
 
@@ -94,7 +94,7 @@ table 'Compliance'
 
 	column 'Due band'
 		dataType: string
-		lineageTag: a0f25661-575b-4bfc-94b4-a62f83bc9021
+		lineageTag: fde85ca1-0c50-4517-bd07-d598b19bc83a
 		sortByColumn: 'Due band order'
 		summarizeBy: none
 		sourceColumn: Due band
@@ -104,7 +104,7 @@ table 'Compliance'
 	column 'Due band order'
 		dataType: int64
 		isHidden
-		lineageTag: 96c16406-3018-4d39-8494-dab40ed3d14c
+		lineageTag: 43799e79-4202-40a5-9e32-a2ee9b9e1e98
 		summarizeBy: none
 		sourceColumn: Due band order
 
@@ -112,7 +112,7 @@ table 'Compliance'
 
 	column 'Fining state'
 		dataType: boolean
-		lineageTag: 1eec37d9-07f6-4261-9307-76da11999277
+		lineageTag: a524a606-9fe2-48a9-a9bb-f80299cf2289
 		summarizeBy: none
 		sourceColumn: Fining state
 
@@ -120,7 +120,7 @@ table 'Compliance'
 
 	column 'Aging band'
 		dataType: string
-		lineageTag: 9ef09ab8-ea00-4715-891e-4b1e1c356b81
+		lineageTag: 6836ec1b-0eaa-41b4-92c8-6c111bc73b1b
 		summarizeBy: none
 		sourceColumn: Aging band
 
@@ -128,7 +128,7 @@ table 'Compliance'
 
 	column 'Over 30 days'
 		dataType: boolean
-		lineageTag: 84d7c711-9d58-4769-b7da-6874bf84e1b2
+		lineageTag: 34006cfb-254d-43d7-a0a1-95bedbfb49de
 		summarizeBy: none
 		sourceColumn: Over 30 days
 
@@ -137,7 +137,7 @@ table 'Compliance'
 	column 'Due date'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: 7c6613c4-e360-40c9-8aa4-62b8ded523f9
+		lineageTag: 20c32971-aae2-4c17-bba0-7e479f73fd31
 		summarizeBy: none
 		sourceColumn: Due date
 
@@ -146,7 +146,7 @@ table 'Compliance'
 	column 'Date initiated'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: 8d6c37d1-6ecd-4dee-8a1b-719c39682b33
+		lineageTag: 2326bc4a-4d30-4133-a2c3-79666129fd1d
 		summarizeBy: none
 		sourceColumn: Date initiated
 
@@ -154,13 +154,13 @@ table 'Compliance'
 
 	column 'Filing state'
 		dataType: string
-		lineageTag: b9f8848b-c072-43f1-b4f2-481b39199a28
+		lineageTag: b11c9458-4140-425f-836b-337e53de73cb
 		summarizeBy: none
 		sourceColumn: Filing state
 
 		annotation SummarizationSetBy = User
 
-	partition 'Compliance' = m
+	partition Compliance = m
 		mode: import
 		source =
 				let
