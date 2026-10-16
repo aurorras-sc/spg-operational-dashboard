@@ -420,7 +420,7 @@ model = ("model Model\n\tculture: en-US\n\tdefaultPowerBIDataSourceVersion: powe
 w(os.path.join(DEF, "model.tmdl"), model)
 w(os.path.join(DEF, "database.tmdl"), "database\n\tcompatibilityLevel: 1601\n")
 w(os.path.join(DEF, "cultures", "en-US.tmdl"), "cultureInfo en-US\n\n\tlinguisticMetadata =\n\t\t\t{\n\t\t\t  \"Version\": \"1.0.0\",\n\t\t\t  \"Language\": \"en-US\"\n\t\t\t}\n\t\tcontentType: json\n")
-w(os.path.join(SM, "definition.pbism"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModelDefinition/1.0.0/schema.json", "version": "4.0", "settings": {}}, indent=2))
+w(os.path.join(SM, "definition.pbism"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json", "version": "4.0", "settings": {}}, indent=2))
 w(os.path.join(SM, ".platform"), json.dumps({"$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
     "metadata": {"type": "SemanticModel", "displayName": "SPG Operational Dashboard"}, "config": {"version": "2.0", "logicalId": str(uuid.uuid4())}}, indent=2))
 w(os.path.join(SM, "diagramLayout.json"), json.dumps({"version": "1.1.0", "diagrams": [{"ordinal": 0, "scrollPosition": {"x": 0, "y": 0}, "nodes": [], "name": "All tables", "zoomValue": 100, "pinKeyFieldsToTop": False, "showExtraHeaderInfo": False, "hideKeyFieldsWhenCollapsed": False, "tablesLocked": False}], "selectedDiagram": "All tables", "defaultDiagram": "All tables"}, indent=2))
