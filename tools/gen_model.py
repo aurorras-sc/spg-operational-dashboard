@@ -317,7 +317,7 @@ m("Compliance status", 'IF ( [Past due] > 0, "Past due", IF ( [Due within 14 day
 m("Fining state flag", 'IF ( CALCULATE ( COUNTROWS ( Compliance ), Compliance[Fining state] = TRUE () ) > 0, "FINES", "" )', None, "Compliance")
 
 def measures_table():
-    s = "table _Measures\n\tlineageTag: " + lt() + "\n\n"
+    s = "table '_Measures'\n\tlineageTag: " + lt() + "\n\n"
     for name, dax, fmt, folder, desc in M:
         safe = name
         if desc: s += f"\t/// {desc}\n"
@@ -329,7 +329,7 @@ def measures_table():
         if folder: s += f"\t\tdisplayFolder: {folder}\n"
         s += f"\t\tlineageTag: {lt()}\n\n"
     s += "\tcolumn 'Measure key'\n\t\tdataType: int64\n\t\tisHidden\n\t\tlineageTag: " + lt() + "\n\t\tsummarizeBy: none\n\t\tsourceColumn: Measure key\n\n\t\tannotation SummarizationSetBy = User\n\n"
-    s += "\tpartition _Measures = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Measure key\" = Int64.Type], {{1}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n"
+    s += "\tpartition '_Measures' = m\n\t\tmode: import\n\t\tsource =\n\t\t\t\tlet\n\t\t\t\t    Source = #table(type table [#\"Measure key\" = Int64.Type], {{1}})\n\t\t\t\tin\n\t\t\t\t    Source\n\n\tannotation PBI_ResultType = Table\n"
     return s
 T["_Measures"] = measures_table()
 
