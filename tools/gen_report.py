@@ -6,7 +6,7 @@ RP = os.path.join(ROOT, "SPG Operational Dashboard.Report")
 DEF = os.path.join(RP, "definition")
 PAGES = os.path.join(DEF, "pages")
 RES = os.path.join(RP, "StaticResources", "RegisteredResources")
-for d in (PAGES, RES): os.makedirs(d, exist_ok=True)
+os.makedirs(PAGES, exist_ok=True)
 
 SCHEMA = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition"
 MEAS = "_Measures"
@@ -342,13 +342,12 @@ THEME = {
         "outspacePane": [{"backgroundColor": {"solid": {"color": "#FFFFFF"}}, "fontSize": 9}]}},
         "page": {"*": {"background": [{"color": {"solid": {"color": "#EEF1F4"}}, "transparency": 0}], "outspace": [{"color": {"solid": {"color": "#E3E7EB"}}}]}}}
 }
-with open(os.path.join(RES, "SPGTheme.json"), "w") as f: json.dump(THEME, f, indent=2)
+os.makedirs(os.path.join(ROOT, "docs"), exist_ok=True)
+with open(os.path.join(ROOT, "docs", "SPGTheme.json"), "w") as f: json.dump(THEME, f, indent=2)
 
 REPORT = {"$schema": f"{SCHEMA}/report/1.0.0/schema.json",
-          "themeCollection": {"baseTheme": {"name": "CY24SU10", "reportVersionAtImport": "5.55", "type": "SharedResources"},
-                              "customTheme": {"name": "SPGTheme.json", "reportVersionAtImport": "5.55", "type": "RegisteredResources"}},
+          "themeCollection": {"baseTheme": {"name": "CY24SU10", "reportVersionAtImport": "5.55", "type": "SharedResources"}},
           "layoutOptimization": "None",
-          "resourcePackages": [{"name": "RegisteredResources", "type": "RegisteredResources", "items": [{"name": "SPGTheme.json", "path": "SPGTheme.json", "type": "CustomTheme"}]}],
           "settings": {"useStylableVisualContainerHeader": True, "defaultDrillFilterOtherVisuals": True}}
 with open(os.path.join(DEF, "report.json"), "w") as f: json.dump(REPORT, f, indent=2)
 with open(os.path.join(RP, "definition.pbir"), "w") as f:

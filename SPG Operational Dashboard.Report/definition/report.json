@@ -5,27 +5,9 @@
       "name": "CY24SU10",
       "reportVersionAtImport": "5.55",
       "type": "SharedResources"
-    },
-    "customTheme": {
-      "name": "SPGTheme.json",
-      "reportVersionAtImport": "5.55",
-      "type": "RegisteredResources"
     }
   },
   "layoutOptimization": "None",
-  "resourcePackages": [
-    {
-      "name": "RegisteredResources",
-      "type": "RegisteredResources",
-      "items": [
-        {
-          "name": "SPGTheme.json",
-          "path": "SPGTheme.json",
-          "type": "CustomTheme"
-        }
-      ]
-    }
-  ],
   "settings": {
     "useStylableVisualContainerHeader": true,
     "defaultDrillFilterOtherVisuals": true
