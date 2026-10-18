@@ -1,9 +1,9 @@
 table OpenTasks
-	lineageTag: 8fc6588f-84b3-4983-845f-fba8b5e43786
+	lineageTag: 34504ff5-82a3-412e-b852-24ab8b6f63ab
 
 	column 'File number'
 		dataType: string
-		lineageTag: ab20b889-3e99-43ac-ae7a-1d8c5ab47773
+		lineageTag: da20c719-9af4-4873-9aa1-142eb1af3934
 		summarizeBy: none
 		sourceColumn: File number
 
@@ -11,7 +11,7 @@ table OpenTasks
 
 	column 'Policy number'
 		dataType: string
-		lineageTag: cc26fc80-8578-48f3-954b-427748cb2e64
+		lineageTag: c9d2cd97-7842-4883-9bea-6f40003898fb
 		summarizeBy: none
 		sourceColumn: Policy number
 
@@ -19,7 +19,7 @@ table OpenTasks
 
 	column Insured
 		dataType: string
-		lineageTag: cdd15041-4103-492e-b4e5-3bd234c1e868
+		lineageTag: f155a37f-b735-4794-965f-2d32a0f71e51
 		summarizeBy: none
 		sourceColumn: Insured
 
@@ -27,7 +27,7 @@ table OpenTasks
 
 	column Team
 		dataType: string
-		lineageTag: 51bb1584-1d8e-4677-8d1f-d5b23143c9f3
+		lineageTag: 91cf1419-2d02-409d-a32e-6ace1384db32
 		summarizeBy: none
 		sourceColumn: Team
 
@@ -35,7 +35,7 @@ table OpenTasks
 
 	column Department
 		dataType: string
-		lineageTag: 4bfcc1e9-84f5-47fd-aa41-f3fc3be2c5f9
+		lineageTag: 49e4b8f9-d498-4237-9c2f-c75cd3be6062
 		summarizeBy: none
 		sourceColumn: Department
 
@@ -43,7 +43,7 @@ table OpenTasks
 
 	column Brand
 		dataType: string
-		lineageTag: da223340-a518-4234-a1bd-32ba2787c261
+		lineageTag: c5c7bf42-d40b-43cc-9892-c3cfb6fce0c6
 		summarizeBy: none
 		sourceColumn: Brand
 
@@ -51,7 +51,7 @@ table OpenTasks
 
 	column Workflow
 		dataType: string
-		lineageTag: 8e2845b5-f205-461a-9789-8090d61d7d07
+		lineageTag: 4c5e8b4a-bc75-4c0e-bcec-16e85c27de08
 		summarizeBy: none
 		sourceColumn: Workflow
 
@@ -59,7 +59,7 @@ table OpenTasks
 
 	column Step
 		dataType: string
-		lineageTag: 3b900bd7-3d89-409b-afc2-dbe541c9fbb6
+		lineageTag: 60dddc83-68ad-4b93-8f06-74637a4781ab
 		summarizeBy: none
 		sourceColumn: Step
 
@@ -67,7 +67,7 @@ table OpenTasks
 
 	column 'Assigned to'
 		dataType: string
-		lineageTag: ad178ab2-a79d-4fac-bd8a-140f35935539
+		lineageTag: cc8b562f-0f15-4100-9135-222a7ae2e787
 		summarizeBy: none
 		sourceColumn: Assigned to
 
@@ -75,7 +75,7 @@ table OpenTasks
 
 	column 'From user'
 		dataType: string
-		lineageTag: 867170d6-e8a1-43a1-87e9-7fde93920b50
+		lineageTag: c156e0c4-e0e5-4018-8032-89abc67d13ce
 		summarizeBy: none
 		sourceColumn: From user
 
@@ -83,7 +83,7 @@ table OpenTasks
 
 	column 'Account executive'
 		dataType: string
-		lineageTag: fc31240f-438c-4880-a997-fab0479e2697
+		lineageTag: 528d7ae3-433f-47c2-bf69-5485c05b5561
 		summarizeBy: none
 		sourceColumn: Account executive
 
@@ -91,7 +91,7 @@ table OpenTasks
 
 	column CSR
 		dataType: string
-		lineageTag: dff62d7f-55ca-4a1a-8b18-e5a8132401c1
+		lineageTag: adac8ac1-0e53-482d-bf35-548f64dc31cc
 		summarizeBy: none
 		sourceColumn: CSR
 
@@ -99,7 +99,7 @@ table OpenTasks
 
 	column 'Agent name'
 		dataType: string
-		lineageTag: ae28c3af-f72e-440c-8980-953b7fab6f1b
+		lineageTag: 8a4c125a-6229-4aa3-b567-4760cb78db64
 		summarizeBy: none
 		sourceColumn: Agent name
 
@@ -107,7 +107,7 @@ table OpenTasks
 
 	column Status
 		dataType: string
-		lineageTag: ce1a7007-91e6-4311-b813-73df48cfb802
+		lineageTag: 94fba323-2510-4129-ab59-177d1d9fece9
 		summarizeBy: none
 		sourceColumn: Status
 
@@ -116,7 +116,7 @@ table OpenTasks
 	column 'Age (days)'
 		dataType: int64
 		formatString: 0
-		lineageTag: 48fd65ca-74aa-4aaf-bbdb-3d693073fb58
+		lineageTag: 3922c924-6037-4c46-ab8f-e80aa651b435
 		summarizeBy: none
 		sourceColumn: Age (days)
 
@@ -125,7 +125,7 @@ table OpenTasks
 	column 'Days since available'
 		dataType: int64
 		formatString: 0
-		lineageTag: c2efc782-39e0-4d64-ba4f-499634779cd4
+		lineageTag: 391702d3-d3e6-4e80-9743-9a7fe542f887
 		summarizeBy: none
 		sourceColumn: Days since available
 
@@ -135,7 +135,7 @@ table OpenTasks
 		dataType: int64
 		isHidden
 		formatString: 0
-		lineageTag: 4cc0e138-78ee-4fbb-b1e6-3b44fe49c1c8
+		lineageTag: 6da9dbcf-89fa-42c4-a810-48d0f9a44a59
 		summarizeBy: none
 		sourceColumn: SLA source (days)
 
@@ -144,7 +144,7 @@ table OpenTasks
 	column 'Source aging bucket'
 		dataType: string
 		isHidden
-		lineageTag: c62513ba-d5f6-4184-9872-55e131932acc
+		lineageTag: 76748344-7b87-4da5-9295-c92a7bef19d6
 		summarizeBy: none
 		sourceColumn: Source aging bucket
 
@@ -153,7 +153,7 @@ table OpenTasks
 	column 'SLA (days)'
 		dataType: int64
 		formatString: 0
-		lineageTag: 1f5c4d2e-a15f-4c80-8438-834ec8393c9e
+		lineageTag: 5900804d-4a23-4911-8970-a0eb369d07ce
 		summarizeBy: none
 		sourceColumn: SLA (days)
 
@@ -161,7 +161,7 @@ table OpenTasks
 
 	column Scheduled
 		dataType: boolean
-		lineageTag: 01a619c6-87d9-4608-803f-4589d9dc7476
+		lineageTag: 72d8e9d1-6db1-40f8-806e-fb79eaa6ed2c
 		summarizeBy: none
 		sourceColumn: Scheduled
 
@@ -169,7 +169,7 @@ table OpenTasks
 
 	column 'Out of service'
 		dataType: boolean
-		lineageTag: 47901762-e44b-4e14-b8b9-f9117fe017fa
+		lineageTag: f497bc79-3b7e-4e27-ac03-01ee09ea6518
 		summarizeBy: none
 		sourceColumn: Out of service
 
@@ -177,7 +177,7 @@ table OpenTasks
 
 	column Service
 		dataType: string
-		lineageTag: f0eeab16-99c7-4bbf-9d9b-5fde766f4ad9
+		lineageTag: ea3c888a-e598-4824-b15f-eb41b4b48486
 		summarizeBy: none
 		sourceColumn: Service
 
@@ -185,7 +185,7 @@ table OpenTasks
 
 	column 'Aging band'
 		dataType: string
-		lineageTag: d62bd768-a762-457b-9bf3-25b36f4e1fd7
+		lineageTag: f5868f9a-42e0-4a4e-a5dd-cb6464fb9925
 		summarizeBy: none
 		sourceColumn: Aging band
 
@@ -193,7 +193,7 @@ table OpenTasks
 
 	column 'Over 30 days'
 		dataType: boolean
-		lineageTag: 21ec1f88-de6b-4324-b5ba-384363095df8
+		lineageTag: a20d0733-e9f4-4702-8d9e-aa0c1a19bb61
 		summarizeBy: none
 		sourceColumn: Over 30 days
 
@@ -201,7 +201,7 @@ table OpenTasks
 
 	column 'Over 90 days'
 		dataType: boolean
-		lineageTag: bddc434b-06dd-4200-91d8-28541f38f559
+		lineageTag: 69e2b779-8dd6-488b-944e-0edff088c19f
 		summarizeBy: none
 		sourceColumn: Over 90 days
 
@@ -209,7 +209,7 @@ table OpenTasks
 
 	column 'Staff scope'
 		dataType: string
-		lineageTag: f19dd5c9-ed0f-4bd0-b227-e4044e1f5eaf
+		lineageTag: 7e4daf62-47a8-46ef-b221-6b33fbe9834b
 		summarizeBy: none
 		sourceColumn: Staff scope
 
@@ -217,7 +217,7 @@ table OpenTasks
 
 	column 'Line of business'
 		dataType: string
-		lineageTag: 731a13f8-83b5-4900-aa0f-60283ff8895d
+		lineageTag: 5aad9af4-48c6-4edc-8eac-1a8ddc4c61b5
 		summarizeBy: none
 		sourceColumn: Line of business
 
@@ -225,7 +225,7 @@ table OpenTasks
 
 	column 'Renewal stage'
 		dataType: string
-		lineageTag: 60bcedf2-f000-4b0f-afac-b990d09c379c
+		lineageTag: fa26b436-c91c-4007-8ea2-77f17b4383bc
 		sortByColumn: 'Renewal stage order'
 		summarizeBy: none
 		sourceColumn: Renewal stage
@@ -235,7 +235,7 @@ table OpenTasks
 	column 'Renewal stage order'
 		dataType: int64
 		isHidden
-		lineageTag: 649f7ee5-abf0-41b8-8217-6f7759923f5e
+		lineageTag: 50374132-6278-431f-b8ef-c725952bbca5
 		summarizeBy: none
 		sourceColumn: Renewal stage order
 
@@ -243,7 +243,7 @@ table OpenTasks
 
 	column 'In renewal pipeline'
 		dataType: boolean
-		lineageTag: b3368ea6-694e-491b-b23e-064bfac1d5f5
+		lineageTag: 44325213-abd4-4d1e-85c0-3c7d74592713
 		summarizeBy: none
 		sourceColumn: In renewal pipeline
 
@@ -252,7 +252,7 @@ table OpenTasks
 	column 'Date initiated'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: 9f58285a-c3ef-4d5e-aa61-dd830a6b4dfb
+		lineageTag: 62d30224-8785-47d8-9b09-c7ee69d8c6bd
 		summarizeBy: none
 		sourceColumn: Date initiated
 
@@ -261,7 +261,7 @@ table OpenTasks
 	column 'Available date'
 		dataType: dateTime
 		formatString: dd mmm yyyy
-		lineageTag: 050ae1da-8265-44e9-b862-442869d2ac7f
+		lineageTag: 28d2fc7d-57dc-4185-b397-d1d97430a338
 		summarizeBy: none
 		sourceColumn: Available date
 
@@ -269,7 +269,7 @@ table OpenTasks
 
 	column 'Is unassigned'
 		dataType: boolean
-		lineageTag: 73dee1df-aa47-4a36-9fd0-b6b2a66a10db
+		lineageTag: accdeb12-ee07-4363-8a86-0ccbecae11d0
 		summarizeBy: none
 		sourceColumn: Is unassigned
 
@@ -277,7 +277,7 @@ table OpenTasks
 
 	column 'Received yesterday'
 		dataType: boolean
-		lineageTag: f9734bf8-a0fd-4285-8936-72a381ecdf26
+		lineageTag: a9728499-b7e6-4e25-9a3f-6921aba14d76
 		summarizeBy: none
 		sourceColumn: Received yesterday
 
@@ -285,7 +285,7 @@ table OpenTasks
 
 	column Division
 		dataType: string
-		lineageTag: 7bdc0a0b-ef74-44c0-847b-fbdeca31bec8
+		lineageTag: b2ac341e-96b4-4d48-93fe-5fb2930d00f9
 		summarizeBy: none
 		sourceColumn: Division
 

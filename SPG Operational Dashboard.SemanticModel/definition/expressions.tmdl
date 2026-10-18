@@ -1,30 +1,30 @@
 expression DataPath = "https://raw.githubusercontent.com/aurorras-sc/spg-operational-dashboard/main/data/SPG_Dashboard_Mockup_Data.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: a9e87488-1f0e-446d-a10e-2d2febe62388
+	lineageTag: a68ed844-696b-42c2-a1f0-af62a276a7ff
 
 	annotation PBI_ResultType = Text
 
 expression SnapshotDate = #date(2026, 9, 16) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
-	lineageTag: 46bfcf5e-45d7-47ba-a2ac-da8c9994d1fe
+	lineageTag: f4887c8a-bfeb-4a11-9acc-0fe7f4482ea5
 
 	annotation PBI_ResultType = Date
 
 expression SLA_Cap_Days = 60 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
-	lineageTag: 04afa271-12de-4d4a-961d-0561ae5f326d
+	lineageTag: 3a4043a0-dad1-4866-bec6-36660a161344
 
 	annotation PBI_ResultType = Number
 
 expression Fining_States = "NY" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	lineageTag: 6ef7c6a9-8e47-4697-ba10-eb83fae170d9
+	lineageTag: 09467c0a-14ae-480d-ad98-dd4211dc05b2
 
 	annotation PBI_ResultType = Text
 
 expression Green_Max_OutOfService = 0.15 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
-	lineageTag: a4740d44-e27e-4789-aae4-398d018669fb
+	lineageTag: 3dbcbe39-f5e7-493d-b668-5d0a36fb30ca
 
 	annotation PBI_ResultType = Number
 
 expression Amber_Max_OutOfService = 0.30 meta [IsParameterQuery=true, Type="Number", IsParameterQueryRequired=true]
-	lineageTag: e1241e1c-14fe-4a46-8302-7b5dd1e70724
+	lineageTag: 179da06e-4ee4-459b-9253-7c5fb92a265f
 
 	annotation PBI_ResultType = Number
 
@@ -33,6 +33,6 @@ expression SPG_Workbook =
 		    Source = Excel.Workbook(Web.Contents(DataPath), null, true)
 		in
 		    Source
-	lineageTag: 8d375078-3600-4313-b4b3-c0b9f1e1fb9a
+	lineageTag: 1ed682f0-4caf-4eb0-9c6d-09d00d864e2b
 
 	annotation PBI_ResultType = Table

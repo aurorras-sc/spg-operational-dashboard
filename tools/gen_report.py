@@ -51,7 +51,7 @@ def sortdef(f, desc=True):
 def cat_filter(f, values, exclude=False):
     kind, ent, prop = f
     cond = {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "s"}}, "Property": prop}}],
-                   "Values": [[{"Literal": {"Value": ("'" + v.replace("'", "''") + "'") if isinstance(v, str) else ("true" if v is True else "false" if v is False else str(v))}}] for v in values]}}
+                   "Values": [[{"Literal": {"Value": ("'" + v.replace("'", "''") + "'") if isinstance(v, str) else ("true" if v is True else "false" if v is False else "null" if v is None else str(v))}}] for v in values]}}
     if exclude: cond = {"Not": {"Expression": cond}}
     return {"name": nid(), "field": fexpr(f), "type": "Categorical",
             "filter": {"Version": 2, "From": [{"Name": "s", "Entity": ent, "Type": 0}], "Where": [{"Condition": cond}]}}
@@ -68,8 +68,10 @@ def meas_filter_gt(measure_name, value):
                        "Where": [{"Condition": {"Comparison": {"ComparisonKind": 1, "Left": {"Measure": {"Expression": {"SourceRef": {"Source": "m"}}, "Property": measure_name}}, "Right": {"Literal": {"Value": f"{value}L"}}}}}]}}
 
 # ---- visual container
-def title_obj(text, size=11, color=NAVY, show=True):
-    return {"title": [{"properties": {"show": lit(show), "text": lit(text), "fontSize": lit(size), "fontColor": col_solid(color), "bold": lit(True)}}]}
+def title_obj(text, size=10, color=NAVY, show=True):
+    return {"title": [{"properties": {"show": lit(show), "text": lit(text), "fontSize": lit(size), "fontColor": col_solid(color), "bold": lit(True), "fontFamily": lit("Segoe UI Semibold")}}],
+            "subTitle": [{"properties": {"show": lit(False)}}],
+            "visualHeader": [{"properties": {"showPinButton": lit(False), "showFocusModeButton": lit(True), "showCopyVisualImageButton": lit(False), "showFilterRestatementButton": lit(False)}}]}
 
 def container(vtype, x, y, w, h, z, roles=None, objects=None, title=None, sort=None, filters=None, extra=None, drill=True, vco=None):
     v = {"visualType": vtype}
@@ -148,7 +150,7 @@ def kpi(x, y, w, h, z, measure, title, sub=None, color=NAVY, size=None, color_me
     if sub is not None:
         out.append(cardtext(x + 6, y + h - 30, w - 12, 30, z + 50, sub, None, size=8, filters=filters, transparent=True))
     elif sub_text:
-        out.append(textbox(x + 6, y + h - 26, w - 12, 24, z + 50, [sub_text], size=8, color=SUB, bold=False))
+        out.append(textbox(x + 2, y + h - 28, w - 8, 26, z + 50, [sub_text], size=8, color=SUB, bold=False))
     return out
 
 def cardtext(x, y, w, h, z, measure, title, size=9, color=SUB, filters=None, transparent=False, color_measure=None, bold=False):
@@ -186,7 +188,7 @@ def barchart(x, y, w, h, z, category, values, title, series=None, stacked=False,
     if series: roles["Series"] = [series]
     obj = {"dataPoint": [{"properties": {"fill": col_solid(color)}}] if not series else [],
            "labels": [{"properties": {"show": lit(labels), "fontSize": lit(8), "color": col_solid(NAVY)}}],
-           "categoryAxis": [{"properties": {"fontSize": lit(8), "labelColor": col_solid(SUB), "preferredCategoryWidth": lit(16)}}],
+           "categoryAxis": [{"properties": {"fontSize": lit(8), "labelColor": col_solid(SUB), "preferredCategoryWidth": lit(16), "maxMarginFactor": lit(38), "concatenateLabels": lit(False)}}],
            "valueAxis": [{"properties": {"show": lit(False), "fontSize": lit(8), "gridlineShow": lit(False)}}],
            "legend": [{"properties": {"show": lit(bool(series) and legend), "position": lit("Top"), "fontSize": lit(8), "showTitle": lit(False)}}]}
     if series and colmap: obj["dataPoint"] = datapoint_colors(series, colmap)
@@ -332,10 +334,10 @@ R3Y = R2Y + R2H + GAP; R3H = PAGE_H - 14 - R3Y
 (ax, aw), (bx, bw), (cx, cw) = cols([1.9, 0.85, 0.85])
 z = 50
 V += [table_vis(ax, R3Y, aw, R3H, z, [proj(STEP), proj(WF), proj(Mx("Work on hand"), "On hand"), proj(Mx("Out of service"), "Out of svc"), proj(Mx("Out of service %"), "%"),
-                                      proj(Mx("Oldest item (days)"), "Oldest"), proj(Mx("Median time in step"), "Median time in step"), proj(Mx("Service status icon"), "Status")],
+                                      proj(Mx("Oldest item (days)"), "Oldest"), proj(Mx("Median time in step"), "Time in step"), proj(Mx("Service status icon"), "Status")],
                 "Top out-of-service steps — where the work is stuck", sort_by=Mx("Out of service"), bold_cols=[Mx("Out of service")], color_cols=[(Mx("Service status icon"), "Service status colour")],
                 filters=[meas_filter_gt("Out of service", 0)]),
-      barchart(bx, R3Y, bw, R3H, z + 1, WF, [Mx("Median turnaround (days)")], "Turnaround by process — median days", sort_by=Mx("Median turnaround (days)"), color=ELEC),
+      barchart(bx, R3Y, bw, R3H, z + 1, WF, [Mx("Median turnaround (days)")], "Turnaround by process — median days", sort_by=Mx("Median turnaround (days)"), color=ELEC, filters=[cat_filter(WF, [None], exclude=True), meas_filter_gt("Completed yesterday", 9)]),
       barchart(cx, R3Y, cw, R3H, z + 2, STEP, [Mx("Completed yesterday")], "Intake and set-up steps — measured in hours", series=CP("Hours band"), stacked=True,
                colmap=HOURS_COL, filters=[cat_filter(C("Dim Step", "Intake step"), [True])], sort_by=Mx("Completed yesterday"))]
 pages.append((PID["Service Overview"], "Service Overview", V, [PF_DIV, PF_TEAM, PF_LINE, PF_WF, PF_STEP, PF_BAND, PF_DI]))
@@ -366,7 +368,8 @@ V += [decomp_tree(ax, R2Y, aw, R2H, z, Mx("Work on hand"), [OT("Division"), TEAM
 R3Y = R2Y + R2H + GAP; R3H = PAGE_H - 14 - R3Y
 (ax, aw), (bx, bw) = cols([1, 1])
 z = 50
-V += [matrix_vis(ax, R3Y, aw, R3H, z, [TEAM, WF, STEP, PERSON], [BAND], [proj(Mx("Work on hand"), "On hand"), proj(Mx("Out of service"), "Out of svc"), proj(Mx("Out of service %"), "%")],
+V += [matrix_vis(ax, R3Y, aw, R3H, z, [TEAM, WF, STEP, PERSON], [], [proj(Mx("Work on hand"), "On hand"), proj(Mx("On hand 0-7"), "0–7"), proj(Mx("On hand 8-15"), "8–15"), proj(Mx("On hand 16-30"), "16–30"),
+                                                               proj(Mx("On hand 31-60"), "31–60"), proj(Mx("On hand 61-90"), "61–90"), proj(Mx("On hand 90+"), "90+"), proj(Mx("Out of service"), "Out of svc"), proj(Mx("Out of service %"), "%")],
                  "Matrix — next level with aging buckets"),
       table_vis(bx, R3Y, bw, R3H, z + 1, [proj(OT("Age (days)"), "Age"), proj(OT("SLA (days)"), "SLA"), proj(OT("File number"), "File"), proj(OT("Insured")), proj(OT("Assigned to")), proj(OT("Step"))],
                 "Oldest first", sort_by=OT("Age (days)"), filters=[cat_filter(OT("Scheduled"), [False])], bold_cols=[OT("Age (days)")])]

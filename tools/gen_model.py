@@ -275,6 +275,8 @@ m("Median age (days)", "CALCULATE ( MEDIAN ( OpenTasks[Age (days)] ), OpenTasks[
 m("Over 30 days", "CALCULATE ( [Work on hand], OpenTasks[Over 30 days] = TRUE () )", N0, "Work on hand")
 m("Over 90 days", "COALESCE ( CALCULATE ( [Work on hand], OpenTasks[Over 90 days] = TRUE () ), 0 )", N0, "Work on hand")
 m("Over 90 days %", "DIVIDE ( [Over 90 days], [Work on hand] )", PCT, "Work on hand")
+for _b, _l in [("0-7", "0-7"), ("8-15", "8-15"), ("16-30", "16-30"), ("31-60", "31-60"), ("61-90", "61-90"), ("90+", "90+")]:
+    m(f"On hand {_l}", f"CALCULATE ( [Work on hand], 'Dim Aging Band'[Aging band] = \"{_b}\" )", N0, "Work on hand")
 m("Share of work on hand", "DIVIDE ( [Work on hand], CALCULATE ( [Work on hand], REMOVEFILTERS ( 'Dim Aging Band' ), REMOVEFILTERS ( OpenTasks[Aging band] ) ) )", PCT, "Work on hand")
 m("Received yesterday", "COALESCE ( CALCULATE ( COUNTROWS ( OpenTasks ), OpenTasks[Received yesterday] = TRUE () ), 0 )", N0, "Work on hand")
 m("Service status", 'VAR p = [Out of service %] RETURN IF ( ISBLANK ( p ), BLANK (), IF ( p <= 0.15, "Green", IF ( p <= 0.30, "Amber", "Red" ) ) )', None, "Status", "Green <= 15% out of service, Amber <= 30%, otherwise Red (thresholds to be confirmed by the business).")
