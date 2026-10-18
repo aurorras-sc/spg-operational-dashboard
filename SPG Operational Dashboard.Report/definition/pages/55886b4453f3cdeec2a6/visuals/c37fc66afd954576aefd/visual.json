@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'OVER 90 DAYS \u2014 FIRE DRILL'"
+                  "Value": "'OVER 90 DAYS — FIRE DRILL'"
                 }
               }
             },

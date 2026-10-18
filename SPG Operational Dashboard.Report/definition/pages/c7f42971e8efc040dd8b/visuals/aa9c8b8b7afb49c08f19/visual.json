@@ -28,7 +28,7 @@
                     }
                   },
                   {
-                    "value": "    Unassigned \u00b7 quality",
+                    "value": "    Unassigned · quality",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "9pt",
@@ -70,7 +70,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

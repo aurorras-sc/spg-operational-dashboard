@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Person.Staff scope",
-              "nativeQueryRef": "Staff scope"
+              "nativeQueryRef": "Staff scope",
+              "active": true
             }
           ]
         }
@@ -80,7 +81,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Staff scope \u2014 all staff \u00b7 internal \u00b7 vendor (RPRO) \u00b7 shared queues'"
+                  "Value": "'Staff scope — all staff · internal · vendor (RPRO) · shared queues'"
                 }
               }
             },
@@ -92,13 +93,6 @@
                       "Value": "'#5A6670'"
                     }
                   }
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "9L"
                 }
               }
             },
@@ -126,13 +120,6 @@
                 }
               }
             },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "10L"
-                }
-              }
-            },
             "bold": {
               "expr": {
                 "Literal": {
@@ -143,7 +130,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

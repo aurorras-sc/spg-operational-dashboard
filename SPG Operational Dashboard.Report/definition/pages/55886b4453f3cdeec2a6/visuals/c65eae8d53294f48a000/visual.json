@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "created ahead \u00b7 not on hand, not out of service",
+                    "value": "created ahead · not on hand, not out of service",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

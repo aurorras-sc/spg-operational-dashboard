@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "red \u2014 needs hand-off",
+                    "value": "red — needs hand-off",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

@@ -241,9 +241,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "_Measures.Service status icon"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -268,6 +265,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Service status icon"
           }
         }
       ],
@@ -306,6 +306,78 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "142.90936805755607D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dim Workflow.Workflow"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "97.7676812575796D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Work on hand"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "109.62950642464702D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Out of service"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "91.77178493876856D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Out of service %"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "116.36427316256518D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Service status icon"
           }
         }
       ]

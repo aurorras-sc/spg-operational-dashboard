@@ -37,13 +37,6 @@
       "card": [
         {
           "properties": {
-            "outline": {
-              "expr": {
-                "Literal": {
-                  "Value": "'None'"
-                }
-              }
-            },
             "barShow": {
               "expr": {
                 "Literal": {
@@ -190,7 +183,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

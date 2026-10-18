@@ -218,6 +218,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
             }
           }
         }
@@ -257,9 +264,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "_Measures.Service status icon"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -284,6 +288,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Service status icon"
           }
         }
       ],
@@ -340,7 +347,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Team \u2014 ranked by out of service'"
+                  "Value": "'Team — ranked by out of service'"
                 }
               }
             },

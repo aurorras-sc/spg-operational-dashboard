@@ -245,6 +245,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
             }
           }
         }
@@ -284,9 +291,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "OpenTasks.Age (days)"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -306,6 +310,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "OpenTasks.Age (days)"
           }
         }
       ],
@@ -362,7 +369,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Not yet quoted \u2014 oldest first'"
+                  "Value": "'Not yet quoted — oldest first'"
                 }
               }
             },

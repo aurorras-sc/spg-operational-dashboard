@@ -215,6 +215,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
             }
           }
         }
@@ -254,9 +261,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "OpenTasks.Age (days)"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -276,6 +280,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "OpenTasks.Age (days)"
           }
         }
       ],

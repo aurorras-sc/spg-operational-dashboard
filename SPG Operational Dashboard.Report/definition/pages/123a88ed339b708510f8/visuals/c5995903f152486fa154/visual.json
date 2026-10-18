@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "outbound \u2014 release = completed",
+                    "value": "outbound — release = completed",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

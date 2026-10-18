@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'PAST DUE \u2014 FINING STATES'"
+                  "Value": "'PAST DUE — FINING STATES'"
                 }
               }
             },

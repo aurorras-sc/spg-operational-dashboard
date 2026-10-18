@@ -27,25 +27,8 @@
                 }
               },
               "queryRef": "Dim Person.Display name",
-              "nativeQueryRef": "Display name"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Open filings"
-                }
-              },
-              "queryRef": "_Measures.Open filings",
-              "nativeQueryRef": "Open filings"
+              "nativeQueryRef": "Display name",
+              "active": true
             }
           ]
         },
@@ -64,6 +47,24 @@
               },
               "queryRef": "Compliance.Due band",
               "nativeQueryRef": "Due band"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Open filings"
+                }
+              },
+              "queryRef": "_Measures.Open filings",
+              "nativeQueryRef": "Open filings"
             }
           ]
         }
@@ -90,6 +91,19 @@
     "objects": {
       "dataPoint": [
         {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#8E1B33'"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "selector": {
             "data": [
               {
@@ -115,22 +129,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#8E1B33'"
+                      "Value": "'#D02D4F'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -156,22 +170,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D02D4F'"
+                      "Value": "'#F3B921'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -197,22 +211,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F3B921'"
+                      "Value": "'#3EBD5E'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -238,22 +252,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#3EBD5E'"
+                      "Value": "'#8A949C'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -279,19 +293,6 @@
                 }
               }
             ]
-          },
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8A949C'"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       ],
@@ -447,7 +448,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'By associate \u2014 who has it'"
+                  "Value": "'By associate — who has it'"
                 }
               }
             },

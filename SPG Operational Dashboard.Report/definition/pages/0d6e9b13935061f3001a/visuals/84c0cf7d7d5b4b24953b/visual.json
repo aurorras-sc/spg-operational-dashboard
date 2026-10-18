@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'31\u201360 DAYS'"
+                  "Value": "'31–60 DAYS'"
                 }
               }
             },

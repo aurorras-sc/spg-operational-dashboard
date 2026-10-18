@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Work on hand by aging band \u2014 click a band to see its items",
+                    "value": "Work on hand by aging band — click a band to see its items",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "9pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

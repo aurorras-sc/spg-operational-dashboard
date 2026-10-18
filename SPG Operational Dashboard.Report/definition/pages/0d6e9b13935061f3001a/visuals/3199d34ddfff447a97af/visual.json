@@ -110,15 +110,7 @@
     "objects": {
       "general": [
         {
-          "properties": {
-            "analyzeSort": {
-              "expr": {
-                "Literal": {
-                  "Value": "'High value'"
-                }
-              }
-            }
-          }
+          "properties": {}
         }
       ],
       "tree": [
@@ -128,6 +120,13 @@
               "expr": {
                 "Literal": {
                   "Value": "'Compact'"
+                }
+              }
+            },
+            "effectiveBarsPerLevel": {
+              "expr": {
+                "Literal": {
+                  "Value": "3L"
                 }
               }
             }
@@ -149,7 +148,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Decomposition \u2014 Division \u203a Team \u203a Workflow \u203a Step \u203a Individual'"
+                  "Value": "'Decomposition — Division › Team › Workflow › Step › Individual'"
                 }
               }
             },

@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Stages are derived from the renewal steps. Quotes go out ~45 days before the effective date. An \u201cexpiring\u201d stage needs the policy expiration date, which the current export does not carry.",
+                    "value": "Stages are derived from the renewal steps. Quotes go out ~45 days before the effective date. An “expiring” stage needs the policy expiration date, which the current export does not carry.",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "7pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

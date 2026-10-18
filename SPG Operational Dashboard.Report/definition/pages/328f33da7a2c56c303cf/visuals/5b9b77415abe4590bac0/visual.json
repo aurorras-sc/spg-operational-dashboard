@@ -288,6 +288,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
             }
           }
         }
@@ -327,9 +334,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "Compliance.Days past due"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -349,6 +353,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "Compliance.Days past due"
           }
         }
       ],
@@ -405,7 +412,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Action list \u2014 past due first, then due within 14 days'"
+                  "Value": "'Action list — past due first, then due within 14 days'"
                 }
               }
             },

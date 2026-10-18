@@ -25,7 +25,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'\u2190  Back'"
+                  "Value": "'←  Back'"
                 }
               }
             },
@@ -163,7 +163,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

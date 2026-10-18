@@ -27,25 +27,8 @@
                 }
               },
               "queryRef": "OpenTasks.Renewal stage",
-              "nativeQueryRef": "Renewal stage"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Renewals in pipeline"
-                }
-              },
-              "queryRef": "_Measures.Renewals in pipeline",
-              "nativeQueryRef": "Renewals in pipeline"
+              "nativeQueryRef": "Renewal stage",
+              "active": true
             }
           ]
         },
@@ -64,6 +47,24 @@
               },
               "queryRef": "Dim Aging Band.Band label",
               "nativeQueryRef": "Band label"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Renewals in pipeline"
+                }
+              },
+              "queryRef": "_Measures.Renewals in pipeline",
+              "nativeQueryRef": "Renewals in pipeline"
             }
           ]
         }
@@ -90,6 +91,19 @@
     "objects": {
       "dataPoint": [
         {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3EBD5E'"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "selector": {
             "data": [
               {
@@ -115,22 +129,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#3EBD5E'"
+                      "Value": "'#F3B921'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -156,22 +170,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#F3B921'"
+                      "Value": "'#FF8A00'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -197,22 +211,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#FF8A00'"
+                      "Value": "'#E8702A'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -238,22 +252,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#E8702A'"
+                      "Value": "'#D02D4F'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -279,22 +293,22 @@
                 }
               }
             ]
-          },
+          }
+        },
+        {
           "properties": {
             "fill": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D02D4F'"
+                      "Value": "'#8B1E3F'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        {
+          },
           "selector": {
             "data": [
               {
@@ -320,19 +334,6 @@
                 }
               }
             ]
-          },
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8B1E3F'"
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       ],
@@ -488,7 +489,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Stage by aging bucket \u2014 from date initiated'"
+                  "Value": "'Stage by aging bucket — from date initiated'"
                 }
               }
             },

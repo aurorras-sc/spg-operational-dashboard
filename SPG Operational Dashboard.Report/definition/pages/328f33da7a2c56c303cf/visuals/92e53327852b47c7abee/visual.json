@@ -71,8 +71,8 @@
                 }
               },
               "queryRef": "_Measures.Due within 14 days",
-              "nativeQueryRef": "\u2264 14 d",
-              "displayName": "\u2264 14 d"
+              "nativeQueryRef": "≤ 14 d",
+              "displayName": "≤ 14 d"
             },
             {
               "field": {
@@ -86,8 +86,8 @@
                 }
               },
               "queryRef": "_Measures.Due in 15-30 days",
-              "nativeQueryRef": "15\u201330 d",
-              "displayName": "15\u201330 d"
+              "nativeQueryRef": "15–30 d",
+              "displayName": "15–30 d"
             },
             {
               "field": {
@@ -246,6 +246,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
             }
           }
         }
@@ -285,9 +292,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "_Measures.Past due"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -307,12 +311,12 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Past due"
           }
         },
         {
-          "selector": {
-            "metadata": "_Measures.Fining state flag"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -332,6 +336,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Fining state flag"
           }
         }
       ],
@@ -388,7 +395,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'By state \u2014 fining states first, then past due'"
+                  "Value": "'By state — fining states first, then past due'"
                 }
               }
             },

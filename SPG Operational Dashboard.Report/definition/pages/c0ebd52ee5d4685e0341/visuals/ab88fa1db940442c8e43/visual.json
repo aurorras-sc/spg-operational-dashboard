@@ -525,7 +525,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Task list \u00b7 20 columns \u00b7 scroll right for more \u00b7 Export data from the visual header'"
+                  "Value": "'Task list · 20 columns · scroll right for more · Export data from the visual header'"
                 }
               }
             },

@@ -285,9 +285,6 @@
           }
         },
         {
-          "selector": {
-            "metadata": "_Measures.Out of service"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -307,12 +304,12 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Out of service"
           }
         },
         {
-          "selector": {
-            "metadata": "_Measures.Service status icon"
-          },
           "properties": {
             "fontColorPrimary": {
               "solid": {
@@ -337,6 +334,9 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "_Measures.Service status icon"
           }
         }
       ],
@@ -377,6 +377,64 @@
             }
           }
         }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "204.88382992818612D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dim Step.Step"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "69.44740567650581D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Work on hand"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "70.02196925513044D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Service status icon"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "54.5855475930318D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Oldest item (days)"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -393,7 +451,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Top out-of-service steps \u2014 where the work is stuck'"
+                  "Value": "'Top out-of-service steps — where the work is stuck'"
                 }
               }
             },

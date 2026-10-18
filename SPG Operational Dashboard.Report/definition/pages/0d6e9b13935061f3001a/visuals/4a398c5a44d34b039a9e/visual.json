@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Team.Team",
-              "nativeQueryRef": "Team"
+              "nativeQueryRef": "Team",
+              "active": true
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "Dim Workflow.Workflow",
-              "nativeQueryRef": "Workflow"
+              "nativeQueryRef": "Workflow",
+              "active": false
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "Dim Step.Step",
-              "nativeQueryRef": "Step"
+              "nativeQueryRef": "Step",
+              "active": false
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "Dim Person.Display name",
-              "nativeQueryRef": "Display name"
+              "nativeQueryRef": "Display name",
+              "active": false
             }
           ]
         },
@@ -102,8 +106,8 @@
                 }
               },
               "queryRef": "_Measures.On hand 0-7",
-              "nativeQueryRef": "0\u20137",
-              "displayName": "0\u20137"
+              "nativeQueryRef": "0–7",
+              "displayName": "0–7"
             },
             {
               "field": {
@@ -117,8 +121,8 @@
                 }
               },
               "queryRef": "_Measures.On hand 8-15",
-              "nativeQueryRef": "8\u201315",
-              "displayName": "8\u201315"
+              "nativeQueryRef": "8–15",
+              "displayName": "8–15"
             },
             {
               "field": {
@@ -132,8 +136,8 @@
                 }
               },
               "queryRef": "_Measures.On hand 16-30",
-              "nativeQueryRef": "16\u201330",
-              "displayName": "16\u201330"
+              "nativeQueryRef": "16–30",
+              "displayName": "16–30"
             },
             {
               "field": {
@@ -147,8 +151,8 @@
                 }
               },
               "queryRef": "_Measures.On hand 31-60",
-              "nativeQueryRef": "31\u201360",
-              "displayName": "31\u201360"
+              "nativeQueryRef": "31–60",
+              "displayName": "31–60"
             },
             {
               "field": {
@@ -162,8 +166,8 @@
                 }
               },
               "queryRef": "_Measures.On hand 61-90",
-              "nativeQueryRef": "61\u201390",
-              "displayName": "61\u201390"
+              "nativeQueryRef": "61–90",
+              "displayName": "61–90"
             },
             {
               "field": {
@@ -287,6 +291,13 @@
                   "Value": "true"
                 }
               }
+            },
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
             }
           }
         }
@@ -377,7 +388,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Matrix \u2014 next level with aging buckets'"
+                  "Value": "'Matrix — next level with aging buckets'"
                 }
               }
             },

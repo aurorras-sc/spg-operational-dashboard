@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Dim Step.Step",
-              "nativeQueryRef": "Step"
+              "nativeQueryRef": "Step",
+              "active": true
             }
           ]
         },
@@ -253,7 +254,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Not yet quoted \u2014 by step'"
+                  "Value": "'Not yet quoted — by step'"
                 }
               }
             },

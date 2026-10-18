@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "inbound \u2014 became available",
+                    "value": "inbound — became available",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "8pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

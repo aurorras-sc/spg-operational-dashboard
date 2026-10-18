@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'SCHEDULED \u2014 NOT YET AVAILABLE'"
+                  "Value": "'SCHEDULED — NOT YET AVAILABLE'"
                 }
               }
             },

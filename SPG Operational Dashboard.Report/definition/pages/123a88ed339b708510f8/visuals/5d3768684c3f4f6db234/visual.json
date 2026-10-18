@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Filters: open the Filters pane (\u2630) for the page slicers  \u00b7  click a bar to cross-highlight  \u00b7  right-click \u2192 Drill through \u2192 Task list",
+                    "value": "Filters: open the Filters pane (☰) for the page slicers  ·  click a bar to cross-highlight  ·  right-click → Drill through → Task list",
                     "textStyle": {
                       "fontWeight": "normal",
                       "fontSize": "7pt",
@@ -61,7 +61,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": false
+    }
   }
 }

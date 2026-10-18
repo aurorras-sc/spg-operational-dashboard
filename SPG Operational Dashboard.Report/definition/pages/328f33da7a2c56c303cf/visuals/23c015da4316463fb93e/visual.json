@@ -124,7 +124,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'DUE IN 15\u201330 DAYS'"
+                  "Value": "'DUE IN 15–30 DAYS'"
                 }
               }
             },

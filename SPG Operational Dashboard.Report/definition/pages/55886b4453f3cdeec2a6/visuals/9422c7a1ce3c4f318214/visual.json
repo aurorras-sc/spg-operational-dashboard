@@ -42,7 +42,8 @@
                 }
               },
               "queryRef": "Dim Workflow.Workflow",
-              "nativeQueryRef": "Workflow"
+              "nativeQueryRef": "Workflow",
+              "active": false
             },
             {
               "field": {
@@ -56,7 +57,8 @@
                 }
               },
               "queryRef": "Dim Step.Step",
-              "nativeQueryRef": "Step"
+              "nativeQueryRef": "Step",
+              "active": false
             },
             {
               "field": {
@@ -70,7 +72,8 @@
                 }
               },
               "queryRef": "Dim Person.Display name",
-              "nativeQueryRef": "Display name"
+              "nativeQueryRef": "Display name",
+              "active": false
             }
           ]
         },
@@ -287,7 +290,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Out of service \u2014 drill Team \u203a Workflow \u203a Step \u203a Individual'"
+                  "Value": "'Out of service — drill Team › Workflow › Step › Individual'"
                 }
               }
             },
